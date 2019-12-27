@@ -1,16 +1,14 @@
 package com.foodorderback.security;
 
 import com.foodorderback.model.User;
-import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Data
 public class UserRole implements Serializable {
 
-    private static final long serialVersionUID = 38472834L;
+    private static final long serialVersionUID = 384734L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,4 +27,34 @@ public class UserRole implements Serializable {
         this.role = role;
     }
 
+    public UserRole() {
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public long getUserRoleId() {
+        return userRoleId;
+    }
+
+    public void setUserRoleId(long userRoleId) {
+        this.userRoleId = userRoleId;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 }
