@@ -1,0 +1,53 @@
+<div class="example-container">
+  <mat-card class="example-card mat-elevation-z2">
+    <mat-card-header>
+      <mat-card-title>Add new food</mat-card-title>
+    </mat-card-header>
+
+    <mat-form-field>
+      <input matInput [(ngModel)]=newFoodItem.name placeholder="Food Name" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <textarea matInput [(ngModel)]=newFoodItem.description placeholder="Describe this food" required></textarea>
+    </mat-form-field>
+
+
+    <li class="mat-form-field--inline">
+      <mat-form-field>
+        <input matInput type="number" [(ngModel)]=newFoodItem.kcal placeholder="Energy (kcal/100g)" required>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="number" [(ngModel)]=newFoodItem.weight placeholder="Weight (g)" required>
+      </mat-form-field>
+    </li>
+
+    <mat-form-field>
+      <input matInput type="number" [(ngModel)]=newFoodItem.price placeholder="Insert Food Price (PLN)" required>
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <mat-select placeholder="Select category" required>
+        <mat-option value="Breakfast">Breakfast</mat-option>
+        <mat-option value="Dinner">Dinner</mat-option>
+        <mat-option value="Lunch">Lunch</mat-option>
+        <mat-option value="Supper">Supper</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+    <mat-slide-toggle (change)="onActiveChange($event)">Available to order</mat-slide-toggle>
+
+    <mat-card-footer>
+    <li class="mat-form-field--inline">
+      <button mat-button class="mat-select" type="submit">Add Food</button>
+      <button mat-button class="mat-warn" routerLink="/" >Cancel</button>
+    </li>
+    </mat-card-footer>
+
+
+
+
+  </mat-card>
+</div>

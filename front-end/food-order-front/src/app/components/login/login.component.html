@@ -4,10 +4,12 @@
       <mat-card-title>Login</mat-card-title>
       <mat-card-content>
         <form (ngSubmit)="onSubmit()">
+          <mat-form-field>
             <input type="text" matInput [(ngModel)]="credential.username" name="username" id='username' placeholder="Your Username">
-
+          </mat-form-field>
+          <mat-form-field>
             <input type="password" matInput [(ngModel)]="credential.password" name="password" id='password' placeholder="Your Password">
-
+          </mat-form-field>
           <button mat-button type="submit" class="mat-primary">Login</button>
         </form>
       </mat-card-content>
