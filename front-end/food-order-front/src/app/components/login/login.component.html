@@ -1,1 +1,19 @@
-<p>login works!</p>
+<div class="container">
+  <div *ngIf="!loggedIn">
+    <mat-card>
+      <mat-card-title>Login</mat-card-title>
+      <mat-card-content>
+        <form (ngSubmit)="onSubmit()">
+            <input type="text" matInput [(ngModel)]="credential.username" name="username" id='username' placeholder="Your Username">
+
+            <input type="password" matInput [(ngModel)]="credential.password" name="password" id='password' placeholder="Your Password">
+
+          <button mat-button type="submit" class="mat-primary">Login</button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div *ngIf="loggedIn">
+    <h2>You have logged in now !</h2>
+  </div>
+</div>

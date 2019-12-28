@@ -10,14 +10,22 @@ export class LoginService {
   }
 
   sendCredential(username: string, password: string) {
-    const url = 'http://localhost:8181/token';
+    const url = 'http://localhost:8080/token';
     const encodedCredentials = btoa(username + ':' + password);
-    let basicHeader = 'Basic ' + encodedCredentials;
-    let headers = new HttpHeaders({
+    const basicHeader = 'Basic ' + encodedCredentials;
+    const headers = new HttpHeaders({
         'Content-Type' : 'application/x-www-form-urlencoded',
-        'Authorization' : basicHeader
+        Authorization : basicHeader
     });
+    return this.httpClient.get(url, {headers});
+  }
 
+  checkSession() {
+    console.log('CHECK SESSION CALLED');
+    const url = 'http://localhost:8080/checkSession';
+    const headers = new HttpHeaders({
+      'x-auth-token' : localStorage.getItem('xAuthToken')
+    });
     return this.httpClient.get(url, {headers});
   }
 }
