@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
 
 @Injectable()
@@ -21,11 +20,25 @@ export class LoginService {
   }
 
   checkSession() {
-    console.log('CHECK SESSION CALLED');
     const url = 'http://localhost:8080/checkSession';
+    const xToken = localStorage.getItem('xAuthToken');
+    const basicHeader = 'Basic ' + localStorage.getItem('credentials');
     const headers = new HttpHeaders({
-      'x-auth-token' : localStorage.getItem('xAuthToken')
+      'x-auth-token' : xToken,
+      'Authorization' : basicHeader
     });
-    return this.httpClient.get(url, {headers});
+    return this.httpClient.get(url, {headers, responseType: 'text'});
+  }
+
+  logoutMe() {
+    const url = 'http://localhost:8080/user/logoutMe';
+    const xToken = localStorage.getItem('xAuthToken');
+    const basicHeader = 'Basic ' + localStorage.getItem('credentials');
+    const headers = new HttpHeaders({
+      'x-auth-token' : xToken,
+      'Authorization' : basicHeader
+    });
+    localStorage.clear();
+    return this.httpClient.post(url, '', {headers, responseType: 'text'});
   }
 }

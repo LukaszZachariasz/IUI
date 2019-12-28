@@ -4,6 +4,6 @@
 
   <a *ngIf="loggedIn" mat-button>View All Food</a>
   <a *ngIf="loggedIn" mat-button>Add New Food Offer</a>
-  <a *ngIf="loggedIn" mat-button>Logout</a>
+  <a *ngIf="loggedIn" mat-button (click)="logout()">Logout</a>
 
 </mat-toolbar>

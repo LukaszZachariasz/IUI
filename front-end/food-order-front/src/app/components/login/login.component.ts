@@ -12,14 +12,19 @@ export class LoginComponent implements OnInit {
   private loggedIn = false;
 
   ngOnInit() {
-    console.log('CHEEECKED');
-    this.loginService.checkSession().subscribe(
-      res => {
-        this.loggedIn = true;
-      }, err => {
-        this.loggedIn = false;
-      }
-    );
+    const xToken = localStorage.getItem('xAuthToken');
+    if (xToken) {
+      this.loginService.checkSession().subscribe(
+        res => {
+          console.log('Good')
+          this.loggedIn = true;
+        },
+        error => {
+          console.log('error = ' + error)
+          this.loggedIn = false;
+        }
+      );
+    }
   }
 
 
@@ -31,13 +36,14 @@ export class LoginComponent implements OnInit {
       .sendCredential(this.credential.username, this.credential.password)
       .subscribe(
         res => {
-          console.log(res);
           localStorage.setItem('xAuthToken', res['token']);
           this.loggedIn = true;
-          // location.reload();
+          const encodedCredentials = btoa(this.credential.username + ':' + this.credential.password);
+          localStorage.setItem('credentials', encodedCredentials);
+          location.reload();
         },
-        err => {
-
+        error => {
+          console.log(error);
         }
       );
   }

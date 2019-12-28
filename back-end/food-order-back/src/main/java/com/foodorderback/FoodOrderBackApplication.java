@@ -33,10 +33,7 @@ public class FoodOrderBackApplication implements CommandLineRunner {
 		role1.setRoleId(1);
 		role1.setName("ROLE_ADMIN");
 		userRoles.add(new UserRole(role1,u1));
-
 		userManagementService.createUser(u1, userRoles);
-
-		userRoles.clear();
 
     }
 }
