@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Food} from '../../models/food';
+import {AddNewFoodService} from '../../service/add-new-food.service';
 
 @Component({
   selector: 'app-add-new-food',
@@ -9,15 +10,25 @@ import {Food} from '../../models/food';
 export class AddNewFoodComponent implements OnInit {
 
   private newFoodItem: Food = new Food();
-  private foodItemAdded: boolean = false;
+  private foodItemAdded = false;
 
-  constructor() { }
+  constructor(private addNewFoodService: AddNewFoodService) {
+  }
 
   ngOnInit() {
+    this.foodItemAdded = false;
   }
 
   onSubmit() {
-
+    this.addNewFoodService.sendNewFood(this.newFoodItem).subscribe(
+      res => {
+        this.foodItemAdded = true;
+        this.newFoodItem = new Food();
+      },
+      err => {
+        this.foodItemAdded = false;
+        console.log(err);
+      });
   }
 
   onActiveChange($event) {

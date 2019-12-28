@@ -1,4 +1,4 @@
-package com.foodorderback.res;
+package com.foodorderback.controller;
 
 import com.foodorderback.service.implementations.UserManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ import java.util.Map;
  */
 
 @RestController
-public class LoginResource {
+public class LoginResourceController {
 
     @Autowired
     private UserManagementService userManagementService;

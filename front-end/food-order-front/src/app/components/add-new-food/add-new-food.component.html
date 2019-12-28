@@ -1,5 +1,5 @@
 <div class="example-container">
-  <mat-card class="example-card mat-elevation-z2">
+  <mat-card *ngIf="!foodItemAdded" class="example-card mat-elevation-z2">
     <mat-card-header>
       <mat-card-title>Add new food</mat-card-title>
     </mat-card-header>
@@ -28,7 +28,7 @@
 
 
     <mat-form-field>
-      <mat-select placeholder="Select category" required>
+      <mat-select [(ngModel)]=newFoodItem.category placeholder="Select category" required>
         <mat-option value="Breakfast">Breakfast</mat-option>
         <mat-option value="Dinner">Dinner</mat-option>
         <mat-option value="Lunch">Lunch</mat-option>
@@ -41,13 +41,16 @@
 
     <mat-card-footer>
     <li class="mat-form-field--inline">
-      <button mat-button class="mat-select" type="submit">Add Food</button>
-      <button mat-button class="mat-warn" routerLink="/" >Cancel</button>
+      <button mat-button class="mat-select" type="submit" (click)="onSubmit()">Add Food</button>
+      <button mat-button class="mat-warn" routerLink="/">Cancel</button>
     </li>
     </mat-card-footer>
-
-
-
-
   </mat-card>
+
+  <mat-card *ngIf="foodItemAdded">
+    <mat-card-header>
+      <mat-card-title>Food Added</mat-card-title>
+    </mat-card-header>
+  </mat-card>
+
 </div>
