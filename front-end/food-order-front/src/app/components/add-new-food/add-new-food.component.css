@@ -3,6 +3,7 @@
   justify-content: center;
   margin: 10%
 }
+
 .example-container > * {
   width: 100%;
 }
@@ -28,8 +29,24 @@
 .mat-form-field--inline .mat-form-field:nth-child(1) {
   margin-right: 10px;
 }
-.mat-card-header,.mat-card-footer {
+
+.mat-card-header, .mat-card-footer {
   margin: 5%;
   justify-content: center;
 }
+
+.mat-slide-toggle {
+  margin-bottom: 1%;
+  margin-top: 1%;
+}
+
+.mat-button, .mat-raised-button {
+  margin-bottom: 1%;
+  margin-top: 1%;
+}
+
+.mat-grid-tile-header {
+  padding: 3% !important;
+}
+
 

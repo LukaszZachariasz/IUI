@@ -10,6 +10,8 @@ import {LoginService} from './service/login.service';
 import {AddNewFoodService} from './service/add-new-food.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AddNewFoodComponent} from './components/add-new-food/add-new-food.component';
+import {UploadImageService} from './service/upload-image.service';
+import {FoodListComponent} from './components/food-list/food-list.component';
 import 'hammerjs';
 import {
   MatButtonModule,
@@ -28,7 +30,8 @@ import {
     AppComponent,
     NavBarComponent,
     LoginComponent,
-    AddNewFoodComponent
+    AddNewFoodComponent,
+    FoodListComponent
   ],
   imports: [
     HttpClientModule,
@@ -48,7 +51,8 @@ import {
   ],
   providers: [
     LoginService,
-    AddNewFoodService
+    AddNewFoodService,
+    UploadImageService
   ],
   bootstrap: [AppComponent]
 })

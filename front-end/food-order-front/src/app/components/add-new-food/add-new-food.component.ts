@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Food} from '../../models/food';
 import {AddNewFoodService} from '../../service/add-new-food.service';
+import {UploadImageService} from '../../service/upload-image.service';
 
 @Component({
   selector: 'app-add-new-food',
@@ -12,7 +13,8 @@ export class AddNewFoodComponent implements OnInit {
   private newFoodItem: Food = new Food();
   private foodItemAdded = false;
 
-  constructor(private addNewFoodService: AddNewFoodService) {
+  constructor(private addNewFoodService: AddNewFoodService,
+              private uploadImageService: UploadImageService) {
   }
 
   ngOnInit() {
@@ -22,6 +24,7 @@ export class AddNewFoodComponent implements OnInit {
   onSubmit() {
     this.addNewFoodService.sendNewFood(this.newFoodItem).subscribe(
       res => {
+        this.uploadImageService.upload(JSON.parse(res)['id']);
         this.foodItemAdded = true;
         this.newFoodItem = new Food();
       },
@@ -33,5 +36,9 @@ export class AddNewFoodComponent implements OnInit {
 
   onActiveChange($event) {
     this.newFoodItem.active = $event.checked;
+  }
+
+  onFileInput($event: Event) {
+    this.uploadImageService.fileChangeEvent($event);
   }
 }

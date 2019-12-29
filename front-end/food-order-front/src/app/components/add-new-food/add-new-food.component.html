@@ -36,21 +36,31 @@
       </mat-select>
     </mat-form-field>
 
-
     <mat-slide-toggle (change)="onActiveChange($event)">Available to order</mat-slide-toggle>
 
-    <mat-card-footer>
-    <li class="mat-form-field--inline">
-      <button mat-button class="mat-select" type="submit" (click)="onSubmit()">Add Food</button>
-      <button mat-button class="mat-warn" routerLink="/">Cancel</button>
-    </li>
-    </mat-card-footer>
+    <button mat-raised-button (click)="fileInput.click()">
+      <span>Upload</span>
+      <input #fileInput type="file" (change)="onFileInput($event)" style="display:none;"/>
+    </button>
+
+    <mat-grid-list cols="2" rowHeight="100">
+      <mat-grid-tile>
+        <button mat-raised-button type="submit" (click)="onSubmit()">Add New Food Order</button>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <button mat-raised-button class="mat-warn" routerLink="/">Cancel</button>
+      </mat-grid-tile>
+    </mat-grid-list>
+
+
   </mat-card>
+
 
   <mat-card *ngIf="foodItemAdded">
     <mat-card-header>
       <mat-card-title>Food Added</mat-card-title>
     </mat-card-header>
   </mat-card>
+
 
 </div>

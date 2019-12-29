@@ -3,7 +3,7 @@
   <span class="flex-spacer"></span>
 
   <a *ngIf="loggedIn" mat-button>View All Food</a>
-  <a *ngIf="loggedIn" mat-button>Add New Food Offer</a>
+  <a *ngIf="loggedIn" mat-button routerLink="/addNewFood">Add New Food Offer</a>
   <a *ngIf="loggedIn" mat-button (click)="logout()">Logout</a>
 
 </mat-toolbar>

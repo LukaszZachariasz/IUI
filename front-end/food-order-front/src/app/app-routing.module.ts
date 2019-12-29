@@ -1,25 +1,31 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from './components/login/login.component';
-import { AddNewFoodComponent } from './components/add-new-food/add-new-food.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {LoginComponent} from './components/login/login.component';
+import {AddNewFoodComponent} from './components/add-new-food/add-new-food.component';
+import {FoodListComponent} from './components/food-list/food-list.component';
 
 const routes: Routes = [
   {
-    path : '',
+    path: '',
     redirectTo: '/login',
     pathMatch: 'full'
   },
   {
-    path : 'login',
+    path: 'login',
     component: LoginComponent
   },
   {
-    path : 'addNewFood',
+    path: 'addNewFood',
     component: AddNewFoodComponent
+  },
+  {
+    path: 'foodList',
+    component: FoodListComponent
   }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}
