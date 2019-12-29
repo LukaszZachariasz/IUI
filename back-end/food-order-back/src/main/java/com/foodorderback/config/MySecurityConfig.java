@@ -2,7 +2,9 @@ package com.foodorderback.config;
 
 import com.foodorderback.service.UserSecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,23 +13,24 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.session.web.http.HeaderHttpSessionIdResolver;
+import org.springframework.session.web.http.HeaderHttpSessionStrategy;
 import org.springframework.session.web.http.HttpSessionIdResolver;
+import org.springframework.session.web.http.HttpSessionStrategy;
 
 import javax.servlet.http.HttpSession;
 
+@Configuration
 @EnableWebSecurity
 public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private Environment environment;
 
     @Autowired
-    Environment environment;
+    private UserSecurityService userSecurityService;
 
-    @Autowired
-    UserSecurityService userSecurityService;
-
-    private BCryptPasswordEncoder bCryptPasswordEncoder() {
+    private BCryptPasswordEncoder passwordEncoder() {
         return SecurityUtility.passwordEncoder();
-
     }
 
     private static final String[] PUBLIC_MATCHERS = {
@@ -39,26 +42,18 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
     };
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/**");
-    }
-
-    @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // Disable CORS and Cross Site Request Forgery
-        http.csrf().disable().cors().disable().httpBasic()
-                .and().authorizeRequests().antMatchers(PUBLIC_MATCHERS)
-                .permitAll().anyRequest().authenticated();
+        http.csrf().disable().cors().disable().httpBasic().and().authorizeRequests()
+                .antMatchers(PUBLIC_MATCHERS).permitAll().anyRequest().authenticated();
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userSecurityService).passwordEncoder(bCryptPasswordEncoder());
+        auth.userDetailsService(userSecurityService).passwordEncoder(passwordEncoder());
     }
 
     @Bean
-    public HttpSessionIdResolver httpSessionIdResolver() {
-        return HeaderHttpSessionIdResolver.xAuthToken();
+    public HttpSessionStrategy httpSessionStrategy() {
+        return new HeaderHttpSessionStrategy();
     }
-
 }
