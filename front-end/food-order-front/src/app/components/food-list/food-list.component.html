@@ -1,4 +1,4 @@
-<div class="example-container">
+<div class="example-container" *ngIf="isAnyoneThere()">
 
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z24">
 
@@ -70,4 +70,20 @@
     </tr>
 
   </table>
+
+  <mat-grid-list cols="1" rowHeight="100">
+    <mat-grid-tile>
+      <button mat-raised-button class="mat-warn" (click)="removeSelectedRows()">Remove Selected</button>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+</div>
+
+
+<div class="example-container">
+  <mat-card *ngIf="!isAnyoneThere()">
+    <mat-card-header>
+      <mat-card-title>There seems to be nothing here...</mat-card-title>
+    </mat-card-header>
+  </mat-card>
 </div>

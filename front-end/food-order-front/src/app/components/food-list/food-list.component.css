@@ -28,3 +28,8 @@ th.mat-column-position, td.mat-column-position {
 a {
   color: green;
 }
+
+.mat-card-header {
+  margin: 5%;
+  justify-content: center;
+}

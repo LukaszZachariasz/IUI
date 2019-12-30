@@ -31,7 +31,7 @@ export class FoodListComponent implements OnInit {
 
   private displayedColumns: string[] = ['select', 'id', 'name', 'weight', 'kcal', 'category', 'price', 'active', 'action'];
 
-  private dataSource = new MatTableDataSource<Food>(this.foodList);
+  private dataSource: MatTableDataSource<Food> = new MatTableDataSource<Food>(this.foodList);
   private selection = new SelectionModel<Food>(true, this.foodList);
 
   isAllSelected() {
@@ -45,6 +45,24 @@ export class FoodListComponent implements OnInit {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
+  }
+
+  removeSelectedRows() {
+    this.selection.selected.forEach(item => {
+      const index: number = this.foodList.findIndex(d => d === item);
+      this.foodList.splice(index, 1);
+      console.log('Removed Item with ID ' + item.id);
+      this.removeFoodService.removeFood(item.id).subscribe(
+        res => {
+          this.getFoodList();
+        },
+        error => {
+          console.log(error);
+        });
+      this.dataSource = new MatTableDataSource<Food>(this.foodList);
+      this.selection = new SelectionModel<Food>(true, this.foodList);
+    });
+    this.selection = new SelectionModel<Food>(true, []);
   }
 
 
@@ -69,17 +87,7 @@ export class FoodListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getFoodListService.getFoodList().subscribe(
-      res => {
-        console.log(JSON.parse(res));
-        this.foodList = JSON.parse(res);
-        this.dataSource = new MatTableDataSource<Food>(this.foodList);
-        this.selection = new SelectionModel<Food>(true, this.foodList);
-      },
-      error => {
-        console.log(error);
-      }
-    );
+    this.getFoodList();
   }
 
   openDialog(food: Food) {
@@ -91,18 +99,30 @@ export class FoodListComponent implements OnInit {
           this.removeFoodService.removeFood(food.id).subscribe(
             resp => {
               console.log(resp);
-              location.reload();
+              this.getFoodList();
             },
             error => {
               console.log(error);
-            }
-          );
+            });
         }
-      }
-    );
+      });
   }
 
-  removeSelected() {
-    // TODO:
+  getFoodList() {
+    this.getFoodListService.getFoodList().subscribe(
+      res => {
+        console.log(JSON.parse(res));
+        this.foodList = JSON.parse(res);
+        this.dataSource = new MatTableDataSource<Food>(this.foodList);
+        this.selection = new SelectionModel<Food>(true, this.foodList);
+      },
+      error => {
+        console.log(error);
+      });
   }
+
+  isAnyoneThere() {
+    return this.foodList.length > 0;
+  }
+
 }

@@ -15,7 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.List;
@@ -42,12 +44,14 @@ public class FoodResourceController {
             MultipartFile multipartFile = multipartHttpServletRequest.getFile(iterator.next());
             String imageName = id + ".png";
 
-            Files.delete(Paths.get("src/main/resources/static/image/food/" + imageName));
+            Path p = Paths.get("src/main/resources/static/image/food/" + imageName);
+            if (Files.exists(p))
+                Files.delete(p);
 
             BufferedOutputStream stream =
                     new BufferedOutputStream(
                             new FileOutputStream(
-                                    new File("src/main/resources/static/image/food/" + imageName)));
+                                    new File(p.toString())));
 
 
             stream.write(multipartFile.getBytes());
@@ -77,8 +81,15 @@ public class FoodResourceController {
     }
 
     @PostMapping("/remove")
-    public ResponseEntity removeFood(@RequestBody String id) {
+    public ResponseEntity removeFood(@RequestBody String id) throws IOException {
         foodService.removeOne(Long.parseLong(id));
+
+        String imageName = id + ".png";
+
+        Path p = Paths.get("src/main/resources/static/image/food/" + imageName);
+        if (Files.exists(p))
+            Files.delete(p);
+
         return new ResponseEntity("Remove Done!", HttpStatus.OK);
     }
 
