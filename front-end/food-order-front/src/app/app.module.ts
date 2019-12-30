@@ -1,3 +1,19 @@
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatDialogModule,
+  MatFormFieldModule,
+  MatGridListModule,
+  MatInputModule,
+  MatListModule,
+  MatSelectModule,
+  MatSlideToggleModule,
+  MatTableModule,
+  MatToolbarModule
+} from '@angular/material/';
+
+import 'hammerjs';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
@@ -11,34 +27,28 @@ import {AddNewFoodService} from './service/add-new-food.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AddNewFoodComponent} from './components/add-new-food/add-new-food.component';
 import {UploadImageService} from './service/upload-image.service';
-import {FoodListComponent} from './components/food-list/food-list.component';
+import {DeleteDialogComponent, FoodListComponent} from './components/food-list/food-list.component';
 import {GetFoodListService} from './service/get-food-list.service';
 import {ViewFoodComponent} from './components/view-food/view-food.component';
 import {GetFoodService} from './service/get-food.service';
-import 'hammerjs';
-import {
-  MatButtonModule,
-  MatCardModule,
-  MatCheckboxModule,
-  MatFormFieldModule,
-  MatGridListModule,
-  MatInputModule,
-  MatListModule,
-  MatSelectModule,
-  MatSlideToggleModule,
-  MatTableModule,
-  MatToolbarModule
-} from '@angular/material/';
-
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {EditFoodComponent} from './components/edit-food/edit-food.component';
+import {EditFoodService} from './service/edit-food.service';
+import {RemoveFoodService} from './service/remove-food.service';
 
 @NgModule({
+  entryComponents: [
+    DeleteDialogComponent
+  ],
   declarations: [
     AppComponent,
     NavBarComponent,
     LoginComponent,
     AddNewFoodComponent,
     FoodListComponent,
-    ViewFoodComponent
+    ViewFoodComponent,
+    EditFoodComponent,
+    DeleteDialogComponent
   ],
   imports: [
     HttpClientModule,
@@ -57,14 +67,18 @@ import {
     MatSlideToggleModule,
     MatTableModule,
     MatCheckboxModule,
-    MatListModule
+    MatListModule,
+    FontAwesomeModule,
+    MatDialogModule
   ],
   providers: [
     LoginService,
     AddNewFoodService,
     UploadImageService,
     GetFoodListService,
-    GetFoodService
+    GetFoodService,
+    EditFoodService,
+    RemoveFoodService
   ],
   bootstrap: [AppComponent]
 })

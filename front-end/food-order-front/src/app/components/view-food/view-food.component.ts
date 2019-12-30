@@ -36,4 +36,8 @@ export class ViewFoodComponent implements OnInit {
     );
   }
 
+  onEditSelect(foodItem: Food) {
+    this.router.navigate(['/editFood', this.foodItem.id])
+      .then(() => location.reload());
+  }
 }

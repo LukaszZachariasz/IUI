@@ -4,6 +4,7 @@ import {LoginComponent} from './components/login/login.component';
 import {AddNewFoodComponent} from './components/add-new-food/add-new-food.component';
 import {FoodListComponent} from './components/food-list/food-list.component';
 import {ViewFoodComponent} from './components/view-food/view-food.component';
+import {EditFoodComponent} from './components/edit-food/edit-food.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: 'viewFood/:id',
     component: ViewFoodComponent
+  },
+  {
+    path: 'editFood/:id',
+    component: EditFoodComponent
   }
 ];
 

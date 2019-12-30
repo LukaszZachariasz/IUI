@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Confirm delete</h1>
+<div mat-dialog-content>
+  <p>Are you sure you want remove this element?</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="dialogRef.close('no')">Cancel</button>
+  <button mat-button (click)="dialogRef.close('yes')">Remove</button>
+</div>

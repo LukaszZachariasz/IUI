@@ -49,4 +49,9 @@ export class UploadImageService {
     });
   }
 
+  modify(foodId: number) {
+    if (this.filesToUpload.length > 0) {
+      this.upload(foodId);
+    }
+  }
 }

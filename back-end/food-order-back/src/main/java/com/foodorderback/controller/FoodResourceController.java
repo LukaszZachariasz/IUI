@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.List;
 
@@ -40,6 +42,7 @@ public class FoodResourceController {
             MultipartFile multipartFile = multipartHttpServletRequest.getFile(iterator.next());
             String imageName = id + ".png";
 
+            Files.delete(Paths.get("src/main/resources/static/image/food/" + imageName));
 
             BufferedOutputStream stream =
                     new BufferedOutputStream(
@@ -66,6 +69,17 @@ public class FoodResourceController {
     @RequestMapping("/{id}")
     public Food getOne(@PathVariable("id") Long id) {
         return foodService.findOne(id).get();
+    }
+
+    @PostMapping("/update")
+    public Food updateFood(@RequestBody Food food) {
+        return foodService.save(food);
+    }
+
+    @PostMapping("/remove")
+    public ResponseEntity removeFood(@RequestBody String id) {
+        foodService.removeOne(Long.parseLong(id));
+        return new ResponseEntity("Remove Done!", HttpStatus.OK);
     }
 
 }
