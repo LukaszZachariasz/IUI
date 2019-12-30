@@ -12,15 +12,21 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AddNewFoodComponent} from './components/add-new-food/add-new-food.component';
 import {UploadImageService} from './service/upload-image.service';
 import {FoodListComponent} from './components/food-list/food-list.component';
+import {GetFoodListService} from './service/get-food-list.service';
+import {ViewFoodComponent} from './components/view-food/view-food.component';
+import {GetFoodService} from './service/get-food.service';
 import 'hammerjs';
 import {
   MatButtonModule,
   MatCardModule,
+  MatCheckboxModule,
   MatFormFieldModule,
   MatGridListModule,
   MatInputModule,
+  MatListModule,
   MatSelectModule,
   MatSlideToggleModule,
+  MatTableModule,
   MatToolbarModule
 } from '@angular/material/';
 
@@ -31,7 +37,8 @@ import {
     NavBarComponent,
     LoginComponent,
     AddNewFoodComponent,
-    FoodListComponent
+    FoodListComponent,
+    ViewFoodComponent
   ],
   imports: [
     HttpClientModule,
@@ -47,12 +54,17 @@ import {
     MatGridListModule,
     MatInputModule,
     MatSelectModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatTableModule,
+    MatCheckboxModule,
+    MatListModule
   ],
   providers: [
     LoginService,
     AddNewFoodService,
-    UploadImageService
+    UploadImageService,
+    GetFoodListService,
+    GetFoodService
   ],
   bootstrap: [AppComponent]
 })

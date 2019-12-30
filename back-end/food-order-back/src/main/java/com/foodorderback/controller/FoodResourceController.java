@@ -16,6 +16,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Iterator;
+import java.util.List;
 
 @RestController
 @RequestMapping("/food")
@@ -55,6 +56,16 @@ public class FoodResourceController {
             e.printStackTrace();
             return new ResponseEntity("Upload failed!", HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @GetMapping("/foodList")
+    public List<Food> getFoodList() {
+        return foodService.findAll();
+    }
+
+    @RequestMapping("/{id}")
+    public Food getOne(@PathVariable("id") Long id) {
+        return foodService.findOne(id).get();
     }
 
 }
