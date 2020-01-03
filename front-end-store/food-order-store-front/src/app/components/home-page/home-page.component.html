@@ -1,582 +1,135 @@
-<!-- Full Page Intro -->
-<div class="view full-page-intro"
-     style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/78.jpg'); background-repeat: no-repeat; background-size: cover;">
-  <!-- Mask & flexbox options-->
-  <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
-    <!-- Content -->
-    <div class="container">
-      <!--Grid row-->
-      <div class="row fadeIn">
-        <!--Grid column-->
-        <div class="col-md-6 mb-4 white-text text-center text-md-left">
-          <h1 class="display-4 font-weight-bold">Your Food, your choice!</h1>
-          <hr class="hr-light">
-          <p><strong>Best food order portal</strong></p>
-          <a target="_blank" href="https://mdbootstrap.com/education/bootstrap/" class="btn btn-indigo btn-lg">Start
-            free tutorial
-            <i class="fas fa-graduation-cap ml-2"></i>
-          </a>
-        </div>
-        <!--Grid column-->
-
-        <!--Grid column-->
-        <div class="col-md-6 col-xl-5 mb-4">
-          <!--Card-->
-          <div class="card">
-            <!--Card content-->
-            <div class="card-body">
-              <!-- Form -->
-              <form name="">
-                <!-- Heading -->
-                <h3 class="dark-grey-text text-center">
-                  <strong>Write to us:</strong>
-                </h3>
-                <hr>
-                <div class="md-form">
-                  <i class="fas fa-user prefix grey-text"></i>
-                  <input type="text" id="form3" class="form-control">
-                  <label for="form3">Your name</label>
-                </div>
-                <div class="md-form">
-                  <i class="fas fa-envelope prefix grey-text"></i>
-                  <input type="text" id="form2" class="form-control">
-                  <label for="form2">Your email</label>
-                </div>
-                <div class="md-form">
-                  <i class="fas fa-pencil-alt prefix grey-text"></i>
-                  <textarea type="text" id="form8" class="md-textarea"></textarea>
-                  <label for="form8">Your message</label>
-                </div>
-                <div class="text-center">
-                  <button class="btn btn-indigo">Send</button>
-                  <hr>
-                  <fieldset class="form-check">
-                    <input type="checkbox" class="form-check-input" id="checkbox1">
-                    <label for="checkbox1" class="form-check-label dark-grey-text">Subscribe me to the
-                      newsletter</label>
-                  </fieldset>
-                </div>
-              </form>
-              <!-- Form -->
-            </div>
-          </div>
-          <!--/.Card-->
-        </div>
-        <!--Grid column-->
-      </div>
-      <!--Grid row-->
-    </div>
-    <!-- Content -->
-  </div>
-  <!-- Mask & flexbox options-->
-</div>
-<!-- Full Page Intro -->
-
-<!--Main layout-->
 <main>
   <div class="container">
-
-    <!--Section: Main info-->
     <section class="mt-5 wow fadeIn">
-
-      <!--Grid row-->
       <div class="row">
-
-        <!--Grid column-->
-        <div class="col-md-6 mb-4">
-
-          <img src="https://mdbootstrap.com/img/Marketing/mdb-press-pack/mdb-main.jpg" class="img-fluid z-depth-1-half"
-               alt="">
-
-        </div>
-        <!--Grid column-->
-
-        <!--Grid column-->
-        <div class="col-md-6 mb-4">
-
-          <!-- Main heading -->
-          <h3 class="h3 mb-3">Material Design for Bootstrap</h3>
-          <p>This template is created with Material Design for Bootstrap (
-            <strong>MDB</strong> ) framework.</p>
-          <p>Read details below to learn more about MDB.</p>
-          <!-- Main heading -->
-
-          <hr>
-
-          <p>
-            <strong>400+</strong> material UI elements,
-            <strong>600+</strong> material icons,
-            <strong>74</strong> CSS animations, SASS files, templates, tutorials and many more.
-            <strong>Free for personal and commercial use.</strong>
-          </p>
-
-          <!-- CTA -->
-          <a target="_blank" href="https://mdbootstrap.com/docs/jquery/getting-started/download/"
-             class="btn btn-indigo btn-md">Download
-            <i class="fas fa-download ml-1"></i>
-          </a>
-          <a target="_blank" href="https://mdbootstrap.com/docs/jquery/components/" class="btn btn-indigo btn-md">Live
-            demo
-            <i class="far fa-image ml-1"></i>
-          </a>
-
-        </div>
-        <!--Grid column-->
-
+        <app-carousel></app-carousel>
       </div>
-      <!--Grid row-->
-
     </section>
-    <!--Section: Main info-->
-
     <hr class="my-5">
-
-    <!--Section: Main features & Quick Start-->
     <section>
-
-      <h3 class="h3 text-center mb-5">About MDB</h3>
-
-      <!--Grid row-->
-      <div class="row wow fadeIn">
-
-        <!--Grid column-->
-        <div class="col-lg-6 col-md-12 px-4">
-
-          <!--First row-->
-          <div class="row">
-            <div class="col-1 mr-3">
-              <i class="fas fa-code fa-2x indigo-text"></i>
-            </div>
-            <div class="col-10">
-              <h5 class="feature-title">Bootstrap 4</h5>
-              <p class="grey-text">Thanks to MDB you can take advantage of all feature of newest Bootstrap 4.</p>
-            </div>
+      <!-- Card deck -->
+      <div class="card-deck">
+        <!-- Card -->
+        <div class="card mb-4">
+          <!--Card image-->
+          <div class="view overlay">
+            <img class="card-img-top"
+                 src="data:image/jpeg;base64,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"
+                 alt="Card image cap">
+            <a href="#!">
+              <div class="mask rgba-white-slight"></div>
+            </a>
           </div>
-          <!--/First row-->
+          <!--Card content-->
+          <div class="card-body">
 
-          <div style="height:30px"></div>
+            <!--Title-->
+            <h4 class="card-title">Dinner</h4>
+            <!--Text-->
+            <p class="card-text">Check our Dinners</p>
+            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+            <button type="button" class="btn btn-light-blue btn-md">Read more</button>
 
-          <!--Second row-->
-          <div class="row">
-            <div class="col-1 mr-3">
-              <i class="fas fa-book fa-2x blue-text"></i>
-            </div>
-            <div class="col-10">
-              <h5 class="feature-title">Detailed documentation</h5>
-              <p class="grey-text">We give you detailed user-friendly documentation at your disposal. It will help you
-                to implement your ideas
-                easily.
-              </p>
-            </div>
           </div>
-          <!--/Second row-->
-
-          <div style="height:30px"></div>
-
-          <!--Third row-->
-          <div class="row">
-            <div class="col-1 mr-3">
-              <i class="fas fa-graduation-cap fa-2x cyan-text"></i>
-            </div>
-            <div class="col-10">
-              <h5 class="feature-title">Lots of tutorials</h5>
-              <p class="grey-text">We care about the development of our users. We have prepared numerous tutorials,
-                which allow you to learn
-                how to use MDB as well as other technologies.</p>
-            </div>
-          </div>
-          <!--/Third row-->
 
         </div>
-        <!--/Grid column-->
+        <!-- Card -->
 
-        <!--Grid column-->
-        <div class="col-lg-6 col-md-12">
+        <!-- Card -->
+        <div class="card mb-4">
 
-          <p class="h5 text-center mb-4">Watch our "5 min Quick Start" tutorial</p>
-          <div class="embed-responsive embed-responsive-16by9">
-            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/cXTThxoywNQ"
-                    allowfullscreen></iframe>
+          <!--Card image-->
+          <div class="view overlay">
+            <img class="card-img-top"
+                 src="https://media-cdn.tripadvisor.com/media/photo-s/17/57/7d/17/2-egg-breakfast.jpg"
+                 alt="Card image cap">
+            <a href="#!">
+              <div class="mask rgba-white-slight"></div>
+            </a>
           </div>
+
+          <!--Card content-->
+          <div class="card-body">
+
+            <!--Title-->
+            <h4 class="card-title">Breakfast</h4>
+            <!--Text-->
+            <p class="card-text">Check our special Breakfast</p>
+            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+            <button type="button" class="btn btn-light-blue btn-md">Read more</button>
+
+          </div>
+
         </div>
-        <!--/Grid column-->
+        <!-- Card -->
+
+        <!-- Card -->
+        <div class="card mb-4">
+
+          <!--Card image-->
+          <div class="view overlay">
+            <img class="card-img-top"
+                 src="https://static.onecms.io/wp-content/uploads/sites/24/2010/12/fo_cbcf87595a83f3ee_spcms-1.jpg"
+                 alt="Card image cap">
+            <a href="#!">
+              <div class="mask rgba-white-slight"></div>
+            </a>
+          </div>
+
+          <!--Card content-->
+          <div class="card-body">
+
+            <!--Title-->
+            <h4 class="card-title">Supper</h4>
+            <!--Text-->
+            <p class="card-text">Check before sleep</p>
+            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+            <button type="button" class="btn btn-light-blue btn-md">Read more</button>
+
+          </div>
+
+        </div>
+        <!-- Card -->
+
+        <!-- Card -->
+        <div class="card mb-4">
+
+          <!--Card image-->
+          <div class="view overlay">
+            <img class="card-img-top"
+                 src="https://media-cdn.tripadvisor.com/media/photo-s/18/7a/92/8d/francaise-lunch-image.jpg"
+                 alt="Card image cap">
+            <a href="#!">
+              <div class="mask rgba-white-slight"></div>
+            </a>
+          </div>
+
+          <!--Card content-->
+          <div class="card-body">
+
+            <!--Title-->
+            <h4 class="card-title">Lunch</h4>
+            <!--Text-->
+            <p class="card-text"></p>
+            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+            <button type="button" class="btn btn-light-blue btn-md">Read more</button>
+
+          </div>
+
+        </div>
+        <!-- Card -->
 
       </div>
-      <!--/Grid row-->
+      <!-- Card deck -->
 
     </section>
-    <!--Section: Main features & Quick Start-->
 
-    <hr class="my-5">
-
-    <!--Section: Not enough-->
     <section>
-
-      <h2 class="my-5 h3 text-center">Not enough?</h2>
-
-      <!--First row-->
-      <div class="row features-small mb-5 mt-3 wow fadeIn">
-
-        <!--First column-->
-        <div class="col-md-4">
-          <!--First row-->
-          <div class="row">
-            <div class="col-2">
-              <i class="fas fa-check-circle fa-2x indigo-text"></i>
-            </div>
-            <div class="col-10">
-              <h6 class="feature-title">Free for personal and commercial use</h6>
-              <p class="grey-text">Our license is user-friendly. Feel free to use MDB for both private as well as
-                commercial projects.
-              </p>
-              <div style="height:15px"></div>
-            </div>
-          </div>
-          <!--/First row-->
-
-          <!--Second row-->
-          <div class="row">
-            <div class="col-2">
-              <i class="fas fa-check-circle fa-2x indigo-text"></i>
-            </div>
-            <div class="col-10">
-              <h6 class="feature-title">400+ UI elements</h6>
-              <p class="grey-text">An impressive collection of flexible components allows you to develop any project.
-              </p>
-              <div style="height:15px"></div>
-            </div>
-          </div>
-          <!--/Second row-->
-
-          <!--Third row-->
-          <div class="row">
-            <div class="col-2">
-              <i class="fas fa-check-circle fa-2x indigo-text"></i>
-            </div>
-            <div class="col-10">
-              <h6 class="feature-title">600+ icons</h6>
-              <p class="grey-text">Hundreds of useful, scalable, vector icons at your disposal.</p>
-              <div style="height:15px"></div>
-            </div>
-          </div>
-          <!--/Third row-->
-
-          <!--Fourth row-->
-          <div class="row">
-            <div class="col-2">
-              <i class="fas fa-check-circle fa-2x indigo-text"></i>
-            </div>
-            <div class="col-10">
-              <h6 class="feature-title">Fully responsive</h6>
-              <p class="grey-text">It doesn't matter whether your project will be displayed on desktop, laptop, tablet
-                or mobile phone. MDB
-                looks great on each screen.</p>
-              <div style="height:15px"></div>
-            </div>
-          </div>
-          <!--/Fourth row-->
-        </div>
-        <!--/First column-->
-
-        <!--Second column-->
-        <div class="col-md-4 flex-center">
-          <img src="https://mdbootstrap.com/img/Others/screens.png" alt="MDB Magazine Template displayed on iPhone"
-               class="z-depth-0 img-fluid">
-        </div>
-        <!--/Second column-->
-
-        <!--Third column-->
-        <div class="col-md-4 mt-2">
-          <!--First row-->
-          <div class="row">
-            <div class="col-2">
-              <i class="fas fa-check-circle fa-2x indigo-text"></i>
-            </div>
-            <div class="col-10">
-              <h6 class="feature-title">70+ CSS animations</h6>
-              <p class="grey-text">Neat and easy to use animations, which will increase the interactivity of your
-                project and delight your visitors.
-              </p>
-              <div style="height:15px"></div>
-            </div>
-          </div>
-          <!--/First row-->
-
-          <!--Second row-->
-          <div class="row">
-            <div class="col-2">
-              <i class="fas fa-check-circle fa-2x indigo-text"></i>
-            </div>
-            <div class="col-10">
-              <h6 class="feature-title">Plenty of useful templates</h6>
-              <p class="grey-text">Need inspiration? Use one of our predefined templates for free.</p>
-              <div style="height:15px"></div>
-            </div>
-          </div>
-          <!--/Second row-->
-
-          <!--Third row-->
-          <div class="row">
-            <div class="col-2">
-              <i class="fas fa-check-circle fa-2x indigo-text"></i>
-            </div>
-            <div class="col-10">
-              <h6 class="feature-title">Easy installation</h6>
-              <p class="grey-text">5 minutes, a few clicks and... done. You will be surprised at how easy it is.
-              </p>
-              <div style="height:15px"></div>
-            </div>
-          </div>
-          <!--/Third row-->
-
-          <!--Fourth row-->
-          <div class="row">
-            <div class="col-2">
-              <i class="fas fa-check-circle fa-2x indigo-text"></i>
-            </div>
-            <div class="col-10">
-              <h6 class="feature-title">Easy to use and customize</h6>
-              <p class="grey-text">Using MDB is straightforward and pleasant. Components flexibility allows you deep
-                customization. You will
-                easily adjust each component to suit your needs.</p>
-              <div style="height:15px"></div>
-            </div>
-          </div>
-          <!--/Fourth row-->
-        </div>
-        <!--/Third column-->
-
-      </div>
-      <!--/First row-->
-
     </section>
-    <!--Section: Not enough-->
-
-    <hr class="mb-5">
-
-    <!--Section: More-->
     <section>
-
-      <h2 class="my-5 h3 text-center">...and even more</h2>
-
-      <!--First row-->
-      <div class="row features-small mt-5 wow fadeIn">
-
-        <!--Grid column-->
-        <div class="col-xl-3 col-lg-6">
-          <!--Grid row-->
-          <div class="row">
-            <div class="col-2">
-              <i class="fab fa-firefox fa-2x mb-1 indigo-text" aria-hidden="true"></i>
-            </div>
-            <div class="col-10 mb-2 pl-3">
-              <h5 class="feature-title font-bold mb-1">Cross-browser compatibility</h5>
-              <p class="grey-text mt-2">Chrome, Firefox, IE, Safari, Opera, Microsoft Edge - MDB loves all browsers; all
-                browsers love MDB.
-              </p>
-            </div>
-          </div>
-          <!--/Grid row-->
-        </div>
-        <!--/Grid column-->
-
-        <!--Grid column-->
-        <div class="col-xl-3 col-lg-6">
-          <!--Grid row-->
-          <div class="row">
-            <div class="col-2">
-              <i class="fas fa-level-up-alt fa-2x mb-1 indigo-text" aria-hidden="true"></i>
-            </div>
-            <div class="col-10 mb-2">
-              <h5 class="feature-title font-bold mb-1">Frequent updates</h5>
-              <p class="grey-text mt-2">MDB becomes better every month. We love the project and enhance as much as
-                possible.
-              </p>
-            </div>
-          </div>
-          <!--/Grid row-->
-        </div>
-        <!--/Grid column-->
-
-        <!--Grid column-->
-        <div class="col-xl-3 col-lg-6">
-          <!--Grid row-->
-          <div class="row">
-            <div class="col-2">
-              <i class="fas fa-comments fa-2x mb-1 indigo-text" aria-hidden="true"></i>
-            </div>
-            <div class="col-10 mb-2">
-              <h5 class="feature-title font-bold mb-1">Active community</h5>
-              <p class="grey-text mt-2">Our society grows day by day. Visit our forum and check how it is to be a part
-                of our family.
-              </p>
-            </div>
-          </div>
-          <!--/Grid row-->
-        </div>
-        <!--/Grid column-->
-
-        <!--Grid column-->
-        <div class="col-xl-3 col-lg-6">
-          <!--Grid row-->
-          <div class="row">
-            <div class="col-2">
-              <i class="fas fa-code fa-2x mb-1 indigo-text" aria-hidden="true"></i>
-            </div>
-            <div class="col-10 mb-2">
-              <h5 class="feature-title font-bold mb-1">jQuery 3.x</h5>
-              <p class="grey-text mt-2">MDB is integrated with newest jQuery. Therefore you can use all the latest
-                features which come along with
-                it.
-              </p>
-            </div>
-          </div>
-          <!--/Grid row-->
-        </div>
-        <!--/Grid column-->
-
-      </div>
-      <!--/First row-->
-
-      <!--Second row-->
-      <div class="row features-small mt-4 wow fadeIn">
-
-        <!--Grid column-->
-        <div class="col-xl-3 col-lg-6">
-          <!--Grid row-->
-          <div class="row">
-            <div class="col-2">
-              <i class="fas fa-cubes fa-2x mb-1 indigo-text" aria-hidden="true"></i>
-            </div>
-            <div class="col-10 mb-2">
-              <h5 class="feature-title font-bold mb-1">Modularity</h5>
-              <p class="grey-text mt-2">Material Design for Bootstrap comes with both, compiled, ready to use libraries
-                including all features as
-                well as modules for CSS (SASS files) and JS.</p>
-            </div>
-          </div>
-          <!--/Grid row-->
-        </div>
-        <!--/Grid column-->
-
-        <!--Grid column-->
-        <div class="col-xl-3 col-lg-6">
-          <!--Grid row-->
-          <div class="row">
-            <div class="col-2">
-              <i class="fas fa-question fa-2x mb-1 indigo-text" aria-hidden="true"></i>
-            </div>
-            <div class="col-10 mb-2">
-              <h5 class="feature-title font-bold mb-1">Technical support</h5>
-              <p class="grey-text mt-2">We care about reliability. If you have any questions - do not hesitate to
-                contact us.
-              </p>
-            </div>
-          </div>
-          <!--/Grid row-->
-        </div>
-        <!--/Grid column-->
-
-        <!--Grid column-->
-        <div class="col-xl-3 col-lg-6">
-          <!--Grid row-->
-          <div class="row">
-            <div class="col-2">
-              <i class="fas fa-th fa-2x mb-1 indigo-text" aria-hidden="true"></i>
-            </div>
-            <div class="col-10 mb-2">
-              <h5 class="feature-title font-bold mb-1">Flexbox</h5>
-              <p class="grey-text mt-2">MDB fully supports Flex Box. You can forget about alignment issues.</p>
-            </div>
-          </div>
-          <!--/Grid row-->
-        </div>
-        <!--/Grid column-->
-
-        <!--Grid column-->
-        <div class="col-xl-3 col-lg-6">
-          <!--Grid row-->
-          <div class="row">
-            <div class="col-2">
-              <i class="far fa-file-code fa-2x mb-1 indigo-text" aria-hidden="true"></i>
-            </div>
-            <div class="col-10 mb-2">
-              <h5 class="feature-title font-bold mb-1">SASS files</h5>
-              <p class="grey-text mt-2">Arranged and well documented .scss files can't wait until you compile them.</p>
-            </div>
-          </div>
-          <!--/Grid row-->
-        </div>
-        <!--/Grid column-->
-
-      </div>
-      <!--/Second row-->
-
     </section>
-    <!--Section: More-->
-
   </div>
 </main>
-<!--Main layout-->
 
-<!--Footer-->
-<!--<footer class="page-footer text-center font-small mt-4 wow fadeIn">-->
 
-<!--  &lt;!&ndash;Call to action&ndash;&gt;-->
-<!--  <div class="pt-4">-->
-<!--    <a class="btn btn-outline-white" href="https://mdbootstrap.com/docs/jquery/getting-started/download/" target="_blank" role="button">Download MDB-->
-<!--      <i class="fas fa-download ml-2"></i>-->
-<!--    </a>-->
-<!--    <a class="btn btn-outline-white" href="https://mdbootstrap.com/education/bootstrap/" target="_blank" role="button">Start free tutorial-->
-<!--      <i class="fas fa-graduation-cap ml-2"></i>-->
-<!--    </a>-->
-<!--  </div>-->
-<!--  &lt;!&ndash;/.Call to action&ndash;&gt;-->
 
-<!--  <hr class="my-4">-->
-
-<!--  &lt;!&ndash; Social icons &ndash;&gt;-->
-<!--  <div class="pb-4">-->
-<!--    <a href="https://www.facebook.com/mdbootstrap" target="_blank">-->
-<!--      <i class="fab fa-facebook-f mr-3"></i>-->
-<!--    </a>-->
-
-<!--    <a href="https://twitter.com/MDBootstrap" target="_blank">-->
-<!--      <i class="fab fa-twitter mr-3"></i>-->
-<!--    </a>-->
-
-<!--    <a href="https://www.youtube.com/watch?v=7MUISDJ5ZZ4" target="_blank">-->
-<!--      <i class="fab fa-youtube mr-3"></i>-->
-<!--    </a>-->
-
-<!--    <a href="https://plus.google.com/u/0/b/107863090883699620484" target="_blank">-->
-<!--      <i class="fab fa-google-plus-g mr-3"></i>-->
-<!--    </a>-->
-
-<!--    <a href="https://dribbble.com/mdbootstrap" target="_blank">-->
-<!--      <i class="fab fa-dribbble mr-3"></i>-->
-<!--    </a>-->
-
-<!--    <a href="https://pinterest.com/mdbootstrap" target="_blank">-->
-<!--      <i class="fab fa-pinterest mr-3"></i>-->
-<!--    </a>-->
-
-<!--    <a href="https://github.com/mdbootstrap/bootstrap-material-design" target="_blank">-->
-<!--      <i class="fab fa-github mr-3"></i>-->
-<!--    </a>-->
-
-<!--    <a href="http://codepen.io/mdbootstrap/" target="_blank">-->
-<!--      <i class="fab fa-codepen mr-3"></i>-->
-<!--    </a>-->
-<!--  </div>-->
-<!--  &lt;!&ndash; Social icons &ndash;&gt;-->
-
-<!--  &lt;!&ndash;Copyright&ndash;&gt;-->
-<!--  <div class="footer-copyright py-3">-->
-<!--    © 2018 Copyright:-->
-<!--    <a href="https://mdbootstrap.com/education/bootstrap/" target="_blank"> MDBootstrap.com </a>-->
-<!--  </div>-->
-<!--  &lt;!&ndash;/.Copyright&ndash;&gt;-->
-
-<!--</footer>-->
-<!--/.Footer-->

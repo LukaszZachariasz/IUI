@@ -1,6 +1,7 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 import {HomePageComponent} from './components/home-page/home-page.component';
+import {MyAccoutComponent} from './components/my-accout/my-accout.component';
 
 const routes: Routes = [
   {
@@ -11,6 +12,10 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomePageComponent
+  },
+  {
+    path: 'myAccount',
+    component: MyAccoutComponent
   }
 ];
 
@@ -18,4 +23,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

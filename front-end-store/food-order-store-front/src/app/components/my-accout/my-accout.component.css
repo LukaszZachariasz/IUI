@@ -1,0 +1,13 @@
+.demo-tab-group {
+  border: 1px solid #e8e8e8;
+}
+
+.demo-tab-content {
+  padding: 16px;
+}
+
+.mat-tab-label-active {
+  background-color: red;
+  opacity: 1 !important;
+}
+
