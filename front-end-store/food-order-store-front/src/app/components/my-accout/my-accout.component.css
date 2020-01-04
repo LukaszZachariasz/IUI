@@ -1,13 +1,18 @@
-.demo-tab-group {
-  border: 1px solid #e8e8e8;
+.mat-accordion, .mat-expansion-panel {
+  margin-top: 2% !important;
+  margin-bottom: 2% !important;
+  background-color: white !important;
 }
 
-.demo-tab-content {
-  padding: 16px;
+.mat-expansion-panel-header-title, .mat-expansion-panel-header-description {
+  color: black;
+  justify-content: center;
 }
 
-.mat-tab-label-active {
-  background-color: red;
-  opacity: 1 !important;
+form {
+  border: transparent !important;
 }
+
+
+
 

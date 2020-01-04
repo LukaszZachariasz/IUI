@@ -1,16 +1,42 @@
 <div class="container center">
-  <section class="mt-5 wow fadeIn">
-    <app-login-form></app-login-form>
-  </section>
+  <mat-accordion>
 
-  <section class="mt-5 wow fadeIn">
-    <app-register-form></app-register-form>
-  </section>
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title> Login to your account </mat-panel-title>
+      </mat-expansion-panel-header>
+          <form class="text-center border border-light p-5">
+            <input type="text" name ="username" class="form-control mb-4" placeholder="Username" [(ngModel)]="credentials.username" required="true">
+            <input type="password" name= "password" class="form-control mb-4" placeholder="Password" [(ngModel)]="credentials.password" required="true">
+            <button mdbBtn color="info" block="true" class="my-4" type="submit" (click)="onLogin()">Sign in</button>
+          </form>
+    </mat-expansion-panel>
 
-  <section class="mt-5 wow fadeIn">
-    <app-forgot-password-form></app-forgot-password-form>
-  </section>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title> Register new account </mat-panel-title>
+      </mat-expansion-panel-header>
+        <form class="text-center border border-light p-5">
+          <input type="text" name ="username" class="form-control mb-4" placeholder="Username" [(ngModel)]="username" required="true">
+          <input type="email" name= "email" class="form-control mb-4" placeholder="Email" [(ngModel)]="email" required="true">
+          <button mdbBtn color="info" block="true" class="my-4" type="submit" (click)="onNewAccount()">Register</button>
+        </form>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title> I forgot my password </mat-panel-title>
+      </mat-expansion-panel-header>
+        <form class="text-center border border-light p-5">
+          <input type="text" name ="username" class="form-control mb-4" placeholder="Username" [(ngModel)]="credentials.username" required="true">
+          <input type="password" name= "password" class="form-control mb-4" placeholder="Password" [(ngModel)]="credentials.password" required="true">
+          <button mdbBtn color="info" block="true" class="my-4" type="submit" (click)="onLogin()">Sign in</button>
+        </form>
+    </mat-expansion-panel>
+
+  </mat-accordion>
 
 </div>
+
 
 

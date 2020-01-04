@@ -3,6 +3,7 @@ import {AppConst} from '../../constants/app-const';
 import {LoginService} from '../../services/login.service';
 import {UserService} from '../../services/user.service';
 import {Router} from '@angular/router';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-my-accout',
@@ -11,45 +12,100 @@ import {Router} from '@angular/router';
 })
 export class MyAccoutComponent implements OnInit {
 
-  encapsulation: ViewEncapsulation.None;
 
   private serverPath = AppConst.serverPath;
-  private loginError = true;
+  private loginError = false;
   private loggedIn = false;
   private credentials = {'username': '', 'password': ''};
 
   private emailSent = false;
-  private usernameExist: boolean;
+  private usernameExists: boolean;
+  private emailExists: boolean;
   private username: string;
   private email: string;
 
   private emailNotExists = false;
   private forgetPasswordEmailSent: boolean;
+  private recoverEmail: string;
 
   constructor(private loginService: LoginService,
               private userService: UserService,
               private router: Router) {
-
   }
 
   ngOnInit() {
+    this.loginService.checkSession().subscribe(
+      res => {
+        this.loggedIn = true;
+      },
+      error => {
+        this.loggedIn = false;
+      }
+    );
   }
 
   onLogin() {
-    this.loginService.sendCredentials(this.username, this.credentials.password)
+    this.loginService
+      .sendCredentials(this.credentials.username, this.credentials.password)
       .subscribe(
         res => {
-          localStorage.setItem('xAuthToken', res['token']);
-          console.log(res);
-          location.reload();
           this.loggedIn = true;
-          this.router.navigate(['/']);
+          const encodedCredentials = btoa(this.credentials.username + ':' + this.credentials.password);
+          localStorage.setItem('xAuthToken', res['token']);
+          localStorage.setItem('credentials', encodedCredentials);
+          this.router.navigate(['/home']).then(
+            res => {
+              location.reload();
+            });
         },
         error => {
           this.loggedIn = false;
           this.loginError = true;
-          console.log(error);
-        });
+        }
+      );
+  }
+
+  onNewAccount() {
+    this.usernameExists = false;
+    this.emailExists = false;
+    this.emailSent = false;
+
+    this.userService.newUser(this.username, this.email).subscribe(
+
+      res => {console.log(this.username + "   " + this.email);
+        console.log(res);
+        this.emailSent = true;
+      },
+      error => {console.log(this.username + "   " + this.email);
+        console.log(error);
+        let errorMessage = error;
+        if (errorMessage === 'usernameExists') {
+          this.usernameExists = true;
+        }
+        if (errorMessage === 'emailExists') {
+          this.emailExists = true;
+        }
+      }
+    );
+  }
+
+  onForgetPassword() {
+    this.forgetPasswordEmailSent = false;
+    this.emailNotExists = false;
+
+    this.userService.retrievePassword(this.recoverEmail).subscribe(
+      res => {
+        console.log(res);
+        this.emailSent = true;
+      },
+      error => {
+        console.log(error.text());
+        const errorMessage = error.text();
+        if (errorMessage === 'emailExists') {
+          this.emailExists = true;
+        }
+      }
+    );
   }
 
 }

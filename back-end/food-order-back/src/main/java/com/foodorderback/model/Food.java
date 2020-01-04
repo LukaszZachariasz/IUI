@@ -1,8 +1,5 @@
 package com.foodorderback.model;
 
-
-import org.springframework.web.multipart.MultipartFile;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -29,9 +26,6 @@ public class Food implements Serializable {
 
     @Column(columnDefinition = "text")
     private String description;
-
-    @Transient
-    private MultipartFile foodImage;
 
     public Long getId() {
         return id;
@@ -95,13 +89,5 @@ public class Food implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public MultipartFile getFoodImage() {
-        return foodImage;
-    }
-
-    public void setFoodImage(MultipartFile foodImage) {
-        this.foodImage = foodImage;
     }
 }
