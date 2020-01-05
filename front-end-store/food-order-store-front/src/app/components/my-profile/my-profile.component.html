@@ -1,0 +1,128 @@
+<div class="container center">
+
+  <app-loading *ngIf="!dataFetched"></app-loading>
+
+  <mat-accordion *ngIf="dataFetched">
+    <hr class="my-md-5">
+    <div class="row"> Manage your profile</div>
+    <hr class="my-md-5">
+
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title> Edit your user profile info</mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <form class="text-center border border-light p-5">
+
+        <div class="row">
+          <div class="col-sm">
+
+            <label>First Name</label>
+            <input type="text"
+                   name="firstName"
+                   class="form-control mb-4"
+                   placeholder="First Name"
+                   [(ngModel)]="user.firstname"
+                   [required]="true">
+            <label>Last Name</label>
+            <input type="text"
+                   name="lastName"
+                   class="form-control mb-4"
+                   placeholder="Last Name"
+                   [(ngModel)]="user.lastname"
+                   [required]="true">
+            <label>Email Address</label>
+            <input type="email"
+                   name="email"
+                   class="form-control mb-4"
+                   placeholder="Email Address"
+                   [(ngModel)]="user.email"
+                   [required]="true">
+            <label>Phone Number</label>
+            <input type="text"
+                   name="phoneNumber"
+                   class="form-control mb-4"
+                   placeholder="Phone Number"
+                   [(ngModel)]="user.phoneNumber"
+                   [required]="true">
+            <label>Username</label>
+            <input type="text"
+                   name="username"
+                   class="form-control mb-4"
+                   placeholder="Username"
+                   [(ngModel)]="user.username"
+                   [required]="true">
+          </div>
+
+          <div class="col-sm">
+            <label>Insert current Password to Update</label>
+            <input type="password"
+                   name="currentPassword"
+                   class="form-control mb-4"
+                   placeholder="Current Password"
+                   [(ngModel)]="currentPassword"
+                   [required]="true">
+            <label>New Password</label>
+            <input type="password"
+                   name="newPassword"
+                   class="form-control mb-4"
+                   placeholder="New Password"
+                   [(ngModel)]="newPassword"
+                   [required]="true">
+            <label>Confirm password</label>
+            <input type="password"
+                   name="confirmNewPassword"
+                   class="form-control mb-4"
+                   placeholder="Confirm New Password"
+                   [(ngModel)]="confirmNewPassword"
+                   [required]="true">
+            <label>Your height</label>
+            <input type="number"
+                   name="height"
+                   class="form-control mb-4"
+                   placeholder="Insert your height (cm)"
+                   [(ngModel)]="user.height"
+                   [required]="true">
+            <label>Your weight</label>
+            <input type="number"
+                   name="weight"
+                   class="form-control mb-4"
+                   placeholder="Insert your weight (kg)"
+                   [(ngModel)]="user.weight"
+                   [required]="true">
+            <label>Birth Date</label>
+            <input id="dateInput"
+                   type="date"
+                   name="birthDate"
+                   class="form-control mb-4"
+                   placeholder="Choose your date"
+                   [(ngModel)]="user.dateOfBirth"
+                   [required]="true">
+          </div>
+        </div>
+
+        <button [disabled]=" !(user.dateOfBirth && user.firstname && user.lastname  &&
+                        user.weight && user.height &&
+                        currentPassword && user.username && user.email && user.phoneNumber)"
+                mdbBtn color="info" block="true" class="my-4" type="submit"
+                (click)="onUpdateUserInfo()">Update My Info
+        </button>
+
+        <div *ngIf="updateError" class="alert alert-danger" role="alert">
+          There is something wrong.
+        </div>
+
+        <div *ngIf="currentPasswordError" class="alert alert-danger" role="alert">
+          It's look like wrong current password.
+        </div>
+
+        <div *ngIf="updateSuccess" class="alert alert-success" role="alert">
+          Your profile has been updated.
+        </div>
+
+      </form>
+    </mat-expansion-panel>
+
+  </mat-accordion>
+
+</div>

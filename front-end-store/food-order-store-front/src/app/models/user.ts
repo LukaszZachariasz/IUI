@@ -2,9 +2,9 @@ export class User {
 
   public id: number;
 
-  public firstName: string;
+  public firstname: string;
 
-  public lastName: string;
+  public lastname: string;
 
   public username: string;
 
@@ -20,6 +20,6 @@ export class User {
 
   public phoneNumber: string;
 
-  public birthDate: string;
+  public dateOfBirth: string;
 
 }

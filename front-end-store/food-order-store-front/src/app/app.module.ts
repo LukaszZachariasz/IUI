@@ -11,11 +11,13 @@ import {MDBBootstrapModule} from 'angular-bootstrap-md';
 import {CarouselComponent} from './components/home-page/carousel/carousel.component';
 import {FooterComponent} from './components/footer/footer.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatCardModule, MatExpansionModule, MatFormFieldModule, MatTabsModule} from '@angular/material';
+import {MatCardModule, MatExpansionModule, MatFormFieldModule, MatGridListModule, MatTabsModule} from '@angular/material';
 import {MyAccoutComponent} from './components/my-accout/my-accout.component';
 import {LoginService} from './services/login.service';
 import {UserService} from './services/user.service';
 import {HttpClientModule} from '@angular/common/http';
+import { MyProfileComponent } from './components/my-profile/my-profile.component';
+import { LoadingComponent } from './components/shared-components/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import {HttpClientModule} from '@angular/common/http';
     CarouselComponent,
     FooterComponent,
     MyAccoutComponent,
+    MyProfileComponent,
+    LoadingComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,7 +42,8 @@ import {HttpClientModule} from '@angular/common/http';
     MatCardModule,
     FormsModule,
     MatExpansionModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatGridListModule
   ],
   providers: [
     LoginService,

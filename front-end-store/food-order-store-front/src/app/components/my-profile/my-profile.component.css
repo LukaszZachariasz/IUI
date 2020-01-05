@@ -4,7 +4,7 @@
   background-color: white !important;
 }
 
-.mat-expansion-panel-header-title, .mat-expansion-panel-header-description {
+.mat-expansion-panel-header-title, .mat-expansion-panel-header-description, label {
   color: black;
   justify-content: center;
 }
@@ -17,6 +17,3 @@ form {
   justify-content: center;
   font-size: 100%;
 }
-
-
-
