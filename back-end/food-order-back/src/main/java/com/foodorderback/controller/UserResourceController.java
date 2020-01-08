@@ -121,10 +121,6 @@ public class UserResourceController {
             throw new Exception("UserDontExists");
         }
 
-        if (userManagementService.findByEmail(email) == null) {
-            return new ResponseEntity("emailNotFound", HttpStatus.BAD_REQUEST);
-        }
-
         if (userManagementService.findById(Long.valueOf(id)) == null) {
             return new ResponseEntity("usernameNotFound", HttpStatus.BAD_REQUEST);
         }
