@@ -11,8 +11,6 @@ import {AppConst} from '../../constants/app-const';
 })
 export class MyAccoutComponent implements OnInit {
 
-  private infoTimeout = AppConst.infoTimeout;
-
   private loggedIn = false;
   private credentials = {'username': '', 'password': ''};
 
@@ -93,35 +91,35 @@ export class MyAccoutComponent implements OnInit {
     this.retrievePasswordError = true;
     setTimeout(() => {
       this.retrievePasswordError = false;
-    }, this.infoTimeout);
+    }, AppConst.infoTimeout);
   }
 
   setRetrievePasswordSuccess() {
     this.retrievePasswordSuccess = true;
     setTimeout(() => {
       this.retrievePasswordSuccess = false;
-    }, this.infoTimeout);
+    }, AppConst.infoTimeout);
   }
 
   setRegisterSuccess() {
     this.registerSuccess = true;
     setTimeout(() => {
       this.registerSuccess = false;
-    }, this.infoTimeout);
+    }, AppConst.infoTimeout);
   }
 
   setRegisterError() {
     this.registerError = true;
     setTimeout(() => {
       this.registerError = false;
-    }, this.infoTimeout);
+    }, AppConst.infoTimeout);
   }
 
   setLoginError() {
     this.loginError = true;
     setTimeout(() => {
       this.loginError = false;
-    }, this.infoTimeout);
+    }, AppConst.infoTimeout);
   }
 
 }

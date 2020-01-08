@@ -13,8 +13,6 @@ import {Router} from '@angular/router';
 })
 export class MyProfileComponent implements OnInit {
 
-  private infoTimeout = AppConst.infoTimeout;
-
   private dataFetched = false;
   private loggedIn = false;
 
@@ -55,10 +53,12 @@ export class MyProfileComponent implements OnInit {
   onUpdateUserInfo() {
     this.userService.updateUserInfo(this.user, this.newPassword, this.currentPassword)
       .subscribe(
-        () => {
+        res => {
+          if (res === 'updateSuccess')
           this.setUpdateSuccess();
         },
         error => {
+          console.log(error);
           if ('invalidPassword' === error['error']) {
             this.setCurrentPasswordError();
           } else {
@@ -69,22 +69,23 @@ export class MyProfileComponent implements OnInit {
 
   setUpdateSuccess() {
     this.updateSuccess = true;
+    console.log('updated');
     setTimeout(() => {
       this.updateSuccess = false;
-    }, this.infoTimeout);
+    }, AppConst.infoTimeout);
   }
 
   setUpdateError() {
     this.updateError = true;
     setTimeout(() => {
       this.updateError = false;
-    }, this.infoTimeout);
+    }, AppConst.infoTimeout);
   }
 
   private setCurrentPasswordError() {
     this.currentPasswordError = true;
     setTimeout(() => {
       this.currentPasswordError = false;
-    }, this.infoTimeout);
+    }, AppConst.infoTimeout);
   }
 }
