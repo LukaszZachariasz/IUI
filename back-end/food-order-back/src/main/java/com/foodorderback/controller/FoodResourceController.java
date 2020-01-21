@@ -2,7 +2,7 @@ package com.foodorderback.controller;
 
 
 import com.foodorderback.model.Food;
-import com.foodorderback.service.FoodService;
+import com.foodorderback.service.implementations.FoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

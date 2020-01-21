@@ -11,15 +11,28 @@ import {MDBBootstrapModule} from 'angular-bootstrap-md';
 import {CarouselComponent} from './components/home-page/carousel/carousel.component';
 import {FooterComponent} from './components/footer/footer.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatCardModule, MatExpansionModule, MatFormFieldModule, MatGridListModule, MatTabsModule} from '@angular/material';
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatCheckboxModule, MatDialogModule,
+  MatExpansionModule,
+  MatFormFieldModule,
+  MatGridListModule, MatRadioModule, MatSortModule,
+  MatTableModule,
+  MatTabsModule
+} from '@angular/material';
 import {MyAccoutComponent} from './components/my-accout/my-accout.component';
 import {LoginService} from './services/login.service';
 import {UserService} from './services/user.service';
 import {HttpClientModule} from '@angular/common/http';
-import { MyProfileComponent } from './components/my-profile/my-profile.component';
+import {DeleteDialogComponent, MyProfileComponent} from './components/my-profile/my-profile.component';
 import { LoadingComponent } from './components/shared-components/loading/loading.component';
+import {ShippingService} from './services/shipping.service';
 
 @NgModule({
+  entryComponents: [
+    DeleteDialogComponent
+  ],
   declarations: [
     AppComponent,
     HomePageComponent,
@@ -28,6 +41,7 @@ import { LoadingComponent } from './components/shared-components/loading/loading
     FooterComponent,
     MyAccoutComponent,
     MyProfileComponent,
+    DeleteDialogComponent,
     LoadingComponent,
   ],
   imports: [
@@ -43,11 +57,18 @@ import { LoadingComponent } from './components/shared-components/loading/loading
     FormsModule,
     MatExpansionModule,
     MatFormFieldModule,
-    MatGridListModule
+    MatGridListModule,
+    MatTableModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatSortModule,
+    MatRadioModule
   ],
   providers: [
     LoginService,
-    UserService
+    UserService,
+    ShippingService
   ],
   bootstrap: [AppComponent]
 })

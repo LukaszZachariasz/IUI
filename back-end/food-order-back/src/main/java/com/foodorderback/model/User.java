@@ -9,10 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class User implements UserDetails, Serializable {
@@ -25,16 +22,24 @@ public class User implements UserDetails, Serializable {
     private Long id;
 
     private String username;
+
     private String password;
+
     private String firstname;
+
     private String lastname;
 
     private Date dateOfBirth;
+
     private Double weight;
+
     private Double height;
 
     private String phoneNumber;
+
     private String email;
+
+    private String gender;
 
     private boolean enabled = true;
 
@@ -44,6 +49,26 @@ public class User implements UserDetails, Serializable {
 
     // ... private FoodOrderCart
 
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
+    private List<UserPayment> userPaymentList = new ArrayList<>();
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public List<UserPayment> getUserPaymentList() {
+        return userPaymentList;
+    }
+
+    public void setUserPaymentList(List<UserPayment> userPaymentList) {
+        this.userPaymentList = userPaymentList;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

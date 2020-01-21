@@ -1,7 +1,8 @@
-package com.foodorderback.service;
+package com.foodorderback.service.implementations;
 
 import com.foodorderback.model.Food;
 import com.foodorderback.repository.FoodRepository;
+import com.foodorderback.service.IFoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

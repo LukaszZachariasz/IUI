@@ -2,6 +2,7 @@ package com.foodorderback.service.implementations;
 
 
 import com.foodorderback.model.User;
+import com.foodorderback.model.UserPayment;
 import com.foodorderback.repository.RoleRepository;
 import com.foodorderback.repository.UserRepository;
 import com.foodorderback.security.UserRole;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Set;
 
 @Service
@@ -38,6 +40,9 @@ public class UserManagementService implements IUserManagementService {
             }
 
             user.getUserRoles().addAll(userRoles);
+
+            user.setUserPaymentList(new ArrayList<UserPayment>());
+
             localUser = userRepository.save(user);
         }
 

@@ -22,4 +22,6 @@ export class User {
 
   public dateOfBirth: string;
 
+  public gender: string;
+
 }
