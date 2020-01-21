@@ -49,10 +49,11 @@ public class User implements UserDetails, Serializable {
 
     // ... private FoodOrderCart
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<UserPayment> userPaymentList;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonIgnore
-    private List<UserPayment> userPaymentList = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<UserShipping> userShippingList;
 
     public String getGender() {
         return gender;
@@ -194,5 +195,13 @@ public class User implements UserDetails, Serializable {
 
     public void setUserRoles(Set<UserRole> userRoles) {
         this.userRoles = userRoles;
+    }
+
+    public List<UserShipping> getUserShippingList() {
+        return userShippingList;
+    }
+
+    public void setUserShippingList(List<UserShipping> userShippingList) {
+        this.userShippingList = userShippingList;
     }
 }

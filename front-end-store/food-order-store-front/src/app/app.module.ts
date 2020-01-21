@@ -14,10 +14,13 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {
   MatButtonModule,
   MatCardModule,
-  MatCheckboxModule, MatDialogModule,
+  MatCheckboxModule,
+  MatDialogModule,
   MatExpansionModule,
   MatFormFieldModule,
-  MatGridListModule, MatRadioModule, MatSortModule,
+  MatGridListModule,
+  MatRadioModule,
+  MatSortModule,
   MatTableModule,
   MatTabsModule
 } from '@angular/material';
@@ -26,8 +29,9 @@ import {LoginService} from './services/login.service';
 import {UserService} from './services/user.service';
 import {HttpClientModule} from '@angular/common/http';
 import {DeleteDialogComponent, MyProfileComponent} from './components/my-profile/my-profile.component';
-import { LoadingComponent } from './components/shared-components/loading/loading.component';
+import {LoadingComponent} from './components/shared-components/loading/loading.component';
 import {ShippingService} from './services/shipping.service';
+import {FoodListComponent} from './components/food-list/food-list.component';
 
 @NgModule({
   entryComponents: [
@@ -43,6 +47,7 @@ import {ShippingService} from './services/shipping.service';
     MyProfileComponent,
     DeleteDialogComponent,
     LoadingComponent,
+    FoodListComponent,
   ],
   imports: [
     BrowserModule,

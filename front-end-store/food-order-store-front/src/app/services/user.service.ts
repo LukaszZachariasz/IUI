@@ -75,7 +75,6 @@ export class UserService {
       'x-auth-token': xToken,
       'Authorization': basicHeader
     });
-
     return this.httpClient.get(url, {headers, responseType: 'text'});
   }
 }

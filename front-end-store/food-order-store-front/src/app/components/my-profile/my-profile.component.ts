@@ -11,7 +11,6 @@ import {MatDialog, MatDialogRef, MatTableDataSource} from '@angular/material';
 import {SelectionModel} from '@angular/cdk/collections';
 import {UserShipping} from '../../models/user-shipping';
 import {ShippingService} from '../../services/shipping.service';
-import {error} from 'util';
 
 
 @Component({
@@ -31,16 +30,8 @@ export class DeleteDialogComponent {
 
 export class MyProfileComponent implements OnInit {
 
-  private displayedColumns: string[] = ['id', 'cardName', 'defaultPayment', 'action'];
-
-  private userPaymentList: UserPayment[] = [
-    {id: 1, cardName: 'Master', defaultPayment: true, userBilling: null, type: null, cardNumber: null, cvc: null},
-    {id: 2, cardName: 'MyCard', defaultPayment: false, userBilling: null, type: null, cardNumber: null, cvc: null},
-    {id: 3, cardName: 'OtherCard', defaultPayment: false, userBilling: null, type: null, cardNumber: null, cvc: null},
-    {id: 4, cardName: 'Mobile', defaultPayment: false, userBilling: null, type: null, cardNumber: null, cvc: null},
-  ];
-
-  private userShippingList: UserShipping[];
+  private userPaymentList: UserPayment[] = [];
+  private userShippingList: UserShipping[] = [];
 
   private dataSource: MatTableDataSource<UserPayment> = new MatTableDataSource<UserPayment>(this.userPaymentList);
   private selection = new SelectionModel<UserPayment>(true, this.userPaymentList);
@@ -53,13 +44,10 @@ export class MyProfileComponent implements OnInit {
   private userPayment: UserPayment = new UserPayment();
   private userShipping: UserShipping = new UserShipping();
 
-  private defaultShippingSet: boolean;
-  private defaultPaymentIsSet: boolean;
-  private defaultUserShippingIsSet: boolean;
   private defaultUserPaymentId: number;
   private defaultUserShippingId: number;
-  private selectedBillingTab: number;
-  private selectedShippingTab: number;
+  private selectedBillingTab = 0;
+  private selectedShippingTab = 0;
 
   private updateSuccess = false;
   private updateError = false;
@@ -92,13 +80,39 @@ export class MyProfileComponent implements OnInit {
     this.userBilling.userBillingCountry = '';
     this.userBilling.userBillingName = '';
     this.userBilling.userBillingZipCode = '';
-    this.defaultPaymentIsSet = false;
+    this.userBilling.userBillingStreet = '';
+    this.userBilling.userBillingApartmentNr = '';
+    this.userBilling.userBillingHouseNr = '';
+    this.userPayment.type = '';
+    this.userPayment.userBilling = this.userBilling;
+    this.userShipping.userShippingCity = '';
+
   }
 
   getCurrentUserInfo() {
     this.userService.getCurrentUser().subscribe(
       res => {
         this.user = JSON.parse(res);
+
+        console.log(JSON.parse(res));
+        this.userShippingList = this.user.userShippingList;
+        this.userPaymentList = this.user.userPaymentList;
+        console.log(this.userPaymentList);
+
+        for (let index in this.userPaymentList) {
+          if (this.userPaymentList[index].defaultPayment) {
+            this.defaultUserPaymentId = this.userPaymentList[index].id;
+            break;
+          }
+        }
+
+        for (let index in this.userShippingList) {
+          if (this.userShippingList[index].userShippingDefault) {
+            this.defaultUserShippingId = this.userShippingList[index].id;
+            break;
+          }
+        }
+
         this.dataFetched = true;
       });
   }
@@ -113,7 +127,7 @@ export class MyProfileComponent implements OnInit {
         },
         error => {
           console.log(error);
-          if ('invalidPassword' === error['error']) {
+          if ('invalidPassword' === error.error) {
             this.setCurrentPasswordError();
           } else {
             this.setUpdateError();
@@ -126,13 +140,12 @@ export class MyProfileComponent implements OnInit {
       res => {
         this.getCurrentUserInfo();
         this.selectedBillingTab = 0;
+        this.setUpdateSuccess();
+        this.userPayment = new UserPayment();
       }, err => {
         console.log(err);
+        this.setUpdateError();
       });
-  }
-
-  selectedBillingChange(val: number) {
-    this.selectedBillingTab = val;
   }
 
   onUpdatePayment(payment: UserPayment) {
@@ -153,11 +166,9 @@ export class MyProfileComponent implements OnInit {
   }
 
   setDefaultPayment() {
-    this.defaultPaymentIsSet = false;
     this.paymentService.setDefaultPayment(this.defaultUserPaymentId).subscribe(
       res => {
         this.getCurrentUserInfo();
-        this.defaultPaymentIsSet = true;
         this.setUpdateSuccess();
       }, err => {
         console.log(err);
@@ -187,47 +198,6 @@ export class MyProfileComponent implements OnInit {
     }, AppConst.infoTimeout);
   }
 
-  isAnyoneThere() {
-    return this.userPaymentList.length > 0;
-  }
-
-
-  masterToggle() {
-    this.isAllSelected() ?
-      this.selection.clear() :
-      this.dataSource.data.forEach(row => this.selection.select(row));
-  }
-
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
-  }
-
-  checkboxLabel(row?: UserPayment): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
-  }
-
-  openDialog(userPayment: UserPayment) {
-    const dialogRef = this.dialog.open(DeleteDialogComponent);
-    dialogRef.afterClosed().subscribe(
-      res => {
-        console.log(res);
-        if (res === 'yes') {
-          this.paymentService.removePayment(userPayment.id).subscribe(
-            resp => {
-              console.log(resp);
-              this.paymentService.getUserPaymentList();
-            },
-            error => {
-              console.log(error);
-            });
-        }
-      });
-  }
 
   onNewShipping() {
     this.shippingService.newShipping(this.userShipping).subscribe(
@@ -235,9 +205,10 @@ export class MyProfileComponent implements OnInit {
         this.getCurrentUserInfo();
         this.selectedShippingTab = 0;
         this.setUpdateSuccess();
+        this.userShipping = new UserShipping();
       },
       err => {
-        console.log(err['error']);
+        console.log(err.error);
         this.setUpdateError();
       }
     );
@@ -249,21 +220,19 @@ export class MyProfileComponent implements OnInit {
         this.getCurrentUserInfo();
       },
       err => {
-        console.log(err['error']);
+        console.log(err.error);
       }
     );
   }
 
   setDefaultShipping() {
-    this.defaultUserShippingIsSet = false;
     this.shippingService.setDefaultShipping(this.defaultUserShippingId).subscribe(
       res => {
         this.getCurrentUserInfo();
-        this.defaultShippingSet = true;
         this.setUpdateSuccess();
       },
       err => {
-        console.log(err['error']);
+        console.log(err.error);
         this.setUpdateError();
       }
     );
@@ -274,7 +243,12 @@ export class MyProfileComponent implements OnInit {
     this.selectedShippingTab = 1;
   }
 
-  selectedShippingChange($event: number) {
-
+  selectedShippingChange(val: number) {
+    this.selectedShippingTab = val;
   }
+
+  selectedBillingChange(val: number) {
+    this.selectedBillingTab = val;
+  }
+
 }

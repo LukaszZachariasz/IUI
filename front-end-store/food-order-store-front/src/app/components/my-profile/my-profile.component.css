@@ -36,3 +36,9 @@ h3 {
   margin: 5%;
 }
 
+img {
+  max-width: 50%;
+  height: auto;
+  alignment: center;
+}
+

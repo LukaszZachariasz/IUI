@@ -1,6 +1,5 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {UserPayment} from '../models/user-payment';
 import {AppConst} from '../constants/app-const';
 import {UserShipping} from '../models/user-shipping';
 
@@ -16,6 +15,7 @@ export class ShippingService {
     const xToken = localStorage.getItem('xAuthToken');
     const basicHeader = 'Basic ' + localStorage.getItem('credentials');
     const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
       'x-auth-token': xToken,
       'Authorization': basicHeader
     });

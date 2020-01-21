@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {UserPayment} from '../models/user-payment';
 import {AppConst} from '../constants/app-const';
@@ -15,10 +15,12 @@ export class PaymentService {
     const xToken = localStorage.getItem('xAuthToken');
     const basicHeader = 'Basic ' + localStorage.getItem('credentials');
     const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
       'x-auth-token': xToken,
       'Authorization': basicHeader
     });
 
+    console.log(payment);
     return this.httpClient.post(url, JSON.stringify(payment), {headers, responseType: 'text'});
   }
 
@@ -31,7 +33,7 @@ export class PaymentService {
       'Authorization': basicHeader
     });
 
-    return this.httpClient.get(url, {headers, responseType: 'text'});
+    return this.httpClient.get(url, {headers});
   }
 
   removePayment(id: number) {

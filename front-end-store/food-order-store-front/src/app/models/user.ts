@@ -1,3 +1,6 @@
+import {UserPayment} from './user-payment';
+import {UserShipping} from './user-shipping';
+
 export class User {
 
   public id: number;
@@ -23,5 +26,9 @@ export class User {
   public dateOfBirth: string;
 
   public gender: string;
+
+  public userPaymentList: UserPayment[];
+
+  public userShippingList: UserShipping[];
 
 }

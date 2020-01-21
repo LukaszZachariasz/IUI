@@ -10,29 +10,33 @@ import java.io.Serializable;
 public class UserBilling implements Serializable {
 
 
-    private static final long serialVersionUID = 5434522L;
+    private static final long serialVersionUID = 990099522L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String name;
+    private String userBillingName;
 
-    private String city;
+    private String userBillingCity;
 
-    private String country;
+    private String userBillingCountry;
 
-    private String street;
+    private String userBillingStreet;
 
-    private String houseNr;
+    private String userBillingHouseNr;
 
-    private String apartmentNr;
+    private String userBillingApartmentNr;
 
-    private String zipCode;
+    private String userBillingZipCode;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JsonIgnore
     private UserPayment userPayment;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
     public Long getId() {
         return id;
@@ -42,60 +46,60 @@ public class UserBilling implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUserBillingName() {
+        return userBillingName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserBillingName(String userBillingName) {
+        this.userBillingName = userBillingName;
     }
 
-    public String getCity() {
-        return city;
+    public String getUserBillingCity() {
+        return userBillingCity;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setUserBillingCity(String userBillingCity) {
+        this.userBillingCity = userBillingCity;
     }
 
-    public String getCountry() {
-        return country;
+    public String getUserBillingCountry() {
+        return userBillingCountry;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setUserBillingCountry(String userBillingCountry) {
+        this.userBillingCountry = userBillingCountry;
     }
 
-    public String getStreet() {
-        return street;
+    public String getUserBillingStreet() {
+        return userBillingStreet;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
+    public void setUserBillingStreet(String userBillingStreet) {
+        this.userBillingStreet = userBillingStreet;
     }
 
-    public String getHouseNr() {
-        return houseNr;
+    public String getUserBillingHouseNr() {
+        return userBillingHouseNr;
     }
 
-    public void setHouseNr(String houseNr) {
-        this.houseNr = houseNr;
+    public void setUserBillingHouseNr(String userBillingHouseNr) {
+        this.userBillingHouseNr = userBillingHouseNr;
     }
 
-    public String getApartmentNr() {
-        return apartmentNr;
+    public String getUserBillingApartmentNr() {
+        return userBillingApartmentNr;
     }
 
-    public void setApartmentNr(String apartmentNr) {
-        this.apartmentNr = apartmentNr;
+    public void setUserBillingApartmentNr(String userBillingApartmentNr) {
+        this.userBillingApartmentNr = userBillingApartmentNr;
     }
 
-    public String getZipCode() {
-        return zipCode;
+    public String getUserBillingZipCode() {
+        return userBillingZipCode;
     }
 
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
+    public void setUserBillingZipCode(String userBillingZipCode) {
+        this.userBillingZipCode = userBillingZipCode;
     }
 
     public UserPayment getUserPayment() {
