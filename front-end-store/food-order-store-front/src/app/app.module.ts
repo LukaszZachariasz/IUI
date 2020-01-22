@@ -18,7 +18,7 @@ import {
   MatDialogModule,
   MatExpansionModule,
   MatFormFieldModule,
-  MatGridListModule,
+  MatGridListModule, MatInputModule, MatPaginatorModule,
   MatRadioModule,
   MatSortModule,
   MatTableModule,
@@ -68,7 +68,9 @@ import {FoodListComponent} from './components/food-list/food-list.component';
     MatDialogModule,
     MatButtonModule,
     MatSortModule,
-    MatRadioModule
+    MatRadioModule,
+    MatPaginatorModule,
+    MatInputModule
   ],
   providers: [
     LoginService,

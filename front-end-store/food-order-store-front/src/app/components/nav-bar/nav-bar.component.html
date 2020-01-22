@@ -25,6 +25,11 @@
       <li *ngIf="!loggedIn">
       <a class="nav-link waves-light" mdbWavesEffect [href]="'/myAccount'">My Account</a>
       </li>
+
+      <li *ngIf="loggedIn">
+        <a class="nav-link waves-light" mdbWavesEffect [href]="'/food'">View All Food</a>
+      </li>
+
       <li *ngIf="loggedIn">
       <a class="nav-link waves-light" mdbWavesEffect [href]="'/myShoppingCart'">My Shopping Cart</a>
       </li>
