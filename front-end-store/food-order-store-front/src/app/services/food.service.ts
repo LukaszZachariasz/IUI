@@ -62,4 +62,16 @@ export class FoodService {
 
     return this.httpClient.get(url, {headers, responseType: 'text'});
   }
+
+  getDailyFoodSetCaloricNeeded() {
+    const url = this.serverPath + '/food/getDailyFoodSetCaloricNeeded';
+    const xToken = localStorage.getItem('xAuthToken');
+    const basicHeader = 'Basic ' + localStorage.getItem('credentials');
+    const headers = new HttpHeaders({
+      'x-auth-token': xToken,
+      'Authorization': basicHeader
+    });
+
+    return this.httpClient.get(url, {headers, responseType: 'text'});
+  }
 }

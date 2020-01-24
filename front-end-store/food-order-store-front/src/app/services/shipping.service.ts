@@ -8,7 +8,8 @@ import {UserShipping} from '../models/user-shipping';
 })
 export class ShippingService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+  }
 
   newShipping(shipping: UserShipping) {
     const url = AppConst.serverPath + '/shipping/add';

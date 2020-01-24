@@ -35,7 +35,7 @@
           <ng-container matColumnDef="image">
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <img [src]="'http://localhost:8080/image/food/'+ row.id +'.png'" (click)="onSelect(row)" alt="Food Image"
+              <img [src]="imageServerPath + row.id + extension" (click)="onSelect(row)" alt="Food Image"
                    class="responsive-img"/>
             </mat-cell>
           </ng-container>

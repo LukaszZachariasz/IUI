@@ -3,7 +3,6 @@ package com.foodorderback.controller;
 
 import com.foodorderback.model.Food;
 import com.foodorderback.service.implementations.FoodService;
-import com.foodorderback.service.implementations.UserManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -77,9 +76,9 @@ public class FoodResourceController {
         return foodService.getFoodByDayTime();
     }
 
-    @GetMapping("/getFoodByDayTimeForUser")
-    public List<Food> getFoodByDayTimeForUser(Principal principal) {
-        return foodService.getFoodByDayTimeForUser(principal);
+    @GetMapping("/getDailyFoodSetCaloricNeeded")
+    public List<Food> getDailyFoodSetCaloricNeeded(Principal principal) {
+        return foodService.getFoodByDayTimeForUserCaloricNeed(principal);
     }
 
     @GetMapping("/getFoodByCategory")

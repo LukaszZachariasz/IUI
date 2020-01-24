@@ -8,7 +8,7 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {HomePageComponent} from './components/home-page/home-page.component';
 import {NavBarComponent} from './components/nav-bar/nav-bar.component';
 import {MDBBootstrapModule} from 'angular-bootstrap-md';
-import {CarouselComponent} from './components/home-page/carousel/carousel.component';
+import {CarouselDayTimeComponent} from './components/home-page/carousel-day-time/carousel-day-time.component';
 import {FooterComponent} from './components/footer/footer.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {
@@ -18,7 +18,9 @@ import {
   MatDialogModule,
   MatExpansionModule,
   MatFormFieldModule,
-  MatGridListModule, MatInputModule, MatPaginatorModule,
+  MatGridListModule,
+  MatInputModule,
+  MatPaginatorModule,
   MatRadioModule,
   MatSortModule,
   MatTableModule,
@@ -32,6 +34,7 @@ import {DeleteDialogComponent, MyProfileComponent} from './components/my-profile
 import {LoadingComponent} from './components/shared-components/loading/loading.component';
 import {ShippingService} from './services/shipping.service';
 import {FoodListComponent} from './components/food-list/food-list.component';
+import {CarouselCaloricNeedsComponent} from './components/home-page/carousel-caloric-needs/carousel-caloric-needs.component';
 
 @NgModule({
   entryComponents: [
@@ -41,13 +44,14 @@ import {FoodListComponent} from './components/food-list/food-list.component';
     AppComponent,
     HomePageComponent,
     NavBarComponent,
-    CarouselComponent,
+    CarouselDayTimeComponent,
     FooterComponent,
     MyAccoutComponent,
     MyProfileComponent,
     DeleteDialogComponent,
     LoadingComponent,
     FoodListComponent,
+    CarouselCaloricNeedsComponent
   ],
   imports: [
     BrowserModule,
@@ -79,4 +83,5 @@ import {FoodListComponent} from './components/food-list/food-list.component';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

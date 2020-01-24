@@ -1,0 +1,8 @@
+.carousel-inner {
+  height: 400px !important;
+}
+
+.card-img-top {
+  max-width: 200px !important;
+  max-height: 200px !important;
+}

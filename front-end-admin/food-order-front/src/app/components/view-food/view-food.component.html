@@ -8,7 +8,7 @@
     <mat-card-content>
       <mat-grid-list cols="2">
         <mat-grid-tile>
-          <img [src]="'http://localhost:8080/image/food/'+ foodItem.id +'.png'" alt="Food Image"
+          <img [src]="imageServerPath + foodItem.id + extension" alt="Food Image"
                class="responsive-img"/>
         </mat-grid-tile>
 

@@ -20,7 +20,7 @@ public interface IFoodService {
 
     List<Food> getFoodByDayTime();
 
-    List<Food> getFoodByDayTimeForUser(Principal principal);
+    List<Food> getFoodByDayTimeForUserCaloricNeed(Principal principal);
 
     List<Food> getFoodByCategory(Principal principal);
 }

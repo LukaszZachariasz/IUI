@@ -8,7 +8,8 @@ import {AppConst} from '../constants/app-const';
 })
 export class PaymentService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+  }
 
   newPayment(payment: UserPayment) {
     const url = AppConst.serverPath + '/payment/add';

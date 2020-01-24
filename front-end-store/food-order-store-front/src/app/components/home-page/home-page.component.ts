@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FoodService} from '../../services/food.service';
 import {Food} from '../../models/food';
-import {Observable, Subscription, interval} from 'rxjs';
+import {interval, Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-home-page',
@@ -11,7 +11,6 @@ import {Observable, Subscription, interval} from 'rxjs';
 export class HomePageComponent implements OnInit {
 
   private foodList: Food[] = [];
-  private food
   private interval: Subscription;
 
   constructor(private foodService: FoodService) {

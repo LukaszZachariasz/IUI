@@ -13,6 +13,7 @@
   font-size: 14px;
   width: 100%;
 }
+
 .mat-form-field-empty.mat-form-field-label {
   color: green !important;
 }
@@ -32,7 +33,7 @@
 }
 
 /* underline border color on focused */
-::ng-deep .mat-focused .mat-form-field-underline .mat-form-field-ripple{
+::ng-deep .mat-focused .mat-form-field-underline .mat-form-field-ripple {
   background-color: #000000 !important;
 }
 

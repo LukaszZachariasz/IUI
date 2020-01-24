@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FoodService} from '../../services/food.service';
 import {Food} from '../../models/food';
 import {AppConst} from '../../constants/app-const';
@@ -20,7 +20,8 @@ export class FoodListComponent implements OnInit {
 
   private selectedFood: Food;
   private foodList: Food[];
-  private serverPath = AppConst.serverPath;
+  private imageServerPath = AppConst.imageServerPath;
+  private extension = AppConst.extension;
   private dataSource: MatTableDataSource<Food>;
 
 
@@ -30,6 +31,8 @@ export class FoodListComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.foodList);
     this.dataSource.filter = filterValue;
     console.log('filtering');
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   constructor(private foodService: FoodService,
