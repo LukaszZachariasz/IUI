@@ -3,6 +3,7 @@ package com.foodorderback.controller;
 
 import com.foodorderback.model.Food;
 import com.foodorderback.service.implementations.FoodService;
+import com.foodorderback.service.implementations.UserManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.Principal;
 import java.util.Iterator;
 import java.util.List;
 
@@ -69,6 +71,22 @@ public class FoodResourceController {
     public List<Food> getFoodList() {
         return foodService.findAll();
     }
+
+    @GetMapping("/getFoodByDayTime")
+    public List<Food> getFoodByDayTime() {
+        return foodService.getFoodByDayTime();
+    }
+
+    @GetMapping("/getFoodByDayTimeForUser")
+    public List<Food> getFoodByDayTimeForUser(Principal principal) {
+        return foodService.getFoodByDayTimeForUser(principal);
+    }
+
+    @GetMapping("/getFoodByCategory")
+    public List<Food> getFoodByCategory(Principal principal) {
+        return foodService.getFoodByCategory(principal);
+    }
+
 
     @RequestMapping("/{id}")
     public Food getOne(@PathVariable("id") Long id) {

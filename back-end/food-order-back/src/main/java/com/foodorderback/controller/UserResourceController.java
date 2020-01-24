@@ -19,9 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.security.Principal;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.util.*;
 
 @RestController
 @RequestMapping("/user")
@@ -101,7 +104,7 @@ public class UserResourceController {
 
 
     @PostMapping("/updateUserInfo")
-    public ResponseEntity updateUserInfo(@RequestBody HashMap<String, Object> mapper) throws Exception {
+    public ResponseEntity<?> updateUserInfo(@RequestBody HashMap<String, Object> mapper) throws Exception {
 
         int id = (int) mapper.get("id");
         String firstname = (String) mapper.get("firstname");
@@ -114,6 +117,8 @@ public class UserResourceController {
         String phoneNumber = (String) mapper.get("phoneNumber");
         String dateOfBirth = (String) mapper.get("dateOfBirth");
         String email = (String) mapper.get("email");
+        String gender = (String) mapper.get("gender");
+
 
         User currentUser = userManagementService.findById(Long.valueOf(id));
 
@@ -147,6 +152,36 @@ public class UserResourceController {
         currentUser.setPhoneNumber(phoneNumber);
         currentUser.setFirstname(firstname);
         currentUser.setUsername(username);
+        currentUser.setGender(gender);
+        currentUser.setBMI(weight / ((height / 100) * (height / 100)));
+
+        System.out.println(dateOfBirth);
+
+        currentUser.setDateOfBirth(new SimpleDateFormat("yyyy-MM-dd").parse(dateOfBirth));
+
+        System.out.println(currentUser.getDateOfBirth());
+
+        if (currentUser.getBMI() < 18.5d)
+            currentUser.setHealthStatus("LW");
+
+        if (currentUser.getBMI() >= 18.5d && currentUser.getBMI() < 24.9d)
+            currentUser.setHealthStatus("GW");
+
+        if (currentUser.getBMI() >= 24.9d)
+            currentUser.setHealthStatus("HW");
+
+
+        int age = Period.between(
+                currentUser.getDateOfBirth().toInstant().atZone(ZoneOffset.UTC).toLocalDate(),
+                LocalDate.now()).getYears();
+
+        System.out.println(age);
+
+        double v = 9.9d * weight + 6.25d * height - 4.92d * age;
+        if (gender.equals("Male"))
+            currentUser.setDailyTotalKcal(v + 5d);
+        if (gender.equals("Female"))
+            currentUser.setDailyTotalKcal(v - 161d);
 
         userManagementService.save(currentUser);
 

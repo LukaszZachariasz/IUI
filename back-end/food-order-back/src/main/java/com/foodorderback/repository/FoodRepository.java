@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface FoodRepository extends CrudRepository<Food, Long> {
 
-
     List<Food> findAllByNameContaining(String keyword);
+
+    List<Food> findAllByCategory(String keyword);
 }

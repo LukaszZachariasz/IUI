@@ -50,4 +50,16 @@ export class FoodService {
 
     return this.httpClient.post(url, keyword, {headers, responseType: 'text'});
   }
+
+  getFoodByDayTime() {
+    const url = this.serverPath + '/food/getFoodByDayTime';
+    const xToken = localStorage.getItem('xAuthToken');
+    const basicHeader = 'Basic ' + localStorage.getItem('credentials');
+    const headers = new HttpHeaders({
+      'x-auth-token': xToken,
+      'Authorization': basicHeader
+    });
+
+    return this.httpClient.get(url, {headers, responseType: 'text'});
+  }
 }

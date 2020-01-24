@@ -137,8 +137,8 @@
                 <option value="" disabled="disabled">
                   -- Gender --
                 </option>
-                <option value="1">Male</option>
-                <option value="2">Female</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
               </select>
             </div>
 
@@ -182,6 +182,7 @@
               <input id="dateInput"
                      type="date"
                      name="birthDate"
+                     onkeydown="return false"
                      class="form-control mb-4"
                      placeholder="Choose your date"
                      [(ngModel)]="user.dateOfBirth"
@@ -191,7 +192,7 @@
 
           <button mat-raised-button type="submit" class="mat-primary" [disabled]=" !(user.dateOfBirth && user.firstname && user.lastname  &&
                         user.weight && user.height &&
-                        currentPassword && user.username && user.email && user.phoneNumber)"
+                        currentPassword && user.username && user.email && user.phoneNumber && user.gender)"
           >Update My Info
           </button>
 

@@ -27,6 +27,11 @@ export class User {
 
   public gender: string;
 
+  public healthStatus: string;
+
+  public bmi: number;
+
+
   public userPaymentList: UserPayment[];
 
   public userShippingList: UserShipping[];

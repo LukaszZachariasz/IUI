@@ -29,15 +29,22 @@ public class User implements UserDetails, Serializable {
 
     private String lastname;
 
+    @Column(columnDefinition = "DATE")
     private Date dateOfBirth;
 
     private Double weight;
 
     private Double height;
 
+    private Double BMI;
+
+    private String healthStatus;
+
     private String phoneNumber;
 
     private String email;
+
+    private Double dailyTotalKcal;
 
     private String gender;
 
@@ -204,4 +211,29 @@ public class User implements UserDetails, Serializable {
     public void setUserShippingList(List<UserShipping> userShippingList) {
         this.userShippingList = userShippingList;
     }
+
+    public Double getBMI() {
+        return BMI;
+    }
+
+    public void setBMI(Double BMI) {
+        this.BMI = BMI;
+    }
+
+    public String getHealthStatus() {
+        return healthStatus;
+    }
+
+    public void setHealthStatus(String healthStatus) {
+        this.healthStatus = healthStatus;
+    }
+
+    public Double getDailyTotalKcal() {
+        return dailyTotalKcal;
+    }
+
+    public void setDailyTotalKcal(Double dailyTotalKcal) {
+        this.dailyTotalKcal = dailyTotalKcal;
+    }
+
 }

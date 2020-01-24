@@ -11,42 +11,31 @@ import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
   templateUrl: './food-list.component.html',
   styleUrls: ['./food-list.component.css']
 })
-export class FoodListComponent implements OnInit, AfterViewInit {
+export class FoodListComponent implements OnInit {
 
-  private displayedColumns = ['id', 'name', 'progress', 'color'];
+  private displayedColumns = ['name', 'price', 'kcal', 'weight', 'image'];
 
-  // @ts-ignore
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  // @ts-ignore
-  @ViewChild(MatSort) sort: MatSort;
-
-  public filterQuery = '';
-  public rowsOnPage = 5;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   private selectedFood: Food;
   private foodList: Food[];
   private serverPath = AppConst.serverPath;
-
   private dataSource: MatTableDataSource<Food>;
 
 
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+    this.dataSource = new MatTableDataSource(this.foodList);
     this.dataSource.filter = filterValue;
-  }
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    console.log('filtering');
   }
 
   constructor(private foodService: FoodService,
               private router: Router,
               private httpClient: HttpClient,
               private route: ActivatedRoute) {
-
-    this.dataSource = new MatTableDataSource(this.foodList);
   }
 
   onSelect(food: Food) {
@@ -66,6 +55,8 @@ export class FoodListComponent implements OnInit, AfterViewInit {
               console.log(res);
               this.foodList = JSON.parse(res);
               this.dataSource = new MatTableDataSource(this.foodList);
+              this.dataSource.paginator = this.paginator;
+              this.dataSource.sort = this.sort;
             },
             error => {
               console.log(error);

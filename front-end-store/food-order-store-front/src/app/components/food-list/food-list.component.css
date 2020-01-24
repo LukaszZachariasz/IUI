@@ -23,19 +23,24 @@
 
 /* input color class */
 ::ng-deep input.mat-input-element {
-  color: #ffffff;
+  color: #000000;
 }
 
 /* Change label color on focused */
 ::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
-  color: #ffffff !important;
+  color: #000000 !important;
 }
 
 /* underline border color on focused */
 ::ng-deep .mat-focused .mat-form-field-underline .mat-form-field-ripple{
-  background-color: #ffffff !important;
+  background-color: #000000 !important;
 }
 
 input {
   box-sizing: border-box !important;
+}
+
+img {
+  max-width: 200px;
+  max-height: 200px;
 }

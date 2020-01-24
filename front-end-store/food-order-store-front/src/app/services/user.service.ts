@@ -52,7 +52,10 @@ export class UserService {
       weight: user.weight,
       phoneNumber: user.phoneNumber,
       username: user.username,
-      birthDate: user.dateOfBirth
+      dateOfBirth: user.dateOfBirth,
+      gender: user.gender,
+      healthStatus: user.healthStatus,
+      bmi: user.bmi
     };
 
     const url = this.serverPath + '/user/updateUserInfo';
@@ -63,6 +66,8 @@ export class UserService {
       'x-auth-token': xToken,
       'Authorization': basicHeader
     });
+
+    console.log(userInfo);
 
     return this.httpClient.post(url, userInfo, {headers, responseType: 'text'});
   }
