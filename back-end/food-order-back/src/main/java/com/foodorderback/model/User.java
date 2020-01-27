@@ -54,7 +54,8 @@ public class User implements UserDetails, Serializable {
     @JsonIgnore
     private Set<UserRole> userRoles = new HashSet<>();
 
-    // ... private FoodOrderCart
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    private ShoppingCart shoppingCart;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<UserPayment> userPaymentList;
@@ -236,4 +237,11 @@ public class User implements UserDetails, Serializable {
         this.dailyTotalKcal = dailyTotalKcal;
     }
 
+    public ShoppingCart getShoppingCart() {
+        return shoppingCart;
+    }
+
+    public void setShoppingCart(ShoppingCart shoppingCart) {
+        this.shoppingCart = shoppingCart;
+    }
 }

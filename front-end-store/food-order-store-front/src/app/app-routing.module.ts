@@ -4,6 +4,8 @@ import {HomePageComponent} from './components/home-page/home-page.component';
 import {MyAccoutComponent} from './components/my-accout/my-accout.component';
 import {MyProfileComponent} from './components/my-profile/my-profile.component';
 import {FoodListComponent} from './components/food-list/food-list.component';
+import {FoodDetailComponent} from './components/food-detail/food-detail.component';
+import {ShoppingCartComponent} from './components/shopping-cart/shopping-cart.component';
 
 const routes: Routes = [
   {
@@ -26,6 +28,14 @@ const routes: Routes = [
   {
     path: 'food',
     component: FoodListComponent
+  },
+  {
+    path: 'foodDetail/:id',
+    component: FoodDetailComponent
+  },
+  {
+    path: 'myShoppingCart',
+    component: ShoppingCartComponent
   }
 ];
 

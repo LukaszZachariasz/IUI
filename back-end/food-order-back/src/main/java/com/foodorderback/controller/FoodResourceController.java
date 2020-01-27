@@ -71,10 +71,7 @@ public class FoodResourceController {
         return foodService.findAll();
     }
 
-    @GetMapping("/getFoodByDayTime")
-    public List<Food> getFoodByDayTime() {
-        return foodService.getFoodByDayTime();
-    }
+
 
     @GetMapping("/getDailyFoodSetCaloricNeeded")
     public List<Food> getDailyFoodSetCaloricNeeded(Principal principal) {

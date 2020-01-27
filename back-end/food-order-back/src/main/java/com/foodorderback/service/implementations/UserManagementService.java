@@ -1,12 +1,10 @@
 package com.foodorderback.service.implementations;
 
 
-import com.foodorderback.model.User;
-import com.foodorderback.model.UserBilling;
-import com.foodorderback.model.UserPayment;
-import com.foodorderback.model.UserShipping;
+import com.foodorderback.model.*;
 import com.foodorderback.repository.*;
 import com.foodorderback.security.UserRole;
+import com.foodorderback.service.IShoppingCartService;
 import com.foodorderback.service.IUserManagementService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +37,9 @@ public class UserManagementService implements IUserManagementService {
     @Autowired
     private UserShippingRepository userShippingRepository;
 
+    @Autowired
+    private ShoppingCartRepository shoppingCartRepository;
+
     @Override
     @Transactional
     public User createUser(User user, Set<UserRole> userRoles) {
@@ -52,7 +53,15 @@ public class UserManagementService implements IUserManagementService {
             }
 
             user.getUserRoles().addAll(userRoles);
-            user.setUserPaymentList(new ArrayList<>());
+            user.setUserPaymentList(new ArrayList<UserPayment>());
+
+            ShoppingCart shoppingCart = new ShoppingCart();
+            shoppingCart.setUser(user);
+
+            shoppingCart = shoppingCartRepository.save(shoppingCart);
+
+            user.setShoppingCart(shoppingCart);
+            user.setUserShippingList(new ArrayList<UserShipping>());
             localUser = userRepository.save(user);
         }
 

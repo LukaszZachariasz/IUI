@@ -23,6 +23,7 @@ export class FoodListComponent implements OnInit {
   private imageServerPath = AppConst.imageServerPath;
   private extension = AppConst.extension;
   private dataSource: MatTableDataSource<Food>;
+  private fetchedFood = false;
 
 
   applyFilter(filterValue: string) {
@@ -43,10 +44,12 @@ export class FoodListComponent implements OnInit {
 
   onSelect(food: Food) {
     this.selectedFood = food;
+    console.log('selected id: ' + this.selectedFood.id);
     this.router.navigate(['/foodDetail', this.selectedFood.id]);
   }
 
   ngOnInit() {
+    this.fetchedFood = false;
     this.route.queryParams.subscribe(
       params => {
         if (params['foodList']) {
@@ -60,6 +63,9 @@ export class FoodListComponent implements OnInit {
               this.dataSource = new MatTableDataSource(this.foodList);
               this.dataSource.paginator = this.paginator;
               this.dataSource.sort = this.sort;
+              if (this.foodList.length > 0) {
+                this.fetchedFood = true;
+              }
             },
             error => {
               console.log(error);

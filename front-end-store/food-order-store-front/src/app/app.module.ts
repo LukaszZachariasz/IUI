@@ -21,7 +21,7 @@ import {
   MatGridListModule,
   MatInputModule,
   MatPaginatorModule,
-  MatRadioModule,
+  MatRadioModule, MatSelectModule,
   MatSortModule,
   MatTableModule,
   MatTabsModule
@@ -35,6 +35,8 @@ import {LoadingComponent} from './components/shared-components/loading/loading.c
 import {ShippingService} from './services/shipping.service';
 import {FoodListComponent} from './components/food-list/food-list.component';
 import {CarouselCaloricNeedsComponent} from './components/home-page/carousel-caloric-needs/carousel-caloric-needs.component';
+import { FoodDetailComponent } from './components/food-detail/food-detail.component';
+import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 
 @NgModule({
   entryComponents: [
@@ -51,7 +53,9 @@ import {CarouselCaloricNeedsComponent} from './components/home-page/carousel-cal
     DeleteDialogComponent,
     LoadingComponent,
     FoodListComponent,
-    CarouselCaloricNeedsComponent
+    CarouselCaloricNeedsComponent,
+    FoodDetailComponent,
+    ShoppingCartComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +78,8 @@ import {CarouselCaloricNeedsComponent} from './components/home-page/carousel-cal
     MatSortModule,
     MatRadioModule,
     MatPaginatorModule,
-    MatInputModule
+    MatInputModule,
+    MatSelectModule
   ],
   providers: [
     LoginService,

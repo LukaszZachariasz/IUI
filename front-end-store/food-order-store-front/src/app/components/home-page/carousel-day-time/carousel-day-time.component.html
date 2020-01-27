@@ -1,3 +1,4 @@
+<div *ngIf="isAnyFoodAvailable">
 <h3 class="h3-responsive text-center">Best dishes according to the time of day</h3>
 <hr>
 <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'" [interval]="carouselIntervalChange">
@@ -18,3 +19,12 @@
   </div>
 </mdb-carousel>
 <br><br>
+</div>
+
+<div *ngIf="!isAnyFoodAvailable">
+  <h3 class="h3-responsive text-center">We are searching for best food at this time of Day</h3>
+  <hr>
+  <app-loading></app-loading>
+  <hr>
+  <br><br>
+</div>

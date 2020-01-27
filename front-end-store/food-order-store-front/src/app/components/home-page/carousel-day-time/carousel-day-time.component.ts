@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {interval, Subscription} from 'rxjs';
 import {FoodService} from '../../../services/food.service';
 import {Food} from '../../../models/food';
@@ -17,6 +17,7 @@ export class CarouselDayTimeComponent implements OnInit {
   private extension = AppConst.extension;
   private timeInterval = AppConst.fetchFoodByDayTimeInterval;
   private carouselIntervalChange = AppConst.carouselIntervalChange;
+  @Input() isAnyFoodAvailable = false;
 
 
   private foodList: Food[] = [];
@@ -38,6 +39,7 @@ export class CarouselDayTimeComponent implements OnInit {
       res => {
         console.log(res);
         this.foodList = JSON.parse(res);
+        this.isAnyFoodAvailable = this.foodList.length > 0;
       },
       error => {
         console.log(error);

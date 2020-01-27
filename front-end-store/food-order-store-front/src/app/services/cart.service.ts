@@ -6,17 +6,29 @@ import {AppConst} from '../constants/app-const';
 @Injectable({
   providedIn: 'root'
 })
-export class FoodService {
-
+export class CartService {
   private serverPath = AppConst.serverPath;
 
   constructor(private httpClient: HttpClient,
               private router: Router) {
   }
 
+  additem(id: number, qty: number) {
+    const url = this.serverPath + '/cart/add';
+    const cartItemInfo = {id, qty};
 
-  getFoodList() {
-    const url = this.serverPath + '/food/foodList';
+    const xToken = localStorage.getItem('xAuthToken');
+    const basicHeader = 'Basic ' + localStorage.getItem('credentials');
+    const headers = new HttpHeaders({
+      'x-auth-token': xToken,
+      'Authorization': basicHeader
+    });
+
+    return this.httpClient.post(url, cartItemInfo, {headers, responseType: 'text'});
+  }
+
+  getCartItemList() {
+    const url = this.serverPath + '/cart/getCartItemList';
     const xToken = localStorage.getItem('xAuthToken');
     const basicHeader = 'Basic ' + localStorage.getItem('credentials');
     const headers = new HttpHeaders({
@@ -27,8 +39,8 @@ export class FoodService {
     return this.httpClient.get(url, {headers, responseType: 'text'});
   }
 
-  getFood(id: number) {
-    const url = this.serverPath + '/food/' + id;
+  getShoppingCart() {
+    const url = this.serverPath + '/cart/getShoppingCart';
     const xToken = localStorage.getItem('xAuthToken');
     const basicHeader = 'Basic ' + localStorage.getItem('credentials');
     const headers = new HttpHeaders({
@@ -39,8 +51,11 @@ export class FoodService {
     return this.httpClient.get(url, {headers, responseType: 'text'});
   }
 
-  searchFood(keyword: string) {
-    const url = this.serverPath + '/food/searchFood';
+  updateCartItem(cartItemId: number, qty: number) {
+    const url = this.serverPath + '/cart/updateCartItem';
+
+    const cartItemInfo = {cartItemId, qty};
+
     const xToken = localStorage.getItem('xAuthToken');
     const basicHeader = 'Basic ' + localStorage.getItem('credentials');
     const headers = new HttpHeaders({
@@ -48,11 +63,12 @@ export class FoodService {
       'Authorization': basicHeader
     });
 
-    return this.httpClient.post(url, keyword, {headers, responseType: 'text'});
+    return this.httpClient.post(url, cartItemInfo, {headers, responseType: 'text'});
   }
 
-  getFoodByDayTime() {
-    const url = this.serverPath + '/public/getFoodByDayTime';
+  removeCartItem(cartItemId: number) {
+    const url = this.serverPath + '/cart/removeItem';
+
     const xToken = localStorage.getItem('xAuthToken');
     const basicHeader = 'Basic ' + localStorage.getItem('credentials');
     const headers = new HttpHeaders({
@@ -60,18 +76,7 @@ export class FoodService {
       'Authorization': basicHeader
     });
 
-    return this.httpClient.get(url, {headers, responseType: 'text'});
+    return this.httpClient.post(url, cartItemId, {headers, responseType: 'text'});
   }
 
-  getDailyFoodSetCaloricNeeded() {
-    const url = this.serverPath + '/food/getDailyFoodSetCaloricNeeded';
-    const xToken = localStorage.getItem('xAuthToken');
-    const basicHeader = 'Basic ' + localStorage.getItem('credentials');
-    const headers = new HttpHeaders({
-      'x-auth-token': xToken,
-      'Authorization': basicHeader
-    });
-
-    return this.httpClient.get(url, {headers, responseType: 'text'});
-  }
 }
