@@ -34,7 +34,7 @@ export class PaymentService {
       'Authorization': basicHeader
     });
 
-    return this.httpClient.get(url, {headers});
+    return this.httpClient.get(url, {headers, responseType: 'text'});
   }
 
   removePayment(id: number) {

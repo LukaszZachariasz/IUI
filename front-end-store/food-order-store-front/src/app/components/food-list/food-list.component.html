@@ -1,7 +1,4 @@
-
-<div *ngIf="fetchedFood">
-
-<main>
+<main [hidden]="!fetchedFood">
   <div class="container">
     <hr class="my-5">
     <section>
@@ -54,9 +51,6 @@
   </div>
 </main>
 
-</div>
-<div *ngIf="!fetchedFood">
+<div [hidden]="fetchedFood">
   <app-loading></app-loading>
 </div>
-
-

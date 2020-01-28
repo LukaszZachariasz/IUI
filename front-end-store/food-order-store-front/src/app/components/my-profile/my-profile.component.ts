@@ -77,7 +77,6 @@ export class MyProfileComponent implements OnInit {
     this.getCurrentUserInfo();
 
     this.userBilling.userBillingCity = '';
-    this.userBilling.userBillingCountry = '';
     this.userBilling.userBillingName = '';
     this.userBilling.userBillingZipCode = '';
     this.userBilling.userBillingStreet = '';
@@ -93,21 +92,23 @@ export class MyProfileComponent implements OnInit {
     this.userService.getCurrentUser().subscribe(
       res => {
         this.user = JSON.parse(res);
-        this.user.dateOfBirth = this.user.dateOfBirth.split('T')[0];
+        if (this.user.dateOfBirth != null) {
+          this.user.dateOfBirth = this.user.dateOfBirth.split('T')[0];
+        }
 
         console.log(this.user);
         this.userShippingList = this.user.userShippingList;
         this.userPaymentList = this.user.userPaymentList;
         console.log(this.userPaymentList);
 
-        for (let index in this.userPaymentList) {
+        for (const index in this.userPaymentList) {
           if (this.userPaymentList[index].defaultPayment) {
             this.defaultUserPaymentId = this.userPaymentList[index].id;
             break;
           }
         }
 
-        for (let index in this.userShippingList) {
+        for (const index in this.userShippingList) {
           if (this.userShippingList[index].userShippingDefault) {
             this.defaultUserShippingId = this.userShippingList[index].id;
             break;

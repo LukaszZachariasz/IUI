@@ -22,7 +22,7 @@ import {
   MatInputModule,
   MatPaginatorModule,
   MatRadioModule, MatSelectModule,
-  MatSortModule,
+  MatSortModule, MatStepperModule,
   MatTableModule,
   MatTabsModule
 } from '@angular/material';
@@ -37,6 +37,7 @@ import {FoodListComponent} from './components/food-list/food-list.component';
 import {CarouselCaloricNeedsComponent} from './components/home-page/carousel-caloric-needs/carousel-caloric-needs.component';
 import { FoodDetailComponent } from './components/food-detail/food-detail.component';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
+import { OrderComponent } from './components/order/order.component';
 
 @NgModule({
   entryComponents: [
@@ -55,7 +56,8 @@ import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.
     FoodListComponent,
     CarouselCaloricNeedsComponent,
     FoodDetailComponent,
-    ShoppingCartComponent
+    ShoppingCartComponent,
+    OrderComponent
   ],
   imports: [
     BrowserModule,
@@ -79,7 +81,8 @@ import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.
     MatRadioModule,
     MatPaginatorModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    MatStepperModule
   ],
   providers: [
     LoginService,
