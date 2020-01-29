@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {AppConst} from '../constants/app-const';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +11,8 @@ export class GetFoodService {
   }
 
   getFood(id: number) {
-    const url = 'http://localhost:8080/food/' + id;
-
+    const url = AppConst.serverPath + '/food/' + id;
     const xToken = localStorage.getItem('xAuthToken');
-
     const basicHeader = 'Basic ' + localStorage.getItem('credentials');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',

@@ -9,12 +9,14 @@ public class Food implements Serializable {
     private static final long serialVersionUID = 1233214L;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String name;
 
     private Long kcal;
+
+    private Long percentOfFat;
 
     private Long weight;
 
@@ -91,6 +93,15 @@ public class Food implements Serializable {
         this.description = description;
     }
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
+    public Long getPercentOfFat() {
+        return percentOfFat;
+    }
 
+    public void setPercentOfFat(Long percentOfFat) {
+        this.percentOfFat = percentOfFat;
+    }
 }

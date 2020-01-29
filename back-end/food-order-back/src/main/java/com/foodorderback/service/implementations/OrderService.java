@@ -16,28 +16,11 @@ import java.util.List;
 @Service
 public class OrderService implements IOrderService {
 
-
-
     @Autowired
     private OrderRepository orderRepository;
 
     @Autowired
-    private BillingAddressRepository billingAddressRepository;
-
-    @Autowired
-    private ShippingAddressRepository shippingAddressRepository;
-
-    @Autowired
-    private PaymentOrderRepository paymentOrderRepository;
-
-    @Autowired
     private CartItemService cartItemService;
-
-    @Autowired
-    private FoodService foodService;
-
-    @Autowired
-    private MailUtility mailUtility;
 
 
     @Override

@@ -54,7 +54,6 @@ public class FoodResourceController {
                             new FileOutputStream(
                                     new File(p.toString())));
 
-
             stream.write(multipartFile.getBytes());
             stream.close();
 
@@ -71,18 +70,16 @@ public class FoodResourceController {
         return foodService.findAll();
     }
 
-
-
     @GetMapping("/getDailyFoodSetCaloricNeeded")
     public List<Food> getDailyFoodSetCaloricNeeded(Principal principal) {
         return foodService.getFoodByDayTimeForUserCaloricNeed(principal);
     }
 
-    @GetMapping("/getFoodByCategory")
-    public List<Food> getFoodByCategory(Principal principal) {
-        return foodService.getFoodByCategory(principal);
-    }
 
+    @GetMapping("/getBestDishByFatContains")
+    public List<Food> getBestDishByFatContains(Principal principal) {
+        return foodService.getBestDishByFatContains(principal);
+    }
 
     @RequestMapping("/{id}")
     public Food getOne(@PathVariable("id") Long id) {

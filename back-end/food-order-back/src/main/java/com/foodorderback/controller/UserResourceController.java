@@ -9,12 +9,12 @@ import com.foodorderback.utility.MailUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.thymeleaf.TemplateEngine;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
@@ -22,9 +22,10 @@ import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
-import java.time.ZoneId;
 import java.time.ZoneOffset;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/user")
@@ -35,6 +36,9 @@ public class UserResourceController {
 
     @Autowired
     MailUtility mailUtility;
+
+    @Autowired
+    TemplateEngine templateEngine;
 
     @PostMapping("/newUser")
     @Transactional
@@ -56,9 +60,7 @@ public class UserResourceController {
             user.setEmail(userEmail);
             String password = SecurityUtility.randomPassword();
 
-            SimpleMailMessage simpleMailMessage = mailUtility.generateUserEmail(user, password);
-            mailUtility.getJavaMailSender().send(simpleMailMessage);
-
+            mailUtility.getJavaMailSender().send(mailUtility.generateNewAccountMail(username, password, userEmail));
             String encryptedPassword = SecurityUtility.passwordEncoder().encode(password);
             user.setPassword(encryptedPassword);
 
@@ -68,6 +70,7 @@ public class UserResourceController {
             Set<UserRole> userRoleSet = new HashSet<>();
             userRoleSet.add(new UserRole(role, user));
             userManagementService.createUser(user, userRoleSet);
+
 
         } catch (Exception e) {
             return new ResponseEntity("failed", HttpStatus.BAD_REQUEST);
@@ -90,10 +93,10 @@ public class UserResourceController {
         try {
 
             String password = SecurityUtility.randomPassword();
-            SimpleMailMessage simpleMailMessage = mailUtility.generateUserEmail(user, password);
-            mailUtility.getJavaMailSender().send(simpleMailMessage);
             String encryptedPassword = SecurityUtility.passwordEncoder().encode(password);
             user.setPassword(encryptedPassword);
+
+            mailUtility.getJavaMailSender().send(mailUtility.generateForgottenMail(user, password));
 
         } catch (Exception e) {
             return new ResponseEntity("failed", HttpStatus.BAD_REQUEST);
@@ -107,20 +110,19 @@ public class UserResourceController {
     public ResponseEntity<?> updateUserInfo(@RequestBody HashMap<String, Object> mapper) throws Exception {
 
         int id = (int) mapper.get("id");
+        double weight = Double.parseDouble(mapper.get("weight").toString());
+        double height = Double.parseDouble(mapper.get("height").toString());
         String firstname = (String) mapper.get("firstname");
         String lastname = (String) mapper.get("lastname");
         String username = (String) mapper.get("username");
         String currentPassword = (String) mapper.get("currentPassword");
         String newPassword = (String) mapper.get("newPassword");
-        Double weight = Double.parseDouble(mapper.get("weight").toString());
-        Double height = Double.parseDouble(mapper.get("height").toString());
         String phoneNumber = (String) mapper.get("phoneNumber");
         String dateOfBirth = (String) mapper.get("dateOfBirth");
         String email = (String) mapper.get("email");
         String gender = (String) mapper.get("gender");
 
-
-        User currentUser = userManagementService.findById(Long.valueOf(id));
+        User currentUser = userManagementService.findById((long) id);
 
         if (currentUser == null) {
             throw new Exception("UserDontExists");
@@ -143,7 +145,6 @@ public class UserResourceController {
             }
         }
 
-        // TODO: Date update of birth
         currentUser.setFirstname(firstname);
         currentUser.setLastname(lastname);
         currentUser.setEmail(email);
@@ -155,11 +156,7 @@ public class UserResourceController {
         currentUser.setGender(gender);
         currentUser.setBMI(weight / ((height / 100) * (height / 100)));
 
-        System.out.println(dateOfBirth);
-
         currentUser.setDateOfBirth(new SimpleDateFormat("yyyy-MM-dd").parse(dateOfBirth));
-
-        System.out.println(currentUser.getDateOfBirth());
 
         if (currentUser.getBMI() < 18.5d)
             currentUser.setHealthStatus("LW");
@@ -170,12 +167,9 @@ public class UserResourceController {
         if (currentUser.getBMI() >= 24.9d)
             currentUser.setHealthStatus("HW");
 
-
         int age = Period.between(
                 currentUser.getDateOfBirth().toInstant().atZone(ZoneOffset.UTC).toLocalDate(),
                 LocalDate.now()).getYears();
-
-        System.out.println(age);
 
         double v = 9.9d * weight + 6.25d * height - 4.92d * age;
         if (gender.equals("Male"))

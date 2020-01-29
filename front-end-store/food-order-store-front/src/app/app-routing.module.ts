@@ -7,6 +7,7 @@ import {FoodListComponent} from './components/food-list/food-list.component';
 import {FoodDetailComponent} from './components/food-detail/food-detail.component';
 import {ShoppingCartComponent} from './components/shopping-cart/shopping-cart.component';
 import {OrderComponent} from './components/order/order.component';
+import {OrderSummaryComponent} from './components/order-summary/order-summary.component';
 
 const routes: Routes = [
   {
@@ -41,6 +42,10 @@ const routes: Routes = [
   {
     path: 'checkout',
     component: OrderComponent
+  },
+  {
+    path: 'orderSummary',
+    component: OrderSummaryComponent
   }
 ];
 

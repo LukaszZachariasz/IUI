@@ -1,16 +1,15 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Router} from '@angular/router';
 import {AppConst} from '../constants/app-const';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
+
   private serverPath = AppConst.serverPath;
 
-  constructor(private httpClient: HttpClient,
-              private router: Router) {
+  constructor(private httpClient: HttpClient) {
   }
 
   additem(id: number, qty: number) {

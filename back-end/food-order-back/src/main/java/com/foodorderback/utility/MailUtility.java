@@ -5,7 +5,6 @@ import com.foodorderback.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -15,8 +14,6 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.Properties;
 
@@ -29,20 +26,7 @@ public class MailUtility {
     @Autowired
     private TemplateEngine templateEngine;
 
-    public SimpleMailMessage generateUserEmail(User user, String password) {
-
-        String message = "Please use this credentials to login to your Account (Username: " + user.getUsername() + " Password: " + password + ")";
-
-        SimpleMailMessage email = new SimpleMailMessage();
-        email.setTo(user.getEmail());
-        email.setSubject("It's Your new user account to Food Order Service");
-        email.setText(message);
-        email.setFrom(Objects.requireNonNull(ctx.getEnvironment().getProperty("support.email")));
-
-        return email;
-    }
-
-    public MimeMessagePreparator generateOrderConfirmationEmail(User user, Order order, Locale locale) {
+    public MimeMessagePreparator generateOrderConfirmationEmail(User user, Order order) {
 
         Context context = new Context();
         context.setVariable("order", order);
@@ -51,27 +35,55 @@ public class MailUtility {
 
         String text = templateEngine.process("orderConfirm", context);
 
-
-        MimeMessagePreparator messagePreparator = new MimeMessagePreparator() {
-            @Override
-            public void prepare(MimeMessage mimeMessage) throws Exception {
-                MimeMessageHelper email = new MimeMessageHelper(mimeMessage);
-                email.setTo(user.getEmail());
-                email.setSubject("Order Confirmation - " + order.getId());
-                email.setText(text, true);
-                email.setFrom(new InternetAddress(""));
-            }
+        return mimeMessage -> {
+            MimeMessageHelper email = new MimeMessageHelper(mimeMessage);
+            email.setTo(user.getEmail());
+            email.setSubject("Order Confirmation - " + order.getId());
+            email.setText(text, true);
+            email.setFrom(new InternetAddress(Objects.requireNonNull(ctx.getEnvironment().getProperty("spring.mail.username"))));
         };
-
-        return messagePreparator;
     }
+
+    public MimeMessagePreparator generateForgottenMail(User user, String password) {
+        Context context = new Context();
+        String username = user.getUsername();
+        context.setVariable("username", username);
+        context.setVariable("password", password);
+
+        String text = templateEngine.process("emailPasswordForgotten", context);
+
+        return mimeMessage -> {
+            MimeMessageHelper email = new MimeMessageHelper(mimeMessage);
+            email.setTo(user.getEmail());
+            email.setSubject("Credentials - Forgotten Password");
+            email.setText(text, true);
+            email.setFrom(Objects.requireNonNull(ctx.getEnvironment().getProperty("spring.mail.username")));
+        };
+    }
+
+    public MimeMessagePreparator generateNewAccountMail(String username, String password, String userEmail) {
+        Context context = new Context();
+        context.setVariable("username", username);
+        context.setVariable("userEmail", userEmail);
+        context.setVariable("password", password);
+
+        String text = templateEngine.process("emailRegister", context);
+
+        return mimeMessage -> {
+            MimeMessageHelper email = new MimeMessageHelper(mimeMessage);
+            email.setTo(userEmail);
+            email.setSubject("Credentials - New Accout");
+            email.setText(text, true);
+            email.setFrom(Objects.requireNonNull(ctx.getEnvironment().getProperty("spring.mail.username")));
+        };
+    }
+
 
     @Bean
     public JavaMailSender getJavaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost(ctx.getEnvironment().getProperty("spring.mail.host"));
         mailSender.setPort(587);
-
         mailSender.setUsername(ctx.getEnvironment().getProperty("spring.mail.username"));
         mailSender.setPassword(ctx.getEnvironment().getProperty("spring.mail.password"));
 

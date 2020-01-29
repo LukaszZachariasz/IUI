@@ -22,5 +22,6 @@ public interface IFoodService {
 
     List<Food> getFoodByDayTimeForUserCaloricNeed(Principal principal);
 
-    List<Food> getFoodByCategory(Principal principal);
+    List<Food> getBestDishByFatContains(Principal principal);
+
 }

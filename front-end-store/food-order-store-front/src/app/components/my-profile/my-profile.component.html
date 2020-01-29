@@ -1,17 +1,13 @@
 <div class="container center">
-
   <app-loading *ngIf="!dataFetched"></app-loading>
-
   <mat-accordion *ngIf="dataFetched">
     <hr class="my-md-5">
     <div class="row"> Manage your profile</div>
     <hr class="my-md-5">
-
     <mat-tab-group color="primary" backgroundColor="primary">
       <mat-tab label="Shipping">
         <div>
           <br>
-
           <mat-tab-group (selectedIndexChange)="selectedShippingChange($event)" [selectedIndex]="selectedShippingTab">
             <mat-tab label="List of Shipping Addresses">
               <form (ngSubmit)="setDefaultShipping()" method="post">
@@ -29,8 +25,9 @@
                       <input type="radio" name="defaultUserShippingId" [(ngModel)]="defaultUserShippingId"
                              [value]="userShipping.id"/>
                     </td>
-                    <td>{{userShipping.userShippingStreet}}, {{userShipping.userShippingCity}}
-                      , {{userShipping.userShippingZipCode}}</td>
+                    <td>{{userShipping.userShippingStreet}},
+                      {{userShipping.userShippingCity}},
+                      {{userShipping.userShippingZipCode}}</td>
                     <td>
                       <a mat-button (click)="onUpdateShipping(userShipping)"><i class="fa fa-pencil">Edit</i></a>
                       <a mat-button (click)="onRemoveShipping(userShipping.id)"><i class="fa fa-times">Remove</i></a>
@@ -42,7 +39,6 @@
               </form>
             </mat-tab>
             <mat-tab label="Add(Update) Shipping Address">
-
               <br>
               <form (ngSubmit)="onNewShipping()" method="post">
                 <input hidden="hidden" name="id" [(ngModel)]="userShipping.id"/>
@@ -82,21 +78,15 @@
                   Save All
                 </button>
               </form>
-
-
             </mat-tab>
           </mat-tab-group>
         </div>
       </mat-tab>
       <mat-tab label="Edit Your Profile">
-
         <h3>Please insert first all your information</h3>
-
         <form (ngSubmit)="onUpdateUserInfo()" class="text-center border border-light p-5">
-
           <div class="row">
             <div class="col-sm">
-
               <label>First Name</label>
               <input type="text"
                      name="firstName"
@@ -141,7 +131,6 @@
                 <option value="Female">Female</option>
               </select>
             </div>
-
             <div class="col-sm">
               <label>Insert current Password to Update</label>
               <input type="password"
@@ -189,20 +178,16 @@
                      required="required">
             </div>
           </div>
-
           <button mat-raised-button type="submit" class="mat-primary" [disabled]=" !(user.dateOfBirth && user.firstname && user.lastname  &&
                         user.weight && user.height &&
-                        currentPassword && user.username && user.email && user.phoneNumber && user.gender)"
-          >Update My Info
+                        currentPassword && user.username &&
+                        user.email && user.phoneNumber && user.gender)">Update My Info
           </button>
-
         </form>
-
       </mat-tab>
       <mat-tab label="Payment">
         <div>
           <br>
-
           <mat-tab-group (selectedIndexChange)="selectedBillingChange($event)" [selectedIndex]="selectedBillingTab">
             <mat-tab label="List of Credit Cards">
               <form (ngSubmit)="setDefaultPayment()" method="post">
@@ -233,10 +218,7 @@
             </mat-tab>
             <mat-tab label="Add (Update) Credit Card">
               <form (ngSubmit)="onNewPayment()" method="post">
-
-
                 <div class="row">
-
                   <div class="col-sm col-4">
                     <br>
                     <input hidden="hidden" name="id" [(ngModel)]="userPayment.id"/>
@@ -245,7 +227,6 @@
                       <input type="text" class="form-control" id="cardName" placeholder="Card Name" name="cardName"
                              required="required" [(ngModel)]="userPayment.cardName"/>
                     </div>
-                    <!-- Billing Address -->
                     <div class="form-group">
                       <label for="billingName">* Name</label>
                       <input type="text" class="form-control" id="billingName" placeholder="Receiver name"
@@ -256,20 +237,17 @@
                       <input type="text" class="form-control" id="userBillingStreet" placeholder="Street "
                              name="userBillingStreet" required="required" [(ngModel)]="userBilling.userBillingStreet"/>
                     </div>
-
                     <div class="form-group">
                       <label for="userBillingCity">* City</label>
                       <input type="text" class="form-control" id="userBillingCity" placeholder="Billing City"
                              name="userBillingCity" required="required" [(ngModel)]="userBilling.userBillingCity"/>
                     </div>
-
                     <div class="form-group">
                       <label for="userBillingZipCode">* Zipcode</label>
                       <input type="text" class="form-control" id="userBillingZipCode" placeholder="Zipcode"
                              name="userBillingZipCode" required="required"
                              [(ngModel)]="userBilling.userBillingZipCode"/>
                     </div>
-                    <!-- User PaymentOrder -->
                   </div>
                   <div class="col-sm col-4">
                     <br>
@@ -284,7 +262,6 @@
                         <option value="amex">American Express</option>
                       </select>
                     </div>
-
                     <div class="form-group">
                       <label for="cardNumber">* Card Number</label>
                       <div class="input-group">
@@ -293,7 +270,6 @@
                         <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
                       </div>
                     </div>
-
                     <div class="form-group">
                       <label for="cardCVC">CV Code</label>
                       <input id="cardCVC" type="tel" class="form-control" name="cardCVC" placeholder="CVC"
@@ -303,9 +279,7 @@
                     <img class="cardImg"
                          src="https://c7.uihere.com/files/108/642/408/credit-card-logos-sketch-file.png"/>
                   </div>
-
                 </div>
-
                 <hr/>
                 <button mat-raised-button type="submit" class="mat-primary">
                   Save All
@@ -316,19 +290,14 @@
         </div>
       </mat-tab>
     </mat-tab-group>
-
   </mat-accordion>
-
   <div *ngIf="updateError" class="alert alert-danger" role="alert">
     There is something wrong.
   </div>
-
   <div *ngIf="currentPasswordError" class="alert alert-danger" role="alert">
     It's look like wrong current password.
   </div>
-
   <div *ngIf="updateSuccess" class="alert alert-success" role="alert">
     Your profile has been updated.
   </div>
-
 </div>

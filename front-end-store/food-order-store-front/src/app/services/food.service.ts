@@ -10,8 +10,7 @@ export class FoodService {
 
   private serverPath = AppConst.serverPath;
 
-  constructor(private httpClient: HttpClient,
-              private router: Router) {
+  constructor(private httpClient: HttpClient) {
   }
 
 
@@ -39,18 +38,6 @@ export class FoodService {
     return this.httpClient.get(url, {headers, responseType: 'text'});
   }
 
-  searchFood(keyword: string) {
-    const url = this.serverPath + '/food/searchFood';
-    const xToken = localStorage.getItem('xAuthToken');
-    const basicHeader = 'Basic ' + localStorage.getItem('credentials');
-    const headers = new HttpHeaders({
-      'x-auth-token': xToken,
-      'Authorization': basicHeader
-    });
-
-    return this.httpClient.post(url, keyword, {headers, responseType: 'text'});
-  }
-
   getFoodByDayTime() {
     const url = this.serverPath + '/public/getFoodByDayTime';
     const xToken = localStorage.getItem('xAuthToken');
@@ -65,6 +52,18 @@ export class FoodService {
 
   getDailyFoodSetCaloricNeeded() {
     const url = this.serverPath + '/food/getDailyFoodSetCaloricNeeded';
+    const xToken = localStorage.getItem('xAuthToken');
+    const basicHeader = 'Basic ' + localStorage.getItem('credentials');
+    const headers = new HttpHeaders({
+      'x-auth-token': xToken,
+      'Authorization': basicHeader
+    });
+
+    return this.httpClient.get(url, {headers, responseType: 'text'});
+  }
+
+  getBestDishByFatContains() {
+    const url = this.serverPath + '/food/getBestDishByFatContains';
     const xToken = localStorage.getItem('xAuthToken');
     const basicHeader = 'Basic ' + localStorage.getItem('credentials');
     const headers = new HttpHeaders({

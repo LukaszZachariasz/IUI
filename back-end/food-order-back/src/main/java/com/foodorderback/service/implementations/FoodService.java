@@ -95,53 +95,76 @@ public class FoodService implements IFoodService {
 
         if (user.getDailyTotalKcal() != null) {
 
-            //if (dayTimeService.isMorning()) {
             dailySet.add(findBestDishForDayTime(BREAKFAST,
                     user.getDailyTotalKcal() * PERCENTAGE_OF_BREAKFAST));
-            //}
 
-            //if (dayTimeService.isNoon()) {
-            dailySet.add(findBestDishForDayTime(BREAKFAST,
+            dailySet.add(findBestDishForDayTime(DINNER,
                     user.getDailyTotalKcal() * PERCENTAGE_OF_DINNER));
-            // }
 
-            // if (dayTimeService.isAfterNoon()) {
-            dailySet.add(findBestDishForDayTime(BREAKFAST,
+            dailySet.add(findBestDishForDayTime(LUNCH,
                     user.getDailyTotalKcal() * PERCENTAGE_OF_LUNCH));
-            //}
 
-            // if (dayTimeService.isEvening()) {
-            dailySet.add(findBestDishForDayTime(BREAKFAST,
+            dailySet.add(findBestDishForDayTime(SUPPER,
                     user.getDailyTotalKcal() * PERCENTAGE_OF_SUPPER));
-            //}
         }
 
         return dailySet;
     }
 
+
+    @Override
+    public List<Food> getBestDishByFatContains(Principal principal) {
+        User user = userManagementService.findByUsername(principal.getName());
+        ArrayList<Food> dailySet = new ArrayList<>();
+
+        if (user.getDailyTotalKcal() != null) {
+
+            if (user.getHealthStatus().equals("HW")) {
+                dailySet.add(findLowestFatDish(BREAKFAST));
+                dailySet.add(findLowestFatDish(DINNER));
+                dailySet.add(findLowestFatDish(LUNCH));
+                dailySet.add(findLowestFatDish(SUPPER));
+            }
+            if (user.getHealthStatus().equals("LW")) {
+                dailySet.add(findHighestFatDish(BREAKFAST));
+                dailySet.add(findHighestFatDish(DINNER));
+                dailySet.add(findHighestFatDish(LUNCH));
+                dailySet.add(findHighestFatDish(SUPPER));
+            }
+        }
+        System.out.println(dailySet);
+        return dailySet;
+    }
+
+    private Food findLowestFatDish(String dish) {
+        return foodRepository.findTopByCategoryOrderByPercentOfFatDesc(dish);
+    }
+
+    private Food findHighestFatDish(String dish) {
+        return foodRepository.findTopByCategoryOrderByPercentOfFatAsc(dish);
+    }
+
     private Food findBestDishForDayTime(String dish, double bestCaloriesAmount) {
-
-        Long id = 0L;
-
+        System.out.println("DISH " + dish + " - BEST CALORIES TO FIND: " + bestCaloriesAmount);
+        Food bestDish = new Food();
         ArrayList<Food> allFoodCategory = (ArrayList<Food>) foodRepository.findAllByCategory(dish);
 
         if (allFoodCategory.size() > 0) {
-            id = allFoodCategory.get(0).getId();
-        }
+            bestDish = allFoodCategory.get(0);
+            double min = (double) bestDish.getKcal() * (double) (bestDish.getWeight() / 100d);
+            double diff = Math.abs(min - bestCaloriesAmount);
+            System.out.println(diff);
+            for (Food food : allFoodCategory) {
+                double totalFoodEnergy = (double) food.getKcal() * (double) (food.getWeight() / 100d);
+                if (Math.abs(totalFoodEnergy - bestCaloriesAmount) < diff) {
+                    bestDish = food;
+                }
+            }
+            System.out.println(bestDish.getName() + " " + bestDish.getKcal() * (double) (bestDish.getWeight() / 100d));
+            return bestDish;
 
-        for (Food food : allFoodCategory) {
-            //if (food.getKcal() - bestCaloriesAmount)
         }
-
         return new Food();
 
     }
-
-    @Override
-    public List<Food> getFoodByCategory(Principal principal) {
-
-        User user = userManagementService.findByUsername(principal.getName());
-        return new ArrayList<>();
-    }
-
 }

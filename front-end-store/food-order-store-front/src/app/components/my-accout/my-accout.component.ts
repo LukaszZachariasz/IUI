@@ -11,9 +11,8 @@ import {AppConst} from '../../constants/app-const';
 })
 export class MyAccoutComponent implements OnInit {
 
-  private loggedIn = false;
   private credentials = {'username': '', 'password': ''};
-
+  private loggedIn = false;
   private username: string;
   private email: string;
   private recoverEmail: string;
@@ -75,7 +74,7 @@ export class MyAccoutComponent implements OnInit {
 
   onForgetPassword() {
     this.processStarted = true;
-
+    console.log(this.recoverEmail);
     this.userService.retrievePassword(this.recoverEmail).subscribe(
       () => {
         this.setRetrievePasswordSuccess();
@@ -121,5 +120,4 @@ export class MyAccoutComponent implements OnInit {
       this.loginError = false;
     }, AppConst.infoTimeout);
   }
-
 }

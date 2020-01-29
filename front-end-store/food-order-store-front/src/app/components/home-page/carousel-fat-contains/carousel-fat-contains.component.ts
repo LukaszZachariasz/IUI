@@ -7,14 +7,13 @@ import {Router} from '@angular/router';
 
 
 @Component({
-  selector: 'app-carousel-day-time',
-  templateUrl: './carousel-day-time.component.html',
-  styleUrls: ['./carousel-day-time.component.css']
+  selector: 'app-carousel-fat-contains',
+  templateUrl: './carousel-fat-contains.component.html',
+  styleUrls: ['./carousel-fat-contains.component.css']
 })
-export class CarouselDayTimeComponent implements OnInit {
+export class CarouselFatContainsComponent implements OnInit {
 
-  @Input() isAnyFoodAvailable = false;
-  @Input() canSuggest: boolean;
+  @Input() private canSuggest: boolean;
 
   private imageServerPath = AppConst.imageServerPath;
   private extension = AppConst.extension;
@@ -35,11 +34,10 @@ export class CarouselDayTimeComponent implements OnInit {
   }
 
   fetchFood() {
-    this.foodService.getFoodByDayTime().subscribe(
+    this.foodService.getBestDishByFatContains().subscribe(
       res => {
-        console.log(res);
         this.foodList = JSON.parse(res);
-        this.isAnyFoodAvailable = this.foodList.length > 0;
+        console.log(JSON.parse(res));
       },
       error => {
         console.log(error);

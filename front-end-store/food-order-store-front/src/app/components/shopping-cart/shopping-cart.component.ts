@@ -1,11 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../services/user.service';
-import {PaymentService} from '../../services/payment.service';
-import {ShippingService} from '../../services/shipping.service';
-import {Router} from '@angular/router';
-import {MatDialog} from '@angular/material';
 import {CartService} from '../../services/cart.service';
-import {AppConst} from '../../constants/app-const';
 import {Food} from '../../models/food';
 import {CartItem} from '../../models/cart-item';
 import {ShoppingCart} from '../../models/shopping-cart';
@@ -17,12 +12,7 @@ import {ShoppingCart} from '../../models/shopping-cart';
 })
 export class ShoppingCartComponent implements OnInit {
 
-
   private displayedColumns: string[] = ['item', 'cost', 'quantity', 'action'];
-
-  private imageServerPath = AppConst.imageServerPath;
-  private serverPath = AppConst.serverPath;
-  private extension = AppConst.extension;
 
   private selectedFood: Food;
   private cartItemList: CartItem[] = [];
@@ -34,21 +24,12 @@ export class ShoppingCartComponent implements OnInit {
   private fetchedList = true;
 
   constructor(private userService: UserService,
-              private cartService: CartService,
-              private paymentService: PaymentService,
-              private shippingService: ShippingService,
-              private router: Router,
-              private dialog: MatDialog) {
+              private cartService: CartService) {
   }
 
   ngOnInit() {
     this.getCartItemList();
     this.getShoppingCart();
-  }
-
-  onSelect(food: Food) {
-    this.selectedFood = food;
-    this.router.navigate(['/foodDetail', this.selectedFood.id]);
   }
 
   onRemoveCartItem(cartItem: CartItem) {
@@ -68,6 +49,7 @@ export class ShoppingCartComponent implements OnInit {
       res => {
         console.log(res);
         this.cartItemUpdated = true;
+        cartItem.toUpdate = false;
         this.getShoppingCart();
       }, error => {
         console.log(error);
@@ -96,21 +78,6 @@ export class ShoppingCartComponent implements OnInit {
         console.log(error);
       }
     );
-  }
-
-  onCheckout() {
-    if (this.cartItemNumber == 0) {
-      this.emptyCart = true;
-    } else {
-      for (let item of this.cartItemList) {
-        if (item.qty > 9) {
-          this.notEnoughStock = true;
-          return;
-        }
-      }
-
-      this.router.navigate(['order']);
-    }
   }
 
   getTotalCost() {

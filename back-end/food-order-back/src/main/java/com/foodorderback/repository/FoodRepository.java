@@ -11,4 +11,8 @@ public interface FoodRepository extends CrudRepository<Food, Long> {
 
     List<Food> findAllByCategory(String keyword);
 
+    Food findTopByCategoryOrderByPercentOfFatDesc(String category);
+
+    Food findTopByCategoryOrderByPercentOfFatAsc(String category);
+
 }

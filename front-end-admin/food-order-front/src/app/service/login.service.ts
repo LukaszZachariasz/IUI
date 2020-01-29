@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Router} from '@angular/router';
+import {AppConst} from '../constants/app-const';
 
 
 @Injectable()
@@ -10,7 +11,7 @@ export class LoginService {
   }
 
   sendCredential(username: string, password: string) {
-    const url = 'http://localhost:8080/token';
+    const url = AppConst.serverPath + '/token';
     const encodedCredentials = btoa(username + ':' + password);
     const basicHeader = 'Basic ' + encodedCredentials;
     const headers = new HttpHeaders({
@@ -21,7 +22,7 @@ export class LoginService {
   }
 
   checkSession() {
-    const url = 'http://localhost:8080/checkSession';
+    const url = AppConst.serverPath + '/checkSession';
     const xToken = localStorage.getItem('xAuthToken');
     const basicHeader = 'Basic ' + localStorage.getItem('credentials');
     const headers = new HttpHeaders({
@@ -32,7 +33,7 @@ export class LoginService {
   }
 
   logoutMe() {
-    const url = 'http://localhost:8080/user/logoutMe';
+    const url = AppConst.serverPath + '/user/logoutMe';
     const xToken = localStorage.getItem('xAuthToken');
     const basicHeader = 'Basic ' + localStorage.getItem('credentials');
     const headers = new HttpHeaders({

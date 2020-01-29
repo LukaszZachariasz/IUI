@@ -1,39 +1,15 @@
-<!--Main layout-->
-
 <div *ngIf="fetchedFood">
-
   <main class="mt-5 pt-4">
     <div class="container dark-grey-text mt-5">
-      <!--Grid row-->
       <mat-card-actions>
         <button class="btn btn-info btn-md my-0 p" mat-button routerLink="/food">Go Back</button>
       </mat-card-actions>
       <br>
       <br>
-
       <div class="row wow fadeIn">
-
-        <!--Grid column-->
         <div class="col-md-6 mb-4"><img [src]="imageServerPath + food.id + extension" class="img-fluid" alt=""></div>
-        <!--Grid column-->
-
-        <!--Grid column-->
         <div class="col-md-6 mb-4">
-          <!--Content-->
-          <!--          <div class="mb-3">-->
-          <!--            <a href="">-->
-          <!--              <span class="badge purple mr-1">Category 2</span>-->
-          <!--            </a>-->
-          <!--            <a href="">-->
-          <!--              <span class="badge blue mr-1">New</span>-->
-          <!--            </a>-->
-          <!--            <a href="">-->
-          <!--              <span class="badge red mr-1">Bestseller</span>-->
-          <!--            </a>-->
-          <!--          </div>-->
-
           <p class="lead font-weight-bold">{{food.name}}</p>
-
           <table class="table">
             <tbody>
             <tr>
@@ -54,8 +30,6 @@
             </tr>
             </tbody>
           </table>
-
-
           <mat-form-field>
             <mat-label>Quantity</mat-label>
             <mat-select [(value)]="qty">
@@ -64,27 +38,25 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-
-          <button class="btn btn-primary btn-md my-0 p" type="submit" (click)="onAddToCart()">Add to cart</button>
-
-
-          <!--Content-->
-
+          <button class="btn btn-primary btn-md my-0 p" type="submit" (click)="onAddToCart()"
+                  [disabled]="updateSuccess">Add to cart
+          </button>
+          <div *ngIf="updateError" class="alert alert-danger" role="alert">
+            There is something wrong.
+          </div>
+          <div *ngIf="updateSuccess" class="alert alert-success" role="alert">
+            Your order has been updated.
+          </div>
         </div>
-        <!--Grid column-->
         <div class="row wow fadeIn">
           <p class="lead font-weight-bold">Description</p>
           <p>{{food.description}}</p>
         </div>
       </div>
-
     </div>
   </main>
-
 </div>
-
 <div *ngIf="!fetchedFood">
   <app-loading></app-loading>
 </div>
 
-<!--Main layout-->

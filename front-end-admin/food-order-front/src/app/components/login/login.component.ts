@@ -22,11 +22,9 @@ export class LoginComponent implements OnInit {
         error => {
           console.log('error = ' + error)
           this.loggedIn = false;
-        }
-      );
+        });
     }
   }
-
 
   constructor(private loginService: LoginService) {
   }
@@ -44,9 +42,7 @@ export class LoginComponent implements OnInit {
         },
         error => {
           console.log(error);
-        }
-      );
+        });
   }
-
 
 }

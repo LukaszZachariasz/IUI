@@ -7,8 +7,7 @@ import {Router} from '@angular/router';
 import {PaymentService} from '../../services/payment.service';
 import {UserBilling} from '../../models/user-billing';
 import {UserPayment} from '../../models/user-payment';
-import {MatDialog, MatDialogRef, MatTableDataSource} from '@angular/material';
-import {SelectionModel} from '@angular/cdk/collections';
+import {MatDialog, MatDialogRef} from '@angular/material';
 import {UserShipping} from '../../models/user-shipping';
 import {ShippingService} from '../../services/shipping.service';
 
@@ -32,9 +31,6 @@ export class MyProfileComponent implements OnInit {
 
   private userPaymentList: UserPayment[] = [];
   private userShippingList: UserShipping[] = [];
-
-  private dataSource: MatTableDataSource<UserPayment> = new MatTableDataSource<UserPayment>(this.userPaymentList);
-  private selection = new SelectionModel<UserPayment>(true, this.userPaymentList);
 
   private dataFetched = false;
   private loggedIn = false;
@@ -66,14 +62,14 @@ export class MyProfileComponent implements OnInit {
 
   ngOnInit() {
     this.loginService.checkSession().subscribe(
-      () => {
-        this.loggedIn = true;
-      },
-      () => {
-        this.loggedIn = false;
-        console.log('session inactive');
-        this.router.navigate(['/myAccount']);
-      });
+        () => {
+          this.loggedIn = true;
+        },
+        () => {
+          this.loggedIn = false;
+          console.log('session inactive');
+          this.router.navigate(['/myAccount']);
+        });
     this.getCurrentUserInfo();
 
     this.userBilling.userBillingCity = '';
@@ -90,65 +86,65 @@ export class MyProfileComponent implements OnInit {
 
   getCurrentUserInfo() {
     this.userService.getCurrentUser().subscribe(
-      res => {
-        this.user = JSON.parse(res);
-        if (this.user.dateOfBirth != null) {
-          this.user.dateOfBirth = this.user.dateOfBirth.split('T')[0];
-        }
-
-        console.log(this.user);
-        this.userShippingList = this.user.userShippingList;
-        this.userPaymentList = this.user.userPaymentList;
-        console.log(this.userPaymentList);
-
-        for (const index in this.userPaymentList) {
-          if (this.userPaymentList[index].defaultPayment) {
-            this.defaultUserPaymentId = this.userPaymentList[index].id;
-            break;
+        res => {
+          this.user = JSON.parse(res);
+          if (this.user.dateOfBirth != null) {
+            this.user.dateOfBirth = this.user.dateOfBirth.split('T')[0];
           }
-        }
 
-        for (const index in this.userShippingList) {
-          if (this.userShippingList[index].userShippingDefault) {
-            this.defaultUserShippingId = this.userShippingList[index].id;
-            break;
+          console.log(this.user);
+          this.userShippingList = this.user.userShippingList;
+          this.userPaymentList = this.user.userPaymentList;
+          console.log(this.userPaymentList);
+
+          for (const index in this.userPaymentList) {
+            if (this.userPaymentList[index].defaultPayment) {
+              this.defaultUserPaymentId = this.userPaymentList[index].id;
+              break;
+            }
           }
-        }
 
-        this.dataFetched = true;
-      });
+          for (const index in this.userShippingList) {
+            if (this.userShippingList[index].userShippingDefault) {
+              this.defaultUserShippingId = this.userShippingList[index].id;
+              break;
+            }
+          }
+
+          this.dataFetched = true;
+        });
   }
 
   onUpdateUserInfo() {
     this.userService.updateUserInfo(this.user, this.newPassword, this.currentPassword)
-      .subscribe(
-        res => {
-          if (res === 'updateSuccess') {
-            this.setUpdateSuccess();
-            this.getCurrentUserInfo();
-          }
-        },
-        error => {
-          console.log(error);
-          if ('invalidPassword' === error.error) {
-            this.setCurrentPasswordError();
-          } else {
-            this.setUpdateError();
-          }
-        });
+        .subscribe(
+            res => {
+              if (res === 'updateSuccess') {
+                this.setUpdateSuccess();
+                this.getCurrentUserInfo();
+              }
+            },
+            error => {
+              console.log(error);
+              if ('invalidPassword' === error.error) {
+                this.setCurrentPasswordError();
+              } else {
+                this.setUpdateError();
+              }
+            });
   }
 
   onNewPayment() {
     this.paymentService.newPayment(this.userPayment).subscribe(
-      res => {
-        this.getCurrentUserInfo();
-        this.selectedBillingTab = 0;
-        this.setUpdateSuccess();
-        this.userPayment = new UserPayment();
-      }, err => {
-        console.log(err);
-        this.setUpdateError();
-      });
+        res => {
+          this.getCurrentUserInfo();
+          this.selectedBillingTab = 0;
+          this.setUpdateSuccess();
+          this.userPayment = new UserPayment();
+        }, err => {
+          console.log(err);
+          this.setUpdateError();
+        });
   }
 
   onUpdatePayment(payment: UserPayment) {
@@ -159,24 +155,24 @@ export class MyProfileComponent implements OnInit {
 
   onRemovePayment(id: number) {
     this.paymentService.removePayment(id).subscribe(
-      res => {
-        this.getCurrentUserInfo();
-        this.selectedBillingTab = 0;
-      },
-      err => {
-        console.log(err);
-      });
+        res => {
+          this.getCurrentUserInfo();
+          this.selectedBillingTab = 0;
+        },
+        err => {
+          console.log(err);
+        });
   }
 
   setDefaultPayment() {
     this.paymentService.setDefaultPayment(this.defaultUserPaymentId).subscribe(
-      res => {
-        this.getCurrentUserInfo();
-        this.setUpdateSuccess();
-      }, err => {
-        console.log(err);
-        this.setUpdateError();
-      });
+        res => {
+          this.getCurrentUserInfo();
+          this.setUpdateSuccess();
+        }, err => {
+          console.log(err);
+          this.setUpdateError();
+        });
   }
 
   setUpdateSuccess() {
@@ -204,40 +200,40 @@ export class MyProfileComponent implements OnInit {
 
   onNewShipping() {
     this.shippingService.newShipping(this.userShipping).subscribe(
-      res => {
-        this.getCurrentUserInfo();
-        this.selectedShippingTab = 0;
-        this.setUpdateSuccess();
-        this.userShipping = new UserShipping();
-      },
-      err => {
-        console.log(err.error);
-        this.setUpdateError();
-      }
+        res => {
+          this.getCurrentUserInfo();
+          this.selectedShippingTab = 0;
+          this.setUpdateSuccess();
+          this.userShipping = new UserShipping();
+        },
+        err => {
+          console.log(err.error);
+          this.setUpdateError();
+        }
     );
   }
 
   onRemoveShipping(id: number) {
     this.shippingService.removeShipping(id).subscribe(
-      res => {
-        this.getCurrentUserInfo();
-      },
-      err => {
-        console.log(err.error);
-      }
+        res => {
+          this.getCurrentUserInfo();
+        },
+        err => {
+          console.log(err.error);
+        }
     );
   }
 
   setDefaultShipping() {
     this.shippingService.setDefaultShipping(this.defaultUserShippingId).subscribe(
-      res => {
-        this.getCurrentUserInfo();
-        this.setUpdateSuccess();
-      },
-      err => {
-        console.log(err.error);
-        this.setUpdateError();
-      }
+        res => {
+          this.getCurrentUserInfo();
+          this.setUpdateSuccess();
+        },
+        err => {
+          console.log(err.error);
+          this.setUpdateError();
+        }
     );
   }
 

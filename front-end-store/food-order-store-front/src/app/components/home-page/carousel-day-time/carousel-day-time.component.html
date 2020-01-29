@@ -1,24 +1,39 @@
 <div *ngIf="isAnyFoodAvailable">
-<h3 class="h3-responsive text-center">Best dishes according to the time of day</h3>
-<hr>
-<mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'" [interval]="carouselIntervalChange">
-  <div *ngFor="let item of foodList">
-    <mdb-carousel-item class="carousel-inner container item">
-      <div class="view w-10">
-        <img class="d-block w-10"
-             (click)="onSelect(item)"
-             [src]="imageServerPath + item.id + extension">
-        <div class="mask rgba-blue-grey-dark waves-light" mdbWavesEffect></div>
-      </div>
-      <div class="carousel-caption">
-        <h3 class="h3-responsive">{{item.name}}</h3>
-        <hr>
-        <h3 class="h3-responsive">{{item.price}} PLN</h3>
-      </div>
-    </mdb-carousel-item>
-  </div>
-</mdb-carousel>
-<br><br>
+  <h3 class="h3-responsive text-center">Best dishes according to the time of day</h3>
+  <hr>
+  <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'" [interval]="carouselIntervalChange">
+    <div *ngFor="let item of foodList">
+      <mdb-carousel-item class="carousel-inner container item" (click)="onSelect(item)">
+        <div class="view w-10">
+          <img class="d-block w-10"
+               [src]="imageServerPath + item.id + extension">
+          <div class="mask rgba-blue-grey-dark waves-light" mdbWavesEffect></div>
+        </div>
+        <div class="carousel-caption">
+          <h3 class="h3-responsive">{{item.name}}</h3>
+          <hr>
+          <h3 class="h3-responsive">{{item.price}} PLN</h3>
+        </div>
+      </mdb-carousel-item>
+    </div>
+  </mdb-carousel>
+  <br><br>
+  <section class="mt-5 wow fadeIn">
+    <div class="row">
+      <app-carousel-caloric-needs [canSuggest]=canSuggest></app-carousel-caloric-needs>
+    </div>
+  </section>
+  <section class="mt-5 wow fadeIn">
+    <div class="row">
+      <app-carousel-fat-contains [canSuggest]=canSuggest></app-carousel-fat-contains>
+    </div>
+  </section>
+  <hr class="my-5">
+  <section class="mt-5 wow fadeIn">
+    <div class="row">
+      <app-user-stats></app-user-stats>
+    </div>
+  </section>
 </div>
 
 <div *ngIf="!isAnyFoodAvailable">

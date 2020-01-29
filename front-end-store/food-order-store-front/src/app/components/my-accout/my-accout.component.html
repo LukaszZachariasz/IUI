@@ -1,12 +1,9 @@
 <div class="container center">
-
   <app-loading *ngIf="processStarted"></app-loading>
-
   <mat-accordion>
     <hr class="my-md-5">
     <div class="row"> Login, Register or get forgotten password</div>
     <hr class="my-md-5">
-
     <mat-expansion-panel [expanded]="true">
       <mat-expansion-panel-header>
         <mat-panel-title> Login to your account</mat-panel-title>
@@ -19,14 +16,11 @@
         <button [disabled]="processStarted" mdbBtn color="info" block="true" class="my-4" type="submit"
                 (click)="onLogin()">Sign in
         </button>
-
         <div *ngIf="loginError" class="alert alert-danger" role="alert">
           There is something wrong with your credentials.
         </div>
-
       </form>
     </mat-expansion-panel>
-
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title> Register new account</mat-panel-title>
@@ -39,19 +33,14 @@
         <button [disabled]="processStarted" mdbBtn color="info" block="true" class="my-4" type="submit"
                 (click)="onNewAccount()">Register
         </button>
-
         <div *ngIf="registerError" class="alert alert-danger" role="alert">
           There is something wrong with your Username or Email or login, email exists
         </div>
-
         <div *ngIf="registerSuccess" class="alert alert-success" role="alert">
           Register has been made. Email with password has been sent.
         </div>
-
-
       </form>
     </mat-expansion-panel>
-
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title> I forgot my password</mat-panel-title>
@@ -62,20 +51,15 @@
         <button [disabled]="processStarted" mdbBtn color="info" block="true" class="my-4" type="submit"
                 (click)="onForgetPassword()">Send Me Email With New Password
         </button>
-
         <div *ngIf="retrievePasswordError" class="alert alert-danger" role="alert">
           There is something wrong with your email Address.
         </div>
-
         <div *ngIf="retrievePasswordSuccess" class="alert alert-success" role="alert">
           Email with new password has been sent.
         </div>
-
       </form>
     </mat-expansion-panel>
-
   </mat-accordion>
-
 </div>
 
 

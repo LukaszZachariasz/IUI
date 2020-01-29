@@ -21,7 +21,6 @@ export class PaymentService {
       'Authorization': basicHeader
     });
 
-    console.log(payment);
     return this.httpClient.post(url, JSON.stringify(payment), {headers, responseType: 'text'});
   }
 

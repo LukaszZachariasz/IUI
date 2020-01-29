@@ -10,7 +10,8 @@ export class LoginService {
 
   private serverPath = AppConst.serverPath;
 
-  constructor(private httpClient: HttpClient, private router: Router) {
+  constructor(private httpClient: HttpClient,
+              private router: Router) {
   }
 
   sendCredentials(username: string, password: string) {

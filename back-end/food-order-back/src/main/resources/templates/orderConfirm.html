@@ -1,10 +1,113 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 2px solid black;
+        }
+    </style>
+    <title>Order Confirm</title>
 </head>
 <body>
+<h2>Hi <span th:text="${user.firstname} + '  ' + ${user.lastname}"></span>,</h2>
+<br/>
+<h2>Thank you for shopping from our Food Order Store.</h2>
+<h2>Order Detail Number: <span th:text="${order.id}"></span></h2>
+<hr/>
 
+<table>
+    <tr>
+        <th>Billing Details</th>
+        <th>Payment Information</th>
+        <th>Shipping Address</th>
+    </tr>
+    <tr>
+        <td>
+            <span th:text="${order.billingAddress.billingName}"></span><br/>
+            <span th:text="${order.billingAddress.billingCity}"></span><br/>
+            <span th:text="${order.billingAddress.billingStreet}"></span><br/>
+            <span th:text="${order.billingAddress.billingHouseNr}"></span><br/>
+            <span th:text="${order.billingAddress.billingApartmentNr}"></span><br/>
+            <span th:text="${order.billingAddress.billingZipCode}"></span><br/>
+        </td>
+        <td>
+            <span th:text="${order.paymentOrder.cardName}">Card Name</span><br/>
+            <span th:text="${order.paymentOrder.cardNumber}">Card Number</span><br/>
+        </td>
+        <td>
+            <span th:text="${order.shippingAddress.shippingName}"></span><br/>
+            <span th:text="${order.shippingAddress.shippingStreet}"></span><br/>
+            <span th:text="${order.shippingAddress.shippingCity}"></span><br/>
+            <span th:text="${order.shippingAddress.shippingZipCode}"></span><br/>
+            <span th:text="${order.shippingAddress.shippingHouseNr}"></span><br/>
+            <span th:text="${order.shippingAddress.shippingApartmentNr}"></span><br/>
+        </td>
+    </tr>
+</table>
+
+<hr/>
+
+<h3><strong>Your Order summary</strong></h3>
+<table>
+    <thead>
+    <tr>
+        <td><strong>Food Name</strong></td>
+        <td class="text-center"><strong>Price (PLN)</strong></td>
+        <td class="text-center"><strong>Quantity</strong>
+        </td>
+        <td class="text-right"><strong>Total (PLN)</strong></td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="cartItem : ${cartItemList}">
+        <td><span data-th-text="${cartItem.food.name}"></span>
+        </td>
+        <td data-th-text="${cartItem.food.price}"
+            class="text-center">
+        </td>
+        <td data-th-text="${cartItem.qty}" class="text-center">
+
+        </td>
+        <td data-th-text="${cartItem.subtotal}"
+            class="text-right">
+        </td>
+    </tr>
+    <tr>
+        <td class="highrow"></td>
+        <td class="highrow"></td>
+        <td class="highrow text-center">
+            <strong>Subtotal (PLN)</strong></td>
+        <td data-th-text="${order.orderTotal}"
+            class="highrow text-right">
+        </td>
+    </tr>
+    <tr>
+        <td class="emptyrow"></td>
+        <td class="emptyrow"></td>
+        <td class="emptyrow text-center"><strong>Tax 8% (PLN)</strong>
+        </td>
+        <td data-th-text="${#numbers.formatDecimal(order.orderTotal*0.08, 0, 2)}"
+            class="emptyrow text-right">
+        </td>
+    </tr>
+    <tr>
+        <td class="emptyrow"><i
+                class="fa fa-barcode iconbig"></i></td>
+        <td class="emptyrow"></td>
+        <td class="emptyrow text-center"><strong>Total (PLN)</strong>
+        </td>
+        <td th:with="total=${order.orderTotal+order.orderTotal*0.08}"
+            data-th-text="${#numbers.formatDecimal(total, 0, 2)}"
+            class="emptyrow text-right">
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br/>
 </body>
 </html>

@@ -52,6 +52,9 @@ export class OrderComponent implements OnInit {
   private shippingMethod: string;
   private order: Order = new Order();
   private isUserShippingFetching = true;
+  private isUserOrderSending = false;
+  private updateError: boolean;
+  private updateSuccess: boolean;
 
 
   constructor(private formBuilder: FormBuilder,
@@ -63,17 +66,8 @@ export class OrderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.firstFormGroup = this.formBuilder.group({
-      // name: [this.shippingAddress ? this.shippingAddress.shippingName : '', Validators.required],
-      // home: [this.shippingAddress ? this.shippingAddress.shippingHouseNr : '', Validators.required],
-      // apartment: [this.shippingAddress ? this.shippingAddress.shippingApartmentNr : '', Validators.required],
-      // street: [this.shippingAddress ? this.shippingAddress.shippingStreet : '', Validators.required],
-      // city: [this.shippingAddress ? this.shippingAddress.shippingCity : '', Validators.required],
-      // zipCode: [this.shippingAddress ? this.shippingAddress.shippingZipCode : '', Validators.required]
-    });
-    this.secondFormGroup = this.formBuilder.group({
-      // secondCtrl: ['', Validators.required]
-    });
+    this.firstFormGroup = this.formBuilder.group({});
+    this.secondFormGroup = this.formBuilder.group({});
 
     this.getCartItemList();
 
@@ -221,28 +215,36 @@ export class OrderComponent implements OnInit {
   }
 
   onSubmit() {
-    this.checkoutService.checkout(
-      this.shippingAddress,
-      this.billingAddress,
-      this.payment,
-      this.shippingMethod
-    ).subscribe(
-      res => {
-        this.order = JSON.parse(res);
-        console.log(this.order);
+    if (this.cartItemList.length > 0) {
+      this.isUserOrderSending = true;
+      this.checkoutService.checkout(
+        this.shippingAddress,
+        this.billingAddress,
+        this.payment,
+        this.shippingMethod
+      ).subscribe(
+        res => {
+          this.order = JSON.parse(res);
+          console.log(this.order);
+          this.isUserOrderSending = false;
+          this.setUpdateSuccess();
+          this.cartItemList = [];
+          const navigationExtras: NavigationExtras = {
+            queryParams: {
+              order: JSON.stringify(this.order)
+            }
+          };
 
-        const navigationExtras: NavigationExtras = {
-          queryParams: {
-            order: JSON.stringify(this.order)
-          }
-        };
-
-        this.router.navigate(['/orderSummary'], navigationExtras);
-      },
-      error => {
-        console.log(error.text());
-      }
-    );
+          this.router.navigate(['/orderSummary'], navigationExtras);
+        },
+        error => {
+          this.setUpdateError();
+          console.log(error.text());
+        }
+      );
+    } else {
+      this.setUpdateError();
+    }
   }
 
   getTotalCost() {
@@ -255,6 +257,21 @@ export class OrderComponent implements OnInit {
       summary += item.qty;
     }
     return summary;
+  }
+
+  setUpdateSuccess() {
+    this.updateSuccess = true;
+    console.log('updated');
+    setTimeout(() => {
+      this.updateSuccess = false;
+    }, AppConst.infoTimeout);
+  }
+
+  setUpdateError() {
+    this.updateError = true;
+    setTimeout(() => {
+      this.updateError = false;
+    }, AppConst.infoTimeout);
   }
 
 }

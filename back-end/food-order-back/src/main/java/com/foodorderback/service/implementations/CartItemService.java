@@ -41,9 +41,7 @@ public class CartItemService implements ICartItemService {
         cartItem.setFood(food);
         cartItem.setQty(qty);
         cartItem.setSubtotal(new BigDecimal(food.getPrice() * qty));
-
         cartItem = cartItemRepository.save(cartItem);
-
         FoodToCartItem foodToCartItem = new FoodToCartItem();
         foodToCartItem.setFood(food);
         foodToCartItem.setCartItem(cartItem);
@@ -62,7 +60,6 @@ public class CartItemService implements ICartItemService {
         BigDecimal bigDecimal = new BigDecimal(cartItem.getFood().getPrice()).multiply(new BigDecimal(cartItem.getQty()));
         bigDecimal = bigDecimal.setScale(2, RoundingMode.HALF_UP);
         cartItem.setSubtotal(bigDecimal);
-
         cartItemRepository.save(cartItem);
 
         return cartItem;

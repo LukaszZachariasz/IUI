@@ -4,6 +4,6 @@ export class AppConst {
   public static infoTimeout = 3000;
   public static fetchFoodByDayTimeInterval = 30000;
   public static extension = '.png';
-  static carouselIntervalChange = 3000;
+  public static carouselIntervalChange = 3000;
 
 }

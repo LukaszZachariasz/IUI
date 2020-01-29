@@ -1,52 +1,60 @@
 <div class="container center">
 
-  <app-loading *ngIf="isUserShippingFetching"></app-loading>
+  <app-loading *ngIf="isUserShippingFetching || isUserOrderSending"></app-loading>
+
+  <div *ngIf="updateSuccess" class="alert alert-success" role="alert">
+    Your order has been sent.
+  </div>
+
+  <div *ngIf="updateError" class="alert alert-danger" role="alert">
+    There is something wrong, check your order!
+  </div>
 
   <hr class="my-md-5">
   <div class="row"> Finish your order</div>
   <hr class="my-md-5">
 
-  <mat-horizontal-stepper linear #stepper *ngIf="!isUserShippingFetching">
-    <mat-step [stepControl]="firstFormGroup">
-      <form [formGroup]="firstFormGroup">
+  <mat-horizontal-stepper linear #stepper *ngIf="!isUserShippingFetching" [hidden]="isUserOrderSending">
+    <mat-step>
+      <form>
         <ng-template matStepLabel>Check Your Address</ng-template>
 
-        <input hidden="hidden" name="id" [value]="shippingAddress.id"/>
+        <input hidden="hidden" name="id" [(ngModel)]="shippingAddress.id"/>
         <div class="form-group">
           <label for="userShippingName">* Name</label>
           <input type="text" class="form-control" id="userShippingName" placeholder="Shipping Name"
-                 name="userShippingName" required="required" [value]="shippingAddress.shippingName"/>
+                 name="userShippingName" required="required" [(ngModel)]="shippingAddress.shippingName == undefined ? '' : shippingAddress.shippingName"/>
         </div>
         <div class="form-group">
           <label for="userShippingHouseNr">* Home Number </label>
           <input type="text" class="form-control" id="userShippingHouseNr" placeholder="House Number"
-                 name="userShippingHouseNr" required="required" [value]="shippingAddress.shippingHouseNr"/>
+                 name="userShippingHouseNr" required="required" [(ngModel)]="shippingAddress.shippingHouseNr == undefined ? '' : shippingAddress.shippingHouseNr"/>
         </div>
         <div class="form-group">
           <label for="userShippingApartmentNr">* Apartment Number</label>
           <input type="text" class="form-control" id="userShippingApartmentNr" placeholder="Apartment Number"
                  name="userShippingApartmentNr" required="required"
-                 [value]="shippingAddress.shippingApartmentNr"/>
+                 [(ngModel)]="shippingAddress.shippingApartmentNr == undefined ? '' : shippingAddress.shippingApartmentNr"/>
         </div>
         <div class="form-group">
           <label for="userShippingStreet">* Street</label>
           <input type="text" class="form-control" id="userShippingStreet" placeholder="Street Name"
-                 name="userShippingStreet" required="required" [value]="shippingAddress.shippingStreet"/>
+                 name="userShippingStreet" required="required" [(ngModel)]="shippingAddress.shippingStreet == undefined ? '' : shippingAddress.shippingStreet"/>
         </div>
         <div class="form-group">
           <label for="shippingCity">* City</label>
           <input type="text" class="form-control" id="shippingCity" placeholder="Shipping City"
-                 name="userShippingCity" required="required" [value]="shippingAddress.shippingCity"/>
+                 name="userShippingCity" required="required" [(ngModel)]="shippingAddress.shippingCity == undefined ? '' : shippingAddress.shippingCity"/>
         </div>
         <div class="form-group">
           <label for="userShippingZipcode">* Zipcode</label>
           <input type="text" class="form-control" id="userShippingZipcode" placeholder="Zip Code"
-                 name="userShippingZipcode" required="required" [value]="shippingAddress.shippingZipCode"/>
+                 name="userShippingZipcode" required="required" [(ngModel)]="shippingAddress.shippingZipCode == undefined ? '' : shippingAddress.shippingZipCode"/>
         </div>
       </form>
       <hr>
       <div>
-        <button mat-button matStepperNext>Next</button>
+        <button mat-button class="mat-raised-button mat-warn" matStepperNext>Next</button>
       </div>
     </mat-step>
     <mat-step>
@@ -131,7 +139,7 @@
       </form>
       <hr>
       <div>
-        <button mat-button matStepperNext>Next</button>
+        <button mat-button class="mat-raised-button mat-warn" matStepperNext>Next</button>
       </div>
     </mat-step>
     <mat-step>
@@ -167,8 +175,8 @@
 
       <hr>
       <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="onSubmit()">Confirm Your Order</button>
+        <button mat-button class="mat-raised-button mat-warn float-lg-left" matStepperPrevious>Back</button>
+        <button mat-button class="mat-raised-button mat-warn float-lg-right" (click)="onSubmit()">Confirm Your Order</button>
       </div>
     </mat-step>
   </mat-horizontal-stepper>

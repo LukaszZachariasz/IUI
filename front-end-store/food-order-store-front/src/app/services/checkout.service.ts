@@ -39,16 +39,4 @@ export class CheckoutService {
     return this.httpClient.post(url, order, {headers, responseType: 'text'});
   }
 
-  getUserOrder() {
-    const url = this.serverPath + '/checkout/getUserOrder';
-    const xToken = localStorage.getItem('xAuthToken');
-    const basicHeader = 'Basic ' + localStorage.getItem('credentials');
-    const headers = new HttpHeaders({
-      'x-auth-token': xToken,
-      'Authorization': basicHeader
-    });
-
-    return this.httpClient.get(url, {headers, responseType: 'text'});
-  }
-
 }

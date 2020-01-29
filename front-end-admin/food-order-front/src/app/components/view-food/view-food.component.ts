@@ -36,12 +36,11 @@ export class ViewFoodComponent implements OnInit {
         this.foodItem = JSON.parse(res);
       }, error => {
         console.log(error);
-      }
-    );
+      });
   }
 
   onEditSelect(foodItem: Food) {
-    this.router.navigate(['/editFood', this.foodItem.id])
+    this.router.navigate(['/editFood', foodItem.id])
       .then(() => location.reload());
   }
 }

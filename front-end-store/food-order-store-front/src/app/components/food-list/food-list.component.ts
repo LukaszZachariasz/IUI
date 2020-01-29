@@ -13,7 +13,7 @@ import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 })
 export class FoodListComponent implements OnInit {
 
-  private displayedColumns = ['name', 'price', 'kcal', 'weight', 'image'];
+  private displayedColumns = ['name', 'price', 'kcal', 'weight', 'percentOfFat', 'image'];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -50,25 +50,25 @@ export class FoodListComponent implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(
-      params => {
-        if (params['foodList']) {
-          console.log('Filtered Food List');
-          this.foodList = JSON.parse(params['foodList']);
-        } else {
-          this.foodService.getFoodList().subscribe(
-            res => {
-              console.log(res);
-              this.foodList = JSON.parse(res);
-              this.dataSource = new MatTableDataSource(this.foodList);
-              this.dataSource.paginator = this.paginator;
-              this.dataSource.sort = this.sort;
-              this.fetchedFood = this.foodList.length > 0;
-            },
-            error => {
-              console.log(error);
-            });
-        }
-      });
+        params => {
+          if (params['foodList']) {
+            console.log('Filtered Food List');
+            this.foodList = JSON.parse(params['foodList']);
+          } else {
+            this.foodService.getFoodList().subscribe(
+                res => {
+                  console.log(res);
+                  this.foodList = JSON.parse(res);
+                  this.dataSource = new MatTableDataSource(this.foodList);
+                  this.dataSource.paginator = this.paginator;
+                  this.dataSource.sort = this.sort;
+                  this.fetchedFood = this.foodList.length > 0;
+                },
+                error => {
+                  console.log(error);
+                });
+          }
+        });
   }
 
 }

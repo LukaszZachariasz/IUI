@@ -54,12 +54,9 @@ public class UserManagementService implements IUserManagementService {
 
             user.getUserRoles().addAll(userRoles);
             user.setUserPaymentList(new ArrayList<UserPayment>());
-
             ShoppingCart shoppingCart = new ShoppingCart();
             shoppingCart.setUser(user);
-
             shoppingCart = shoppingCartRepository.save(shoppingCart);
-
             user.setShoppingCart(shoppingCart);
             user.setUserShippingList(new ArrayList<UserShipping>());
             localUser = userRepository.save(user);

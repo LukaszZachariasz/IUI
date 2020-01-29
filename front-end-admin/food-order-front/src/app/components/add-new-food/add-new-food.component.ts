@@ -21,6 +21,14 @@ export class AddNewFoodComponent implements OnInit {
     this.foodItemAdded = false;
   }
 
+  formatLabel(value: number) {
+    if (value >= 1000) {
+      return Math.round(value / 1000) + '%';
+    }
+
+    return value;
+  }
+
   onSubmit() {
     this.addNewFoodService.sendNewFood(this.newFoodItem).subscribe(
       res => {
@@ -40,5 +48,9 @@ export class AddNewFoodComponent implements OnInit {
 
   onFileInput($event: Event) {
     this.uploadImageService.fileChangeEvent($event);
+  }
+
+  changeVal($event: number) {
+    console.log(this.newFoodItem.percentOfFat);
   }
 }

@@ -24,6 +24,8 @@ export class FoodDetailComponent implements OnInit {
 
   private imageServerPath = AppConst.imageServerPath;
   private extension = AppConst.extension;
+  private updateError: boolean;
+  private updateSuccess: boolean;
 
   constructor(private cartService: CartService,
               private foodService: FoodService,
@@ -38,12 +40,13 @@ export class FoodDetailComponent implements OnInit {
         console.log(this.qty);
         console.log(res);
         this.addBookSuccess = true;
+        this.setUpdateSuccess();
       }, error => {
         console.log(error);
+        this.setUpdateError();
         this.addBookSuccess = false;
       });
   }
-
 
   ngOnInit() {
     this.fetchedFood = false;
@@ -71,7 +74,18 @@ export class FoodDetailComponent implements OnInit {
     this.qty = 1;
   }
 
-  changeVal(value: any) {
-    this.qty = value;
+  setUpdateSuccess() {
+    this.updateSuccess = true;
+    console.log('updated');
+    setTimeout(() => {
+      this.updateSuccess = false;
+    }, AppConst.infoTimeout);
+  }
+
+  setUpdateError() {
+    this.updateError = true;
+    setTimeout(() => {
+      this.updateError = false;
+    }, AppConst.infoTimeout);
   }
 }

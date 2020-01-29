@@ -1,68 +1,57 @@
-<!--Main layout-->
 <div *ngIf="fetchedList">
   <main class="mt-5 pt-4">
     <div class="container dark-grey-text mt-5">
-      <!--Grid row-->
       <mat-card-actions>
-        <button class="btn btn-info btn-md my-0 p" mat-button routerLink="/food">Continue Shopping</button>
-        <button class="btn btn-info btn-md my-0 p" mat-button routerLink="/checkout">Check out!</button>
+        <button class="btn btn-info btn-md my-0 mr-3" mat-button routerLink="/food">Continue Shopping</button>
+        <button [disabled]="cartItemList.length <= 0" class="btn btn-info btn-md my-0 mr-3" mat-button
+                routerLink="/checkout">Check out!
+        </button>
       </mat-card-actions>
-      <br>
-      <br>
-
+      <br><br>
       <table mat-table [dataSource]="cartItemList" class="mat-elevation-z8">
-        <!-- Item Column -->
         <ng-container matColumnDef="item">
-          <th mat-header-cell *matHeaderCellDef> Item </th>
+          <th mat-header-cell *matHeaderCellDef> Item</th>
           <td mat-cell *matCellDef="let cartItem"> {{cartItem.food.name}} </td>
-          <td mat-footer-cell *matFooterCellDef> <strong>Total</strong> </td>
+          <td mat-footer-cell *matFooterCellDef><strong>Total</strong></td>
         </ng-container>
-
-        <!-- Cost Column -->
         <ng-container matColumnDef="cost">
-          <th mat-header-cell *matHeaderCellDef> Cost </th>
+          <th mat-header-cell *matHeaderCellDef> Cost</th>
           <td mat-cell *matCellDef="let cartItem"> {{cartItem.food.price}} PLN</td>
-          <td mat-footer-cell *matFooterCellDef>  <strong>{{getTotalCost()}} PLN</strong></td>
+          <td mat-footer-cell *matFooterCellDef><strong>{{getTotalCost()}} PLN</strong></td>
         </ng-container>
-
-        <!-- Cost Column -->
         <ng-container matColumnDef="quantity">
           <th mat-header-cell *matHeaderCellDef> Quantity</th>
           <td mat-cell *matCellDef="let cartItem">
-
             <input type="number" id="cartItem.id" name="qty" class="form-control cartItemQty" [(ngModel)]="cartItem.qty"
-                   (ngModelChange)="cartItem.toUpdate=true" /></td>
-
-
-          <td mat-footer-cell *matFooterCellDef> <strong>{{getTotalQty()}}</strong></td>
+                   (ngModelChange)="cartItem.toUpdate=true"/>
+          </td>
+          <td mat-footer-cell *matFooterCellDef><strong>{{getTotalQty()}}</strong></td>
         </ng-container>
-
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef> Action</th>
-          <td mat-cell *matCellDef="let cartItem"> <a *ngIf="cartItem.toUpdate" mat-button class="pointer mat-warn" (click)="onUpdateCartItem(cartItem)">Update</a>
-            <a class="pointer" (click)="onRemoveCartItem(cartItem)">Delete</a></td>
-          <td mat-footer-cell *matFooterCellDef> <strong></strong></td>
-
+          <td mat-cell *matCellDef="let cartItem">
+            <a mat-button class="pointer mat-warn" (click)="onRemoveCartItem(cartItem)">Delete</a>
+            <a [disabled]="!cartItem.toUpdate" mat-button class="pointer mat-warn" (click)="onUpdateCartItem(cartItem)">Update</a>
+          </td>
+          <td mat-footer-cell *matFooterCellDef><strong></strong></td>
         </ng-container>
-
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
       </table>
-
-    </div>
-    <div *ngIf="cartItemUpdated" class="alert alert-success">
-      Cart Item Updated!
-    </div>
-    <div *ngIf="notEnoughStock" class="alert alert-warning">
-      Oops, some of the products don't have enough stock. Please update product quantity.
-    </div>
-    <div *ngIf="emptyCart" class="alert alert-warning">
-      Oops, your cart is empty. See if you can find what you link in the bookshelf and add them to cart.
+      <br><br>
+      <div *ngIf="cartItemUpdated" class="alert alert-success">
+        Cart Item Updated!
+      </div>
+      <div *ngIf="notEnoughStock" class="alert alert-warning">
+        Oops, some of the products don't have enough stock. Please update product quantity.
+      </div>
+      <div *ngIf="emptyCart" class="alert alert-warning">
+        Oops, your cart is empty. See if you can find what you link in the bookshelf and add them to cart.
+      </div>
     </div>
   </main>
 </div>
 <div *ngIf="!fetchedList">
   <app-loading></app-loading>
 </div>
-<!--Main layout-->
