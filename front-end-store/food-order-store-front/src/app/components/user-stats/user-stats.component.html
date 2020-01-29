@@ -1,0 +1,38 @@
+<div *ngIf="canSuggest">
+  <div class="container">
+    <h5> {{user.firstname}}, here is your health stats summary</h5>
+    <br>
+    <table class="table">
+      <tbody>
+      <tr>
+        <th scope="row">BMI Indicator</th>
+        <td>{{user.bmi | number:'1.0-0'}}</td>
+      </tr>
+      <tr>
+        <th scope="row">Rating your body condition</th>
+        <td *ngIf="user.healthStatus === 'GW'">You have good weight for yor body</td>
+        <td *ngIf="user.healthStatus === 'HW'">You have to high weight for yor body</td>
+        <td *ngIf="user.healthStatus === 'LW'">You have to low weight for yor body</td>
+      </tr>
+      <tr>
+        <th scope="row">Weight</th>
+        <td>{{user.weight}} kg</td>
+      </tr>
+      <tr>
+        <th scope="row">Height</th>
+        <td>{{user.height}} cm</td>
+      </tr>
+      <tr>
+        <th scope="row">Daily Energy Needed</th>
+        <td>{{user.dailyTotalKcal}} Kcal</td>
+      </tr>
+      <tr>
+        <th scope="row">Gender</th>
+        <td>{{user.gender}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <br>
+  </div>
+  <hr class="my-md-5">
+</div>

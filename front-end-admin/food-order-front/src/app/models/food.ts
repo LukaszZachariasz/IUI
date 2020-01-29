@@ -7,4 +7,5 @@ export class Food {
   public category: string;
   public price: number;
   public active: boolean;
+  public percentOfFat: number;
 }

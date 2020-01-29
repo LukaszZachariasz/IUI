@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {GetFoodService} from '../../service/get-food.service';
 import {Food} from '../../models/food';
+import {AppConst} from '../../constants/app-const';
 
 @Component({
   selector: 'app-view-food',
@@ -10,8 +11,11 @@ import {Food} from '../../models/food';
 })
 export class ViewFoodComponent implements OnInit {
 
+  private serverPath = AppConst.serverPath;
   private foodItem: Food = new Food();
   private foodItemId: number;
+  private imageServerPath =  this.serverPath + '/image/food/';
+  private extension = AppConst.extension;
 
   constructor(private getFoodService: GetFoodService,
               private route: ActivatedRoute,
@@ -32,12 +36,11 @@ export class ViewFoodComponent implements OnInit {
         this.foodItem = JSON.parse(res);
       }, error => {
         console.log(error);
-      }
-    );
+      });
   }
 
   onEditSelect(foodItem: Food) {
-    this.router.navigate(['/editFood', this.foodItem.id])
+    this.router.navigate(['/editFood', foodItem.id])
       .then(() => location.reload());
   }
 }

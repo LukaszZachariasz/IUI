@@ -1,0 +1,303 @@
+<div class="container center">
+  <app-loading *ngIf="!dataFetched"></app-loading>
+  <mat-accordion *ngIf="dataFetched">
+    <hr class="my-md-5">
+    <div class="row"> Manage your profile</div>
+    <hr class="my-md-5">
+    <mat-tab-group color="primary" backgroundColor="primary">
+      <mat-tab label="Shipping">
+        <div>
+          <br>
+          <mat-tab-group (selectedIndexChange)="selectedShippingChange($event)" [selectedIndex]="selectedShippingTab">
+            <mat-tab label="List of Shipping Addresses">
+              <form (ngSubmit)="setDefaultShipping()" method="post">
+                <table class="table">
+                  <thead>
+                  <tr>
+                    <th>Default</th>
+                    <th>Shipping Address</th>
+                    <th>Operations</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let userShipping of userShippingList">
+                    <td>
+                      <input type="radio" name="defaultUserShippingId" [(ngModel)]="defaultUserShippingId"
+                             [value]="userShipping.id"/>
+                    </td>
+                    <td>{{userShipping.userShippingStreet}},
+                      {{userShipping.userShippingCity}},
+                      {{userShipping.userShippingZipCode}}</td>
+                    <td>
+                      <a mat-button (click)="onUpdateShipping(userShipping)"><i class="fa fa-pencil">Edit</i></a>
+                      <a mat-button (click)="onRemoveShipping(userShipping.id)"><i class="fa fa-times">Remove</i></a>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+                <button mat-raised-button class="mat-primary" type="submit">Save</button>
+              </form>
+            </mat-tab>
+            <mat-tab label="Add(Update) Shipping Address">
+              <br>
+              <form (ngSubmit)="onNewShipping()" method="post">
+                <input hidden="hidden" name="id" [(ngModel)]="userShipping.id"/>
+                <div class="form-group">
+                  <label for="userShippingName">* Name</label>
+                  <input type="text" class="form-control" id="userShippingName" placeholder="Shipping Name"
+                         name="userShippingName" required="required" [(ngModel)]="userShipping.userShippingName"/>
+                </div>
+                <div class="form-group">
+                  <label for="userShippingHouseNr">* Home Number </label>
+                  <input type="text" class="form-control" id="userShippingHouseNr" placeholder="House Number"
+                         name="userShippingHouseNr" required="required" [(ngModel)]="userShipping.userShippingHouseNr"/>
+                </div>
+                <div class="form-group">
+                  <label for="userShippingApartmentNr">* Apartment Number</label>
+                  <input type="text" class="form-control" id="userShippingApartmentNr" placeholder="Apartment Number"
+                         name="userShippingApartmentNr" required="required"
+                         [(ngModel)]="userShipping.userShippingApartmentNr"/>
+                </div>
+                <div class="form-group">
+                  <label for="userShippingStreet">* Street</label>
+                  <input type="text" class="form-control" id="userShippingStreet" placeholder="Street Name"
+                         name="userShippingStreet" required="required" [(ngModel)]="userShipping.userShippingStreet"/>
+                </div>
+                <div class="form-group">
+                  <label for="shippingCity">* City</label>
+                  <input type="text" class="form-control" id="shippingCity" placeholder="Shipping City"
+                         name="userShippingCity" required="required" [(ngModel)]="userShipping.userShippingCity"/>
+                </div>
+                <div class="form-group">
+                  <label for="userShippingZipcode">* Zipcode</label>
+                  <input type="text" class="form-control" id="userShippingZipcode" placeholder="Zip Code"
+                         name="userShippingZipcode" required="required" [(ngModel)]="userShipping.userShippingZipCode"/>
+                </div>
+                <hr/>
+                <button mat-raised-button type="submit" class="mat-primary">
+                  Save All
+                </button>
+              </form>
+            </mat-tab>
+          </mat-tab-group>
+        </div>
+      </mat-tab>
+      <mat-tab label="Edit Your Profile">
+        <h3>Please insert first all your information</h3>
+        <form (ngSubmit)="onUpdateUserInfo()" class="text-center border border-light p-5">
+          <div class="row">
+            <div class="col-sm">
+              <label>First Name</label>
+              <input type="text"
+                     name="firstName"
+                     class="form-control mb-4"
+                     placeholder="First Name"
+                     [(ngModel)]="user.firstname"
+                     required="required">
+              <label>Last Name</label>
+              <input type="text"
+                     name="lastName"
+                     class="form-control mb-4"
+                     placeholder="Last Name"
+                     [(ngModel)]="user.lastname"
+                     required="required">
+              <label>Email Address</label>
+              <input type="email"
+                     name="email"
+                     class="form-control mb-4"
+                     placeholder="Email Address"
+                     [(ngModel)]="user.email"
+                     required="required">
+              <label>Phone Number</label>
+              <input type="text"
+                     name="phoneNumber"
+                     class="form-control mb-4"
+                     placeholder="Phone Number"
+                     [(ngModel)]="user.phoneNumber"
+                     required="required">
+              <label>Username</label>
+              <input type="text"
+                     name="username"
+                     class="form-control mb-4"
+                     placeholder="Username"
+                     [(ngModel)]="user.username"
+                     required="required">
+              <label>Gender</label>
+              <select class="form-control" name="expiryYear" required="required" [(ngModel)]="user.gender">
+                <option value="" disabled="disabled">
+                  -- Gender --
+                </option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </div>
+            <div class="col-sm">
+              <label>Insert current Password to Update</label>
+              <input type="password"
+                     name="currentPassword"
+                     class="form-control mb-4"
+                     placeholder="Current Password"
+                     [(ngModel)]="currentPassword"
+                     required="required">
+              <label>New Password</label>
+              <input type="password"
+                     name="newPassword"
+                     class="form-control mb-4"
+                     placeholder="New Password"
+                     [(ngModel)]="newPassword"
+                     required="required">
+              <label>Confirm password</label>
+              <input type="password"
+                     name="confirmNewPassword"
+                     class="form-control mb-4"
+                     placeholder="Confirm New Password"
+                     [(ngModel)]="confirmNewPassword"
+                     required="required">
+              <label>Your height</label>
+              <input type="number"
+                     name="height"
+                     class="form-control mb-4"
+                     placeholder="Insert your height (cm)"
+                     [(ngModel)]="user.height"
+                     required="required">
+              <label>Your weight</label>
+              <input type="number"
+                     name="weight"
+                     class="form-control mb-4"
+                     placeholder="Insert your weight (kg)"
+                     [(ngModel)]="user.weight"
+                     required="required">
+              <label>Birth Date</label>
+              <input id="dateInput"
+                     type="date"
+                     name="birthDate"
+                     onkeydown="return false"
+                     class="form-control mb-4"
+                     placeholder="Choose your date"
+                     [(ngModel)]="user.dateOfBirth"
+                     required="required">
+            </div>
+          </div>
+          <button mat-raised-button type="submit" class="mat-primary" [disabled]=" !(user.dateOfBirth && user.firstname && user.lastname  &&
+                        user.weight && user.height &&
+                        currentPassword && user.username &&
+                        user.email && user.phoneNumber && user.gender)">Update My Info
+          </button>
+        </form>
+      </mat-tab>
+      <mat-tab label="Payment">
+        <div>
+          <br>
+          <mat-tab-group (selectedIndexChange)="selectedBillingChange($event)" [selectedIndex]="selectedBillingTab">
+            <mat-tab label="List of Credit Cards">
+              <form (ngSubmit)="setDefaultPayment()" method="post">
+                <table class="table">
+                  <thead>
+                  <tr>
+                    <th>Default</th>
+                    <th>Credit Card</th>
+                    <th>Operations</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let userPayment of userPaymentList">
+                    <td>
+                      <input type="radio" name="defaultUserPaymentId" [(ngModel)]="defaultUserPaymentId"
+                             [value]="userPayment.id"/>
+                    </td>
+                    <td>{{userPayment.cardName}}</td>
+                    <td>
+                      <a mat-button (click)="onUpdatePayment(userPayment)"><i class="fa fa-pencil">Edit</i></a>
+                      <a mat-button (click)="onRemovePayment(userPayment.id)"><i class="fa fa-times">Remove</i></a>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+                <button mat-raised-button class="mat-primary" type="submit">Save</button>
+              </form>
+            </mat-tab>
+            <mat-tab label="Add (Update) Credit Card">
+              <form (ngSubmit)="onNewPayment()" method="post">
+                <div class="row">
+                  <div class="col-sm col-4">
+                    <br>
+                    <input hidden="hidden" name="id" [(ngModel)]="userPayment.id"/>
+                    <div class="form-group">
+                      <h5>* Give a name for your card:</h5>
+                      <input type="text" class="form-control" id="cardName" placeholder="Card Name" name="cardName"
+                             required="required" [(ngModel)]="userPayment.cardName"/>
+                    </div>
+                    <div class="form-group">
+                      <label for="billingName">* Name</label>
+                      <input type="text" class="form-control" id="billingName" placeholder="Receiver name"
+                             name="userBillingName" required="required" [(ngModel)]="userBilling.userBillingName"/>
+                    </div>
+                    <div class="form-group">
+                      <label for="userBillingStreet">* Street Address</label>
+                      <input type="text" class="form-control" id="userBillingStreet" placeholder="Street "
+                             name="userBillingStreet" required="required" [(ngModel)]="userBilling.userBillingStreet"/>
+                    </div>
+                    <div class="form-group">
+                      <label for="userBillingCity">* City</label>
+                      <input type="text" class="form-control" id="userBillingCity" placeholder="Billing City"
+                             name="userBillingCity" required="required" [(ngModel)]="userBilling.userBillingCity"/>
+                    </div>
+                    <div class="form-group">
+                      <label for="userBillingZipCode">* Zipcode</label>
+                      <input type="text" class="form-control" id="userBillingZipCode" placeholder="Zipcode"
+                             name="userBillingZipCode" required="required"
+                             [(ngModel)]="userBilling.userBillingZipCode"/>
+                    </div>
+                  </div>
+                  <div class="col-sm col-4">
+                    <br>
+                    <div class="form-group">
+                      <h5>* Specify your card</h5>
+                      <select id="cardType" class="form-control" name="cardType" [(ngModel)]="userPayment.type"
+                              required="required">
+                        <option value="" disabled>-- Card Type --</option>
+                        <option value="visa">Visa</option>
+                        <option value="mastercard">Mastercard</option>
+                        <option value="discover">Discover</option>
+                        <option value="amex">American Express</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="cardNumber">* Card Number</label>
+                      <div class="input-group">
+                        <input required="required" id="cardNumber" type="tel" class="form-control" name="cardNumber"
+                               placeholder="Valid Card Number" [(ngModel)]="userPayment.cardNumber"/>
+                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="cardCVC">CV Code</label>
+                      <input id="cardCVC" type="tel" class="form-control" name="cardCVC" placeholder="CVC"
+                             [(ngModel)]="userPayment.cvc"/>
+                    </div>
+                    <br>
+                    <img class="cardImg"
+                         src="https://c7.uihere.com/files/108/642/408/credit-card-logos-sketch-file.png"/>
+                  </div>
+                </div>
+                <hr/>
+                <button mat-raised-button type="submit" class="mat-primary">
+                  Save All
+                </button>
+              </form>
+            </mat-tab>
+          </mat-tab-group>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-accordion>
+  <div *ngIf="updateError" class="alert alert-danger" role="alert">
+    There is something wrong.
+  </div>
+  <div *ngIf="currentPasswordError" class="alert alert-danger" role="alert">
+    It's look like wrong current password.
+  </div>
+  <div *ngIf="updateSuccess" class="alert alert-success" role="alert">
+    Your profile has been updated.
+  </div>
+</div>

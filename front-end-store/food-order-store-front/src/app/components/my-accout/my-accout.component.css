@@ -1,0 +1,22 @@
+.mat-accordion, .mat-expansion-panel {
+  margin-top: 2% !important;
+  margin-bottom: 2% !important;
+  background-color: white !important;
+}
+
+.mat-expansion-panel-header-title, .mat-expansion-panel-header-description {
+  color: black;
+  justify-content: center;
+}
+
+form {
+  border: transparent !important;
+}
+
+.row {
+  justify-content: center;
+  font-size: 100%;
+}
+
+
+

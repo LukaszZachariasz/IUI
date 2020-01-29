@@ -19,8 +19,7 @@ export class NavBarComponent implements OnInit {
         },
         error => {
           this.loggedIn = false;
-        }
-      );
+        });
     }
   }
 
@@ -33,8 +32,7 @@ export class NavBarComponent implements OnInit {
         },
         error => {
           console.log(error);
-        }
-      );
+        });
     }
   }
 

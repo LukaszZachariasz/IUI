@@ -29,7 +29,7 @@ export class FoodListComponent implements OnInit {
   private allChecked: boolean;
   private removeFoodList: Food[] = [];
 
-  private displayedColumns: string[] = ['select', 'id', 'name', 'weight', 'kcal', 'category', 'price', 'active', 'action'];
+  private displayedColumns: string[] = ['select', 'id', 'name', 'weight', 'kcal', 'percentOfFat', 'category', 'price', 'active', 'action'];
 
   private dataSource: MatTableDataSource<Food> = new MatTableDataSource<Food>(this.foodList);
   private selection = new SelectionModel<Food>(true, this.foodList);

@@ -1,4 +1,4 @@
-package com.foodorderback.service;
+package com.foodorderback.service.implementations;
 
 import com.foodorderback.model.User;
 import com.foodorderback.repository.UserRepository;

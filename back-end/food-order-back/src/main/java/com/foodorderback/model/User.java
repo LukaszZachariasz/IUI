@@ -9,10 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class User implements UserDetails, Serializable {
@@ -25,16 +22,31 @@ public class User implements UserDetails, Serializable {
     private Long id;
 
     private String username;
+
     private String password;
+
     private String firstname;
+
     private String lastname;
 
+    @Column(columnDefinition = "DATE")
     private Date dateOfBirth;
+
     private Double weight;
+
     private Double height;
 
+    private Double BMI;
+
+    private String healthStatus;
+
     private String phoneNumber;
+
     private String email;
+
+    private Double dailyTotalKcal;
+
+    private String gender;
 
     private boolean enabled = true;
 
@@ -42,8 +54,30 @@ public class User implements UserDetails, Serializable {
     @JsonIgnore
     private Set<UserRole> userRoles = new HashSet<>();
 
-    // ... private FoodOrderCart
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    private ShoppingCart shoppingCart;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<UserPayment> userPaymentList;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<UserShipping> userShippingList;
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public List<UserPayment> getUserPaymentList() {
+        return userPaymentList;
+    }
+
+    public void setUserPaymentList(List<UserPayment> userPaymentList) {
+        this.userPaymentList = userPaymentList;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -169,5 +203,45 @@ public class User implements UserDetails, Serializable {
 
     public void setUserRoles(Set<UserRole> userRoles) {
         this.userRoles = userRoles;
+    }
+
+    public List<UserShipping> getUserShippingList() {
+        return userShippingList;
+    }
+
+    public void setUserShippingList(List<UserShipping> userShippingList) {
+        this.userShippingList = userShippingList;
+    }
+
+    public Double getBMI() {
+        return BMI;
+    }
+
+    public void setBMI(Double BMI) {
+        this.BMI = BMI;
+    }
+
+    public String getHealthStatus() {
+        return healthStatus;
+    }
+
+    public void setHealthStatus(String healthStatus) {
+        this.healthStatus = healthStatus;
+    }
+
+    public Double getDailyTotalKcal() {
+        return dailyTotalKcal;
+    }
+
+    public void setDailyTotalKcal(Double dailyTotalKcal) {
+        this.dailyTotalKcal = dailyTotalKcal;
+    }
+
+    public ShoppingCart getShoppingCart() {
+        return shoppingCart;
+    }
+
+    public void setShoppingCart(ShoppingCart shoppingCart) {
+        this.shoppingCart = shoppingCart;
     }
 }

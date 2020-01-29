@@ -1,17 +1,14 @@
 <div class="example-container">
   <mat-card *ngIf="!foodUpdated" class="example-card mat-elevation-z2">
     <mat-card-header>
-      <mat-card-title>Add new food</mat-card-title>
+      <mat-card-title>Edit your food food</mat-card-title>
     </mat-card-header>
-
     <mat-form-field>
       <input matInput [(ngModel)]=toEditFoodItem.name placeholder="Food Name" required>
     </mat-form-field>
-
     <mat-form-field>
       <textarea matInput [(ngModel)]=toEditFoodItem.description placeholder="Describe this food" required></textarea>
     </mat-form-field>
-
     <li class="mat-form-field--inline">
       <mat-form-field>
         <input matInput type="number" [(ngModel)]=toEditFoodItem.kcal placeholder="Energy (kcal/100g)" required>
@@ -20,11 +17,19 @@
         <input matInput type="number" [(ngModel)]=toEditFoodItem.weight placeholder="Weight (g)" required>
       </mat-form-field>
     </li>
-
+    <li class="mat-form-field--inline">
+      <mat-slider
+        thumbLabel
+        [displayWith]="formatLabel"
+        tickInterval="1"
+        [(ngModel)]=toEditFoodItem.percentOfFat
+        min="1"
+        max="100" required></mat-slider>
+      <p>Percentage Of Fat</p>
+    </li>
     <mat-form-field>
       <input matInput type="number" [(ngModel)]=toEditFoodItem.price placeholder="Insert Food Price (PLN)" required>
     </mat-form-field>
-
     <mat-form-field>
       <mat-select [(ngModel)]=toEditFoodItem.category [value]="toEditFoodItem.category" placeholder="Select category"
                   required>
@@ -34,15 +39,12 @@
         <mat-option value="Supper">Supper</mat-option>
       </mat-select>
     </mat-form-field>
-
     <mat-slide-toggle (change)="onActiveChange($event)" [checked]="toEditFoodItem.active">Available to order
     </mat-slide-toggle>
-
     <button mat-raised-button (click)="fileInput.click()">
       <span>Upload</span>
       <input #fileInput type="file" (change)="onFileInput($event)" style="display:none;"/>
     </button>
-
     <mat-grid-list cols="2" rowHeight="100">
       <mat-grid-tile>
         <button mat-raised-button type="submit" (click)="onSubmit()">Update Food Order</button>
@@ -51,13 +53,10 @@
         <button mat-raised-button class="mat-warn" routerLink="/">Cancel</button>
       </mat-grid-tile>
     </mat-grid-list>
-
   </mat-card>
-
   <mat-card *ngIf="foodUpdated">
     <mat-card-header>
       <mat-card-title>Food Updated</mat-card-title>
     </mat-card-header>
   </mat-card>
-
 </div>

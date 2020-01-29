@@ -1,0 +1,62 @@
+<div *ngIf="fetchedFood">
+  <main class="mt-5 pt-4">
+    <div class="container dark-grey-text mt-5">
+      <mat-card-actions>
+        <button class="btn btn-info btn-md my-0 p" mat-button routerLink="/food">Go Back</button>
+      </mat-card-actions>
+      <br>
+      <br>
+      <div class="row wow fadeIn">
+        <div class="col-md-6 mb-4"><img [src]="imageServerPath + food.id + extension" class="img-fluid" alt=""></div>
+        <div class="col-md-6 mb-4">
+          <p class="lead font-weight-bold">{{food.name}}</p>
+          <table class="table">
+            <tbody>
+            <tr>
+              <th scope="row">Category</th>
+              <td>{{food.category}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Energy</th>
+              <td>{{food.kcal}} kcal</td>
+            </tr>
+            <tr>
+              <th scope="row">Weight</th>
+              <td>{{food.weight}} g</td>
+            </tr>
+            <tr>
+              <th scope="row">Total Energy</th>
+              <td>{{food.weight / 100 * food.kcal}} kcal</td>
+            </tr>
+            </tbody>
+          </table>
+          <mat-form-field>
+            <mat-label>Quantity</mat-label>
+            <mat-select [(value)]="qty">
+              <mat-option *ngFor="let x of valuesOfQuantity" [value]="x">
+                {{x}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <button class="btn btn-primary btn-md my-0 p" type="submit" (click)="onAddToCart()"
+                  [disabled]="updateSuccess">Add to cart
+          </button>
+          <div *ngIf="updateError" class="alert alert-danger" role="alert">
+            There is something wrong.
+          </div>
+          <div *ngIf="updateSuccess" class="alert alert-success" role="alert">
+            Your order has been updated.
+          </div>
+        </div>
+        <div class="row wow fadeIn">
+          <p class="lead font-weight-bold">Description</p>
+          <p>{{food.description}}</p>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<div *ngIf="!fetchedFood">
+  <app-loading></app-loading>
+</div>
+

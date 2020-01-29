@@ -7,7 +7,7 @@ import {
   MatGridListModule,
   MatInputModule,
   MatListModule,
-  MatSelectModule,
+  MatSelectModule, MatSliderModule,
   MatSlideToggleModule,
   MatTableModule,
   MatToolbarModule
@@ -69,7 +69,8 @@ import {RemoveFoodService} from './service/remove-food.service';
     MatCheckboxModule,
     MatListModule,
     FontAwesomeModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSliderModule
   ],
   providers: [
     LoginService,

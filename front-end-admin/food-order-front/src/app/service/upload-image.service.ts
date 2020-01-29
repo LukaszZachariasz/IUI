@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {AppConst} from '../constants/app-const';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class UploadImageService {
   }
 
   upload(foodId: number) {
-    this.makeFileRequest('http://localhost:8080/food/addNew/image?id=' + foodId, [], this.filesToUpload)
+    this.makeFileRequest(AppConst.serverPath + '/food/addNew/image?id=' + foodId, [], this.filesToUpload)
       .then((res) => {
           console.log(res);
         },

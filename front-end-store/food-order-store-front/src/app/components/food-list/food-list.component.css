@@ -1,0 +1,44 @@
+.example-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+}
+
+.example-header {
+  min-height: 64px;
+  padding: 8px 24px 0;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.mat-form-field-empty.mat-form-field-label {
+  color: green !important;
+}
+
+.mat-form-field-underline {
+  background-color: green !important;
+}
+
+::ng-deep input.mat-input-element {
+  color: #000000;
+}
+
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+  color: #000000 !important;
+}
+
+::ng-deep .mat-focused .mat-form-field-underline .mat-form-field-ripple {
+  background-color: #000000 !important;
+}
+
+input {
+  box-sizing: border-box !important;
+}
+
+img {
+  max-width: 200px;
+  max-height: 200px;
+}

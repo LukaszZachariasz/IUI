@@ -1,0 +1,59 @@
+<main [hidden]="!fetchedFood">
+  <div class="container">
+    <hr class="my-5">
+    <section>
+      <mat-card>
+        <mat-card-title>
+          Search for food
+        </mat-card-title>
+        <mat-form-field>
+          <label>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+          </label>
+        </mat-form-field>
+      </mat-card>
+      <br>
+      <div class="example-container mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Name</mat-header-cell>
+            <mat-cell *matCellDef="let element" (click)="onSelect(element)"><i>{{element.name}}</i></mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="price">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Price</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.price}} PLN</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="kcal">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Energy</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.kcal}} Kcal</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="weight">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Weight</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.weight}} g</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="percentOfFat">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Fat</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.percentOfFat}} %</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="image">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <img [src]="imageServerPath + row.id + extension" (click)="onSelect(row)" alt="Food Image"
+                   class="responsive-img"/>
+            </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;">
+          </mat-row>
+        </table>
+        <mat-paginator [pageSizeOptions]="[2, 10, 25, 100]"></mat-paginator>
+      </div>
+    </section>
+    <br>
+    <br>
+  </div>
+</main>
+
+<div [hidden]="fetchedFood">
+  <app-loading></app-loading>
+</div>

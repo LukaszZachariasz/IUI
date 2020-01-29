@@ -1,0 +1,56 @@
+<main>
+  <div *ngIf="!canSuggest" class="container">
+    <hr>
+    <a mdbWavesEffect [href]="'/myProfile'">
+      <h3 class="h3-responsive text-center">
+        Click to complete your profile details and
+        receive personalized nutrition suggestions</h3>
+    </a>
+    <hr>
+  </div>
+  <div *ngIf="canSuggest" class="container">
+    <hr>
+    <h3 class="h3-responsive text-center">Best dishes for your body fat condition improvement</h3>
+    <hr><br>
+    <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'" [interval]="carouselIntervalChange + 1000">
+      <mdb-carousel-item class="carousel-inner container item">
+        <section>
+          <div class="card-deck">
+            <div class="card mb-4" *ngFor="let item of foodList">
+              <mat-card>
+                <mat-card-header>
+                  <mat-card-title>{{item.category}}</mat-card-title>
+                </mat-card-header>
+                <mat-card-header>
+                  <mat-card-subtitle>{{item.name}}</mat-card-subtitle>
+                </mat-card-header>
+                <img mat-card-image [src]="imageServerPath + item.id + extension" alt="">
+                <mat-card-content>
+                  <mat-grid-list cols="2" rowHeight="2:1">
+                    <mat-grid-tile>Weight:</mat-grid-tile>
+                    <mat-grid-tile>{{item.weight}} (g)</mat-grid-tile>
+                  </mat-grid-list>
+                  <mat-grid-list cols="2" rowHeight="2:1">
+                    <mat-grid-tile>Energy:</mat-grid-tile>
+                    <mat-grid-tile>{{item.kcal}} (kcal)</mat-grid-tile>
+                  </mat-grid-list>
+                  <mat-grid-list cols="2" rowHeight="2:1">
+                    <mat-grid-tile>Price:</mat-grid-tile>
+                    <mat-grid-tile>{{item.price}} (PLN)</mat-grid-tile>
+                  </mat-grid-list>
+                  <mat-grid-list cols="2" rowHeight="2:1">
+                    <mat-grid-tile>Fat:</mat-grid-tile>
+                    <mat-grid-tile>{{item.percentOfFat}} (%)</mat-grid-tile>
+                  </mat-grid-list>
+                </mat-card-content>
+                <mat-card-actions>
+                  <button mat-button (click)="onSelect(item)">VIEW</button>
+                </mat-card-actions>
+              </mat-card>
+            </div>
+          </div>
+        </section>
+      </mdb-carousel-item>
+    </mdb-carousel>
+  </div>
+</main>

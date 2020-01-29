@@ -1,0 +1,12 @@
+.carousel-inner {
+  height: auto !important;
+}
+
+.card-img-top {
+  max-width: 200px !important;
+  max-height: 200px !important;
+}
+
+.mat-card:not([class*=mat-elevation-z]) {
+  box-shadow: 0 0px 0px 0px rgba(0, 0, 0, .0);
+}
