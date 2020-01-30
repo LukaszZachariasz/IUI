@@ -1,17 +1,9 @@
 <main>
-  <div *ngIf="!canSuggest" class="container">
-    <hr>
-    <a mdbWavesEffect [href]="'/myProfile'">
-      <h3 class="h3-responsive text-center">
-        Click to complete your profile details and
-        receive personalized nutrition suggestions</h3>
-    </a>
-    <hr>
-  </div>
   <div *ngIf="canSuggest" class="container">
     <hr>
     <h3 class="h3-responsive text-center">Best dishes for your body fat condition improvement</h3>
-    <hr><br>
+    <hr>
+    <br>
     <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'" [interval]="carouselIntervalChange + 1000">
       <mdb-carousel-item class="carousel-inner container item">
         <section>
