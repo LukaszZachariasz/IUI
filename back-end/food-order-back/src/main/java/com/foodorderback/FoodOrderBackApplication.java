@@ -2,6 +2,7 @@ package com.foodorderback;
 
 import com.foodorderback.config.SecurityUtility;
 import com.foodorderback.model.User;
+import com.foodorderback.repository.RoleRepository;
 import com.foodorderback.security.Role;
 import com.foodorderback.security.UserRole;
 import com.foodorderback.service.implementations.UserManagementService;
@@ -19,12 +20,16 @@ public class FoodOrderBackApplication implements CommandLineRunner {
 	@Autowired
 	UserManagementService userManagementService;
 
-    public static void main(String[] args) {
-        SpringApplication.run(FoodOrderBackApplication.class, args);
-    }
+	@Autowired
+	RoleRepository roleRepository;
 
-    @Override
-    public void run(String... args) throws Exception {
+
+	public static void main(String[] args) {
+		SpringApplication.run(FoodOrderBackApplication.class, args);
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
 		User u1 = new User();
 		u1.setUsername("Lukasz");
 		u1.setPassword(SecurityUtility.passwordEncoder().encode("superhaslo"));
@@ -32,8 +37,13 @@ public class FoodOrderBackApplication implements CommandLineRunner {
 		Role role1 = new Role();
 		role1.setRoleId(1);
 		role1.setName("ROLE_ADMIN");
-		userRoles.add(new UserRole(role1,u1));
+		Role role2 = new Role();
+		role2.setRoleId(2);
+		role2.setName("ROLE_USER");
+		roleRepository.save(role1);
+		roleRepository.save(role2);
+		userRoles.add(new UserRole(role1, u1));
 		userManagementService.createUser(u1, userRoles);
 
-    }
+	}
 }
